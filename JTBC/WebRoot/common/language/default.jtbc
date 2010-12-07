@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml author="jetiben" mode="jtbc">
+  <configure>
+    <node>item</node>
+    <field>name,chinese</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[channel_title]]></name>
+      <chinese><![CDATA[首页]]></chinese>
+    </item>
+    <item>
+      <name><![CDATA[web_title]]></name>
+      <chinese><![CDATA[JTBC]]></chinese>
+    </item>
+    <item>
+      <name><![CDATA[keywords]]></name>
+      <chinese><![CDATA[JTBC,CMS]]></chinese>
+    </item>
+    <item>
+      <name><![CDATA[description]]></name>
+      <chinese><![CDATA[JTBC网站内容管理系统]]></chinese>
+    </item>
+    <item>
+      <name><![CDATA[copyright]]></name>
+      <chinese><![CDATA[&copy; 2004-{$=formatDate($now, "-1")} <a href="http://www.jetiben.com/" target="_blank">Jetiben.Com</a> All Rights Reserved.]]></chinese>
+    </item>
+  </item_list>
+</xml>
