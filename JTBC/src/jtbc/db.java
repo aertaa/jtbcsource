@@ -26,8 +26,8 @@
 /*    */       {
 /* 16 */         localObject = new sqlite();
 /* 17 */         str3 = cls.getLRStr(str2, "sqlite:", "rightr");
-/* 18 */         str4 =str3; 
-				//localconf.application.getRealPath(str3).toString();
+/* 18 */         str4 =localconf.application.getRealPath(str3).toString(); 
+				//;
 				//System.out.println(str4);
 /* 19 */         str2 = str2.replace(str3, str4);
 /*    */       }
