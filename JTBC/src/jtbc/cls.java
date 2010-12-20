@@ -11,7 +11,13 @@
 /*     */ 
 /*     */ public class cls
 /*     */ {
-/*     */   public static String cfnames(String paramString1, String paramString2)
+/*     */   /*测试主函数*/
+			public static void main(String[] args)
+			{
+				System.out.println(cls.concat("ab","c"));
+			}
+			/*连接两个字符串*/
+			public static String cfnames(String paramString1, String paramString2)
 /*     */   {
 /*  15 */     String str1 = "";
 /*  16 */     String str2 = paramString1;
@@ -578,7 +584,9 @@
 /* 590 */     for (int i = 1; i < localInteger.intValue(); ++i) str2 = str2 + str1;
 /* 591 */     return str2;
 /*     */   }
-/*     */ 
+/*     */ 	/*
+ * 			把字符串转成非null值，方便程序开发的转化。
+ * 			*/
 /*     */   public static String getString(String paramString)
 /*     */   {
 /* 596 */     String str = paramString;
