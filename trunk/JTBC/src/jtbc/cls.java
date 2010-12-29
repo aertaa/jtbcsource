@@ -7,21 +7,48 @@
 /*     */ import java.util.Random;
 /*     */ import java.util.TimeZone;
 /*     */ import java.util.regex.Matcher;
-/*     */ import java.util.regex.Pattern;
+			import java.util.regex.Pattern;
 /*     */ 
 /*     */ public class cls
 /*     */ {
 /*     */   /*测试主函数*/
 			public static void main(String[] args)
 			{
-				System.out.println(cls.concat("ab","c"));
+				System.out.println(concat("ab","c"));
+				System.out.println(cper(1,2));
+				System.out.println(ctemplate("ad@bcRRRR@","@"));
+				System.out.println(ctemplates("ad@bcRRRR@----","@","R"));
+				System.out.println(cidary("1,2,a,4"));
+				
+				String str1 = "abcd&efghijk&lmnopqrst";
+				String str2 = "&";
+				System.out.println("str1:"+str1);
+				System.out.println("getLRStr-left:"+getLRStr(str1,str2,"left"));
+				System.out.println("getLRStr-leftr:"+getLRStr(str1,str2,"leftr"));
+				System.out.println("getLRStr-right:"+getLRStr(str1,str2,"right"));
+				System.out.println("getLRStr-rightr:"+getLRStr(str1,str2,"rightr"));
+				
+				String str3 ="1,2,3,4";
+				String str4 = "1,2";
+				System.out.println(cinstr(str3,"12",","));
+				System.out.println(cinstrs(str3,str4,","));
+				
+				System.out.println(formatByte("a"));
+				
+				System.out.println(formatTime(-1));
+				
+				System.out.println(formatText("b[text]b_,c[text]-------","*[text]",","));
+				
+				System.out.println(getLeft("a国c",2,"dddd"));
+				
+				System.out.println("ad才".length());
 			}
 			/*连接两个字符串*/
 			public static String cfnames(String paramString1, String paramString2)
 /*     */   {
-/*  15 */     String str1 = "";
+/*  15 */	 String str1 = "";
 /*  16 */     String str2 = paramString1;
-/*  17 */     String str3 = paramString2;
+/*  17 */     String str3 = paramString2;  
 /*  18 */     str1 = concat(str2, str3);
 /*  19 */     return str1;
 /*     */   }
@@ -35,7 +62,7 @@
 /*  28 */     str3 = getString(str3);
 /*  29 */     str1 = str2 + str3;
 /*  30 */     return str1;
-/*     */   }
+/*     */   } 
 /*     */ 
 /*     */   public static String cper(Integer paramInteger1, Integer paramInteger2)
 /*     */   {
