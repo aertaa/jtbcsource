@@ -42,6 +42,7 @@
 				System.out.println(getLeft("a国c",2,"dddd"));
 				
 				System.out.println("ad才".length());
+				System.out.println(getNum("d5678",123));
 			}
 			/*连接两个字符串*/
 			public static String cfnames(String paramString1, String paramString2)
