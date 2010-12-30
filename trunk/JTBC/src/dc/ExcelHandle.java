@@ -26,7 +26,6 @@ public class ExcelHandle
             Workbook rwb = Workbook.getWorkbook(is);
             //Sheet st = rwb.getSheet("0")这里有两种方法获取sheet表,1为名字，而为下标，从0开始
             Sheet st = rwb.getSheet("Sheet1");
-            rwb.getVersion();
             Cell c00 = st.getCell(0,0);
             //通用的获取cell值的方式,返回字符串
             String strc00 = c00.getContents();
