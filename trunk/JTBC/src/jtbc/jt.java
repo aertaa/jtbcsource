@@ -194,6 +194,7 @@
 /* 185 */         if (localInteger.intValue() == 4) str1 = this.conf.common.xmlSelect(cparameter(arrayOfString[0]), cparameter(arrayOfString[1]), cparameter(arrayOfString[2]), cparameter(arrayOfString[3]));
 /*     */       }
 /*     */     }
+//System.out.println("cvalue:"+paramString+":"+str1);
 /* 188 */     return str1;
 /*     */   }
 /*     */ 
@@ -209,6 +210,7 @@
 /* 200 */       String str3 = localMatcher.group(2);
 /* 201 */       str1 = str1.replace(str2, cvalue(str3));
 /*     */     }
+System.out.println("creplace:"+paramString+":"+str1);
 /* 203 */     return str1;
 /*     */   }
 /*     */ 

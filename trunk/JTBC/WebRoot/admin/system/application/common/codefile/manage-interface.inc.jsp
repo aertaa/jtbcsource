@@ -55,6 +55,8 @@ class module extends jpage
     while (tEnumeration.hasMoreElements())
     {
       String tElementString = (String)tEnumeration.nextElement();
+      //System.out.println(tElementString+" values :----");
+      //System.out.println(conf.application.getAttribute(tElementString));
       if (tElementString.substring(0, conf.appName.length()).equals(conf.appName))
       {
         if (cls.isEmpty(tkeyword) || tElementString.indexOf(tkeyword) >= 0)
