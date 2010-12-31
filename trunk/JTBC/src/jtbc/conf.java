@@ -192,7 +192,7 @@ public class conf
     if (!(cls.isEmpty(str4).booleanValue())) { localObject = str4;
     }
     else {
-      localObject = getActiveGenre(paramString1, paramString2, null);
+      localObject = getActiveGenre(str1, str2, null);
       if (this.isApp.equals("1")) this.application.setAttribute(getAppKey(str3), localObject);
     }
     return ((String)localObject);
