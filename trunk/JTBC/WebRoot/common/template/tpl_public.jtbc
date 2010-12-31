@@ -15,7 +15,7 @@
       <tpl_default><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-{$=webBase($ngenre)}<meta http-equiv="x-ua-compatible" content="ie=7" />
+{$=webBase($ngenre)}<meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
 <meta http-equiv="Content-Type" content="text/html; charset={$=$charset}" />
 <meta name="keywords" content="{$=itake("global.default.keywords", "lng")}" />
 <meta name="description" content="{$=itake("global.default.description", "lng")}" />
@@ -47,7 +47,7 @@
       <tpl_default><![CDATA[<div id="bottom">
   <div id="bottomContent">
     <p>{$=itransfer("genre=aboutus;tpl=2;type=new;topx=10")}<a href="{$=getActualRoute("public/guestbook")}">{$=itake("global.public/guestbook:default.channel_title", "lng")}</a></p>
-    <p>{$=ireplace("global.default.copyright", "lng")}</p>
+    <p>&copy; 2004-{$=formatDate($now, "-1")} JTBC(<a href="http://www.jtbc.net.cn/" target="_blank">CMS</a>) <a href="http://www.jetiben.com/" target="_blank">Jetiben.Com</a> All Rights Reserved.</p>
   </div>
 </div>
 </body>
@@ -58,7 +58,7 @@
       <tpl_default><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="x-ua-compatible" content="ie=7" />
+<meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
 <meta http-equiv="Content-Type" content="text/html; charset={$=$charset}" />
 <title>{$=itake("global.default.web_title", "lng")}</title>
 <script type="text/javascript" src="{$=$global.images}/js/com.js"></script>
@@ -76,7 +76,7 @@
       <tpl_default><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="x-ua-compatible" content="ie=7" />
+<meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
 <meta http-equiv="Content-Type" content="text/html; charset={$=$charset}" />
 <title>{$=itake("default.channel_title", "lng")}</title>
 <script type="text/javascript" src="{$=$global.images}/js/com.js"></script>
@@ -84,7 +84,7 @@
 <script type="text/javascript" src="{$=getActualRoute($adminFolder)}/{$=$images}/js/manage.js"></script>
 <link type="text/css" rel="stylesheet" href="{$=$admin.theme}layout.css" />
 </head>
-<body onresize="manage.windows.tResize();" onkeydown="manage.tApikeyCode(event.keyCode);" oncontextmenu="return manage.tContextmenu();" onselectstart="return false;">]]></tpl_default>
+<body onresize="manage.windows.tResize();" onkeydown="manage.tApikeyCode(event.keyCode);" oncontextmenu="return manage.tContextmenu();">]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[admin_foot_1]]></name>
@@ -96,7 +96,7 @@
       <tpl_default><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="x-ua-compatible" content="ie=7" />
+<meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
 <meta http-equiv="Content-Type" content="text/html; charset={$=$charset}" />
 <title>{$=itake("manage.mgtitle", "lng")}</title>
 <script type="text/javascript" src="{$=$global.images}/js/com.js"></script>

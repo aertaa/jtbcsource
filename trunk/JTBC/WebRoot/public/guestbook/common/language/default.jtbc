@@ -27,6 +27,18 @@
       <chinese><![CDATA[留言者不能为空]]></chinese>
     </item>
     <item>
+      <name><![CDATA[add-error-1]]></name>
+      <chinese><![CDATA[本次留言操作的认证码验证失败]]></chinese>
+    </item>
+    <item>
+      <name><![CDATA[add-error-2]]></name>
+      <chinese><![CDATA[本次留言操作的提交速度过快]]></chinese>
+    </item>
+    <item>
+      <name><![CDATA[add-error-3]]></name>
+      <chinese><![CDATA[本次留言操作的提交任务已经过期]]></chinese>
+    </item>
+    <item>
       <name><![CDATA[add-succeed]]></name>
       <chinese><![CDATA[<!--200-->留言发送成功]]></chinese>
     </item>

@@ -43,5 +43,5 @@ request.getSession().setAttribute("valcode", imgRandString);
 imgGraphics.dispose();
 
 out.clear();
-ImageIO.write(imgImage, "JPEG", response.getOutputStream());
+ImageIO.write(imgImage, "JPG", response.getOutputStream());
 %>

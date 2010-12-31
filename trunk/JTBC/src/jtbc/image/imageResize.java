@@ -121,9 +121,10 @@
 /* 119 */       this.iContribB = new double[this.iDotsA];
 /* 120 */       this.iContribC = new double[this.iDotsA]; } catch (Exception localException) {
 /*     */     }
-/* 122 */     int i = this.iDotsB,j;
+/* 122 */     int i = this.iDotsB;
 /* 123 */     this.iContribA[i] = 1.0D;
 /* 124 */     double d2 = 0.0D;
+			  int j;
 /* 125 */     for (j = 1; j <= i; ++j)
 /*     */     {
 /* 127 */       this.iContribA[(i + j)] = lanczos(j, this.iWidth, this.iScaleWidth, d1);
@@ -150,7 +151,7 @@
 /* 148 */     int i = paramInt1;
 /* 149 */     int j = paramInt2;
 			  int k;
-/* 150 */     for (k = i; k <= j; ++k)
+/* 150 */     for ( k = i; k <= j; ++k)
 /*     */     {
 /* 152 */       d += this.iContribA[k];
 /*     */     }
@@ -262,9 +263,8 @@
 /* 256 */       if ((i3 > 0) || (i6 < this.iDotsA - 1))
 /*     */       {
 /* 258 */         calContribB(i3, i6);
-/* 259 */        label267:
-				 for (i5 = 0; ; ++i5) { 
-						if (i5 >= k)
+				label267:
+/* 259 */         for (i5 = 0; ; ++i5) { if (i5 >= k)
 /*     */             break label267;
 /* 261 */           l = horizontalFilter(localBufferedImage1, i2, i7, i3, i6, i5, this.iContribC);
 /* 262 */           localBufferedImage2.setRGB(i1, i5, l);

@@ -33,7 +33,7 @@
 /*  22 */       String str3 = cls.getLRStr(this.connStr, "#", "rightr");
 /*  23 */       String str4 = cls.getParameter(str3, "username");
 /*  24 */       String str5 = cls.getParameter(str3, "password");
-/*  25 */       Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();				
+/*  25 */       Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
 /*  26 */       Connection localConnection = DriverManager.getConnection(str2, str4, str5);
 /*  27 */       Statement localStatement = localConnection.createStatement();
 /*  28 */       localStatement.executeUpdate(str1);
@@ -98,8 +98,7 @@
 /*  88 */         String str3 = cls.getLRStr(this.connStr, "#", "rightr");
 /*  89 */         String str4 = cls.getParameter(str3, "username");
 /*  90 */         String str5 = cls.getParameter(str3, "password");
-				  //System.out.println(str2+":"+str4+";"+str5);
-/*  91 */         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();				
+/*  91 */         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
 /*  92 */         Connection localConnection = DriverManager.getConnection(str2, str4, str5);
 /*  93 */         Statement localStatement = localConnection.createStatement();
 /*  94 */         ResultSet localResultSet = localStatement.executeQuery(str1);
@@ -124,7 +123,6 @@
 /* 113 */         this.rState = 1;
 /* 114 */         arrayOfObject = null;
 /* 115 */         this.eMessage = localException.getMessage();
-				  //System.out.println(this.eMessage);
 /*     */       }
 /*     */     }
 /* 118 */     return arrayOfObject;

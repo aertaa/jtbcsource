@@ -29,6 +29,20 @@
             <td id="windowsContent-leftPanel" class="windowsContent-leftPanel" valign="top">
               <table cellspacing="0" cellpadding="0" class="tablel">
                 <tr>
+                  <td class="tit">{$=itake("manage.nav_group", "lng")}:</td>
+                </tr>
+                <tr>
+                  <td height="5"></td>
+                </tr>{@}
+                <tr>
+                  <td class="txt"><span class="hand" onclick="manages.tLoad('?type=list&group={$-group-id}');"><img id="group-icon-{$-group-id}" name="group-icon" src="{$=$admin.theme}space.png" srcselected="{$=$admin.theme}icon.1.png" srcunselected="{$=$admin.theme}space.png" class="absmiddle" width="4" height="7" />&nbsp;{$-group-topic}</span></td>
+                </tr>{@}
+                <tr>
+                  <td height="5"></td>
+                </tr>
+              </table>
+              <table cellspacing="0" cellpadding="0" class="tablel">
+                <tr>
                   <td class="tit">{$=itake("global.lng_config.search", "lng")}:</td>
                 </tr>
                 <tr>

@@ -120,7 +120,11 @@ defaults = {
     if (wfront.tckBackString(tstrers))
     {
       tstrers = wfront.tckrBackString(tstrers);
-      if (nEditor) nEditor.tinsertUBB(cls.thtmlDecode(tstrers));
+      try
+      {
+        if (nEditor) nEditor.tinsertUBB(cls.thtmlDecode(tstrers));
+      }
+      catch(e) {};
     };
   },
   tInsert: function(_editor, _value, _text)

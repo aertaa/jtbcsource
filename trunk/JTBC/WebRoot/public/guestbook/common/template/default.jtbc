@@ -15,7 +15,7 @@
       <div class="box1">
         <h3>{$=itake("default.channel_title", "lng")}</h3>
         <ul>
-          <li><a href="?type=add">{$=itake("default.nav_add", "lng")}</a></li>
+          <li><a href="?type=add&amp;key={$=base64encode(concat('t={$>now};k=', md5('jetiben-{$>now}')))}">{$=itake("default.nav_add", "lng")}</a></li>
           <li><a href="?type=list">{$=itake("default.nav_list", "lng")}</a></li>
         </ul>
       </div>
@@ -23,7 +23,7 @@
     <div class="middleMain">
       <div class="middleMainContent">
         <script type="text/javascript" src="{$=$images}/js/defaults.js"></script>
-        <script type="text/javascript" src="{$=getActualRoute("common")}/editor/jtbceditor/jtbcEditor.js"></script>
+        <script type="text/javascript" src="{$=getActualRoute("common")}/editor/ubbeditor/ubbEditor.js"></script>
         <table cellpadding="0" cellspacing="0" class="tablen">
           <tr>
             <td class="nav"><span>{$=inavigation("")}{$=$navSpStr}{$=itake("default.nav_add", "lng")}</span></td>
@@ -36,6 +36,7 @@
                 </tr>
               </table>
               <form id="form1" method="post" action="default-interface.jsp?type=action&atype=add">
+              <input type="hidden" name="key" value="{$=htmlencode(getRequestParameter("key"))}" />
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td width="80" height="25">{$=itake("config.topic", "lng")}</td>
@@ -82,8 +83,9 @@
   </div>
 </div>
 <script type="text/javascript">
-var nEditor = new jtbcEditor('content');
-nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
+var nEditor = new ubbEditor('content');
+nEditor.tLang = 'zh-cn';
+nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/ubbeditor/');
 </script>
 {$=webFoot("default_foot")}]]></tpl_default>
     </item>
@@ -96,7 +98,7 @@ nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
       <div class="box1">
         <h3>{$=itake("default.channel_title", "lng")}</h3>
         <ul>
-          <li><a href="?type=add">{$=itake("default.nav_add", "lng")}</a></li>
+          <li><a href="?type=add&amp;&key={$=base64encode(concat('t={$>now};k=', md5('jetiben-{$>now}')))}">{$=itake("default.nav_add", "lng")}</a></li>
           <li><a href="?type=list">{$=itake("default.nav_list", "lng")}</a></li>
         </ul>
       </div>

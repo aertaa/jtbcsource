@@ -14,7 +14,7 @@
 /*      */ import java.util.regex.Pattern;
 /*      */ import javax.servlet.ServletContext;
 /*      */ import javax.servlet.http.HttpSession;
-		   import jtbc.dbc.dbc;
+/*      */ import jtbc.dbc.dbc;
 /*      */ 
 /*      */ public class common
 /*      */ {
@@ -335,7 +335,7 @@
 /*  332 */       localObject = str2.split(Pattern.quote(str3));
 /*  333 */       if (localObject != null)
 /*      */       {
-/*  335 */         if (localInteger.intValue() > ((String[])localObject).length) localInteger = Integer.valueOf(((String[])localObject).length);
+/*  335 */         if (localInteger.intValue() >  ((String[])localObject).length) localInteger = Integer.valueOf(((Object[])localObject).length);
 /*  336 */         str1 = ((String[])localObject)[(localInteger.intValue() - 1)];
 /*      */       }
 /*      */     }
@@ -361,7 +361,7 @@
 /*  357 */     if (str2.indexOf(str3) != -1)
 /*      */     {
 /*  359 */       localObject = str2.split(Pattern.quote(str3));
-/*  360 */       if (localObject != null) str1 = cls.toString(Integer.valueOf(((String[])localObject).length));
+/*  360 */       if (localObject != null) str1 = cls.toString(Integer.valueOf(((Object[])localObject).length));
 /*      */     }
 /*      */     else
 /*      */     {
@@ -445,1068 +445,1139 @@
 /*  441 */     return arrayOfString1;
 /*      */   }
 /*      */ 
-/*      */   public String getRsValue(String paramString1, String paramString2)
+/*      */   public String[][] getJtbcElement(String paramString)
 /*      */   {
-/*  446 */     String str1 = paramString1;
-/*  447 */     String str2 = paramString2;
-/*  448 */     String str3 = "";
-/*  449 */     Object[][] arrayOfObject = (Object[][])null;
-/*  450 */     if (str1.equals("rs")) arrayOfObject = this.conf.rsAry;
-/*  451 */     else if (str1.equals("rsb")) arrayOfObject = this.conf.rsbAry;
-/*  452 */     else if (str1.equals("rsc")) arrayOfObject = this.conf.rscAry;
-/*  453 */     else if (str1.equals("rst")) arrayOfObject = this.conf.rstAry;
-/*  454 */     if (arrayOfObject != null)
+/*  446 */     String str1 = paramString;
+/*  447 */     String[][] arrayOfString1 = (String[][])null;
+/*  448 */     String[][] arrayOfString2 = this.conf.njtbcelement;
+/*  449 */     if (arrayOfString2 != null)
 /*      */     {
-/*  456 */       for (int i = 0; i < arrayOfObject.length; ++i)
+/*  451 */       Integer localInteger1 = Integer.valueOf(arrayOfString2.length);
+/*  452 */       Integer localInteger2 = Integer.valueOf(arrayOfString2[0].length);
+/*  453 */       if ((localInteger1.intValue() >= 1) && (localInteger2.intValue() == 2))
 /*      */       {
-/*  458 */         if (!(cls.toString(arrayOfObject[i][0]).equals(str2)))
-/*      */           continue;
-/*  460 */         str3 = cls.toString(arrayOfObject[i][1]);
-/*  461 */         break;
+/*  455 */         for (int i = 0; i < localInteger1.intValue(); ++i)
+/*      */         {
+/*  457 */           String str2 = arrayOfString2[i][0];
+/*  458 */           String str3 = arrayOfString2[i][1];
+/*  459 */           if (!(cls.getParameter(str2, "id").equals(str1)))
+/*      */             continue;
+/*  461 */           arrayOfString1 = new String[1][2];
+/*  462 */           arrayOfString1[0][0] = str2;
+/*  463 */           arrayOfString1[0][1] = str3;
+/*  464 */           break;
+/*      */         }
 /*      */       }
 /*      */     }
 /*      */ 
-/*  465 */     return str3;
+/*  469 */     return arrayOfString1;
+/*      */   }
+/*      */ 
+/*      */   public String getRsValue(String paramString1, String paramString2)
+/*      */   {
+/*  474 */     String str1 = paramString1;
+/*  475 */     String str2 = paramString2;
+/*  476 */     String str3 = "";
+/*  477 */     Object[][] arrayOfObject = (Object[][])null;
+/*  478 */     if (str1.equals("rs")) arrayOfObject = this.conf.rsAry;
+/*  479 */     else if (str1.equals("rsb")) arrayOfObject = this.conf.rsbAry;
+/*  480 */     else if (str1.equals("rsc")) arrayOfObject = this.conf.rscAry;
+/*  481 */     else if (str1.equals("rst")) arrayOfObject = this.conf.rstAry;
+/*  482 */     if (arrayOfObject != null)
+/*      */     {
+/*  484 */       for (int i = 0; i < arrayOfObject.length; ++i)
+/*      */       {
+/*  486 */         if (!(cls.toString(arrayOfObject[i][0]).equals(str2)))
+/*      */           continue;
+/*  488 */         str3 = cls.toString(arrayOfObject[i][1]);
+/*  489 */         break;
+/*      */       }
+/*      */     }
+/*      */ 
+/*  493 */     return str3;
 /*      */   }
 /*      */ 
 /*      */   public String getSearchOptions(String paramString)
 /*      */   {
-/*  470 */     String str1 = paramString;
-/*  471 */     String str2 = "";
-/*  472 */     if (!(cls.isEmpty(str1).booleanValue()))
+/*  498 */     String str1 = paramString;
+/*  499 */     String str2 = "";
+/*  500 */     if (!(cls.isEmpty(str1).booleanValue()))
 /*      */     {
-/*  474 */       Object localObject = "";
-/*  475 */       String[] arrayOfString = str1.split(Pattern.quote(","));
-/*  476 */       String str3 = this.conf.jt.itake("global.tpl_config.option_unselect", "tpl");
-/*  477 */       for (int i = 0; i < arrayOfString.length; ++i)
+/*  502 */       Object localObject = "";
+/*  503 */       String[] arrayOfString = str1.split(Pattern.quote(","));
+/*  504 */       String str3 = this.conf.jt.itake("global.tpl_config.option_unselect", "tpl");
+/*  505 */       for (int i = 0; i < arrayOfString.length; ++i)
 /*      */       {
-/*  479 */         localObject = str3;
-/*  480 */         localObject = ((String)localObject).replace("{$explain}", this.conf.jt.itake("global.sel_search." + encode.htmlencode(arrayOfString[i]), "sel"));
-/*  481 */         localObject = ((String)localObject).replace("{$value}", encode.htmlencode(arrayOfString[i]));
-/*  482 */         str2 = str2 + ((String)localObject);
+/*  507 */         localObject = str3;
+/*  508 */         localObject = ((String)localObject).replace("{$explain}", this.conf.jt.itake("global.sel_search." + encode.htmlencode(arrayOfString[i]), "sel"));
+/*  509 */         localObject = ((String)localObject).replace("{$value}", encode.htmlencode(arrayOfString[i]));
+/*  510 */         str2 = str2 + ((String)localObject);
 /*      */       }
 /*      */     }
-/*  485 */     return ((String)str2);
+/*  513 */     return ((String)str2);
 /*      */   }
 /*      */ 
 /*      */   public String getSwitchOptions(String paramString)
 /*      */   {
-/*  490 */     String str1 = paramString;
-/*  491 */     String str2 = "";
-/*  492 */     if (!(cls.isEmpty(str1).booleanValue()))
+/*  518 */     String str1 = paramString;
+/*  519 */     String str2 = "";
+/*  520 */     if (!(cls.isEmpty(str1).booleanValue()))
 /*      */     {
-/*  494 */       Object localObject = "";
-/*  495 */       String[] arrayOfString = str1.split(Pattern.quote(","));
-/*  496 */       String str3 = this.conf.jt.itake("global.tpl_config.option_unselect", "tpl");
-/*  497 */       for (int i = 0; i < arrayOfString.length; ++i)
+/*  522 */       Object localObject = "";
+/*  523 */       String[] arrayOfString = str1.split(Pattern.quote(","));
+/*  524 */       String str3 = this.conf.jt.itake("global.tpl_config.option_unselect", "tpl");
+/*  525 */       for (int i = 0; i < arrayOfString.length; ++i)
 /*      */       {
-/*  499 */         localObject = str3;
-/*  500 */         localObject = ((String)localObject).replace("{$explain}", this.conf.jt.itake("global.sel_switch." + encode.htmlencode(arrayOfString[i]), "sel"));
-/*  501 */         localObject = ((String)localObject).replace("{$value}", encode.htmlencode(arrayOfString[i]));
-/*  502 */         str2 = str2 + ((String)localObject);
+/*  527 */         localObject = str3;
+/*  528 */         localObject = ((String)localObject).replace("{$explain}", this.conf.jt.itake("global.sel_switch." + encode.htmlencode(arrayOfString[i]), "sel"));
+/*  529 */         localObject = ((String)localObject).replace("{$value}", encode.htmlencode(arrayOfString[i]));
+/*  530 */         str2 = str2 + ((String)localObject);
 /*      */       }
 /*      */     }
-/*  505 */     return ((String)str2);
+/*  533 */     return ((String)str2);
 /*      */   }
 /*      */ 
 /*      */   public Integer getTopID(String paramString1, String paramString2)
 /*      */   {
-/*  510 */     Integer localInteger = Integer.valueOf(-1);
-/*  511 */     String str1 = paramString1;
-/*  512 */     String str2 = paramString2;
-/*  513 */     dbc localdbc = db.newInstance(this.conf);
-/*  514 */     String str3 = "select max(" + str2 + ") from " + str1;
-/*  515 */     Object[] arrayOfObject = localdbc.getDataAry(str3);
-/*  516 */     if (arrayOfObject != null) localInteger = cls.getNum(cls.toString(localdbc.getValue((Object[][])(Object[][])arrayOfObject[0], 0)), Integer.valueOf(0));
-/*  517 */     return localInteger;
+/*  538 */     Integer localInteger = Integer.valueOf(-1);
+/*  539 */     String str1 = paramString1;
+/*  540 */     String str2 = paramString2;
+/*  541 */     dbc localdbc = db.newInstance(this.conf);
+/*  542 */     String str3 = "select max(" + str2 + ") from " + str1;
+/*  543 */     Object[] arrayOfObject = localdbc.getDataAry(str3);
+/*  544 */     if (arrayOfObject != null) localInteger = cls.getNum(cls.toString(localdbc.getValue((Object[][])(Object[][])arrayOfObject[0], 0)), Integer.valueOf(0));
+/*  545 */     return localInteger;
 /*      */   }
 /*      */ 
 /*      */   public String getLngID(String paramString)
 /*      */   {
-/*  522 */     String str1 = paramString;
-/*  523 */     String str2 = "";
-/*  524 */     String[][] arrayOfString = this.conf.jt.itakes("global.sel_lng.all", "sel");
-/*  525 */     for (int i = 0; i < arrayOfString.length; ++i)
+/*  550 */     String str1 = paramString;
+/*  551 */     String str2 = "";
+/*  552 */     String[][] arrayOfString = this.conf.jt.itakes("global.sel_lng.all", "sel");
+/*  553 */     for (int i = 0; i < arrayOfString.length; ++i)
 /*      */     {
-/*  527 */       String str3 = arrayOfString[i][0];
-/*  528 */       if (str3.indexOf(":") == -1)
+/*  555 */       String str3 = arrayOfString[i][0];
+/*  556 */       if (str3.indexOf(":") == -1)
 /*      */         continue;
-/*  530 */       String[] arrayOfString1 = str3.split(Pattern.quote(":"));
-/*  531 */       if ((arrayOfString1.length != 2) || 
-/*  533 */         (!(arrayOfString1[0].equals(str1))))
+/*  558 */       String[] arrayOfString1 = str3.split(Pattern.quote(":"));
+/*  559 */       if ((arrayOfString1.length != 2) || 
+/*  561 */         (!(arrayOfString1[0].equals(str1))))
 /*      */         continue;
-/*  535 */       str2 = arrayOfString1[1];
-/*  536 */       break;
+/*  563 */       str2 = arrayOfString1[1];
+/*  564 */       break;
 /*      */     }
 /*      */ 
-/*  541 */     return str2;
+/*  569 */     return str2;
 /*      */   }
 /*      */ 
 /*      */   public String getLngText(String paramString)
 /*      */   {
-/*  546 */     String str1 = paramString;
-/*  547 */     String str2 = "";
-/*  548 */     String[][] arrayOfString = this.conf.jt.itakes("global.sel_lng.all", "sel");
-/*  549 */     for (int i = 0; i < arrayOfString.length; ++i)
+/*  574 */     String str1 = paramString;
+/*  575 */     String str2 = "";
+/*  576 */     String[][] arrayOfString = this.conf.jt.itakes("global.sel_lng.all", "sel");
+/*  577 */     for (int i = 0; i < arrayOfString.length; ++i)
 /*      */     {
-/*  551 */       String str3 = arrayOfString[i][0];
-/*  552 */       if (str3.indexOf(":") == -1)
+/*  579 */       String str3 = arrayOfString[i][0];
+/*  580 */       if (str3.indexOf(":") == -1)
 /*      */         continue;
-/*  554 */       String[] arrayOfString1 = str3.split(Pattern.quote(":"));
-/*  555 */       if ((arrayOfString1.length != 2) || 
-/*  557 */         (!(arrayOfString1[1].equals(str1))))
+/*  582 */       String[] arrayOfString1 = str3.split(Pattern.quote(":"));
+/*  583 */       if ((arrayOfString1.length != 2) || 
+/*  585 */         (!(arrayOfString1[1].equals(str1))))
 /*      */         continue;
-/*  559 */       str2 = arrayOfString1[0];
-/*  560 */       break;
+/*  587 */       str2 = arrayOfString1[0];
+/*  588 */       break;
 /*      */     }
 /*      */ 
-/*  565 */     return str2;
+/*  593 */     return str2;
 /*      */   }
 /*      */ 
 /*      */   public String itransfer(String paramString)
 /*      */   {
-/*  570 */     String str1 = "";
-/*  571 */     String str2 = paramString;
-/*  572 */     String str3 = cls.getParameter(str2, "method");
-/*  573 */     if (cls.isEmpty(str3).booleanValue()) str1 = itransferStandard(str2);
-/*  576 */     else if (str3.equals("sql")) str1 = itransferSQL(str2);
-/*  577 */     else if (str3.equals("itakes")) str1 = itransferITakes(str2);
-/*  578 */     else if (str3.equals("multigenre")) str1 = itransferMultiGenre(str2);
+/*  598 */     String str1 = "";
+/*  599 */     String str2 = paramString;
+/*  600 */     String str3 = cls.getParameter(str2, "method");
+/*  601 */     if (cls.isEmpty(str3).booleanValue()) str1 = itransferStandard(str2);
+/*  604 */     else if (str3.equals("sql")) str1 = itransferSQL(str2);
+/*  605 */     else if (str3.equals("itakes")) str1 = itransferITakes(str2);
+/*  606 */     else if (str3.equals("multigenre")) str1 = itransferMultiGenre(str2);
 /*      */ 
-/*  580 */     return str1;
+/*  608 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String itransferStandard(String paramString)
 /*      */   {
-/*  585 */     Object localObject1 = "";
+/*  613 */     Object localObject1 = "";
 /*      */ 
-/*  587 */     String str4 = paramString;
-/*  588 */     String str5 = cls.getParameter(str4, "tpl");
-/*  589 */     String str6 = cls.getParameter(str4, "tplstr");
-/*  590 */     String str7 = cls.getParameter(str4, "type");
-/*  591 */     Object localObject2 = cls.getParameter(str4, "genre");
-/*  592 */     String str8 = cls.getParameter(str4, "ndatabase");
-/*  593 */     String str9 = cls.getParameter(str4, "nfpre");
-/*  594 */     String str10 = cls.getParameter(str4, "osql");
-/*  595 */     String str11 = cls.getParameter(str4, "osqlorder");
-/*  596 */     String str12 = cls.getParameter(str4, "ocname");
-/*  597 */     String str13 = cls.getParameter(str4, "ocmode");
-/*  598 */     String str14 = cls.getParameter(str4, "baseurl");
-/*  599 */     String str15 = cls.getParameter(str4, "vars");
-/*  600 */     Integer localInteger1 = cls.getNum(cls.getParameter(str4, "topx"), Integer.valueOf(-1));
-/*  601 */     Integer localInteger2 = cls.getNum(cls.getParameter(str4, "cls"), Integer.valueOf(-1));
-/*  602 */     Integer localInteger3 = cls.getNum(cls.getParameter(str4, "class"), Integer.valueOf(-1));
-/*  603 */     Integer localInteger4 = cls.getNum(cls.getParameter(str4, "lng"), Integer.valueOf(-1));
-/*  604 */     Integer localInteger5 = cls.getNum(cls.getParameter(str4, "bid"), Integer.valueOf(-1));
-/*  605 */     Integer localInteger6 = cls.getNum(this.conf.dbtype, Integer.valueOf(0));
-/*  606 */     if (localInteger4.intValue() == -1) localInteger4 = cls.getNum(this.conf.getNLng(), Integer.valueOf(-1));
-/*  607 */     if (localInteger1.intValue() > 0)
+/*  615 */     String str4 = paramString;
+/*  616 */     String str5 = cls.getParameter(str4, "tpl");
+/*  617 */     String str6 = cls.getParameter(str4, "tplid");
+/*  618 */     String str7 = cls.getParameter(str4, "tplstr");
+/*  619 */     String str8 = cls.getParameter(str4, "type");
+/*  620 */     Object localObject2 = cls.getParameter(str4, "genre");
+/*  621 */     String str9 = cls.getParameter(str4, "ndatabase");
+/*  622 */     String str10 = cls.getParameter(str4, "nfpre");
+/*  623 */     String str11 = cls.getParameter(str4, "osql");
+/*  624 */     String str12 = cls.getParameter(str4, "osqlorder");
+/*  625 */     String str13 = cls.getParameter(str4, "ocname");
+/*  626 */     String str14 = cls.getParameter(str4, "ocmode");
+/*  627 */     String str15 = cls.getParameter(str4, "baseurl");
+/*  628 */     String str16 = cls.getParameter(str4, "vars");
+/*  629 */     Integer localInteger1 = cls.getNum(cls.getParameter(str4, "topx"), Integer.valueOf(-1));
+/*  630 */     Integer localInteger2 = cls.getNum(cls.getParameter(str4, "cls"), Integer.valueOf(-1));
+/*  631 */     Integer localInteger3 = cls.getNum(cls.getParameter(str4, "class"), Integer.valueOf(-1));
+/*  632 */     Integer localInteger4 = cls.getNum(cls.getParameter(str4, "lng"), Integer.valueOf(-1));
+/*  633 */     Integer localInteger5 = cls.getNum(cls.getParameter(str4, "bid"), Integer.valueOf(-1));
+/*  634 */     Integer localInteger6 = cls.getNum(this.conf.dbtype, Integer.valueOf(0));
+/*  635 */     if (localInteger4.intValue() == -1) localInteger4 = cls.getNum(this.conf.getNLng(), Integer.valueOf(-1));
+/*  636 */     if (localInteger1.intValue() > 0)
 /*      */     {
-/*  609 */       String str16 = this.conf.getNGenre();
-/*  610 */       if ((cls.isEmpty(str14).booleanValue()) && 
-/*  612 */         (!(cls.isEmpty(localObject2).booleanValue())) && (!(((String)localObject2).equals(str16))))
+/*  638 */       String str17 = this.conf.getNGenre();
+/*  639 */       if ((cls.isEmpty(str15).booleanValue()) && 
+/*  641 */         (!(cls.isEmpty(localObject2).booleanValue())) && (!(((String)localObject2).equals(str17))))
 /*      */       {
-/*  614 */         str14 = this.conf.getActualRoute((String)localObject2);
-/*  615 */         if (!(cls.getRight(str14, Integer.valueOf(1)).equals("/"))) str14 = str14 + "/";
+/*  643 */         str15 = this.conf.getActualRoute((String)localObject2);
+/*  644 */         if (!(cls.getRight(str15, Integer.valueOf(1)).equals("/"))) str15 = str15 + "/";
 /*      */       }
 /*      */ 
-/*  618 */       if (cls.isEmpty(localObject2).booleanValue()) localObject2 = str16;
-/*  619 */       String str17 = "";
-/*  620 */       String str18 = "";
-/*  621 */       String str19 = "";
-/*  622 */       if (!(cls.isEmpty(str8).booleanValue()))
+/*  647 */       if (cls.isEmpty(localObject2).booleanValue()) localObject2 = str17;
+/*  648 */       String str18 = "";
+/*  649 */       String str19 = "";
+/*  650 */       String str20 = "";
+/*  651 */       if (!(cls.isEmpty(str9).booleanValue()))
 /*      */       {
-/*  624 */         str17 = cls.getString(str8);
-/*  625 */         str18 = cls.getString(str9);
+/*  653 */         str18 = cls.getString(str9);
+/*  654 */         str19 = cls.getString(str10);
 /*      */       }
-/*  629 */       else if (cls.isEmpty(str12).booleanValue())
+/*  658 */       else if (cls.isEmpty(str13).booleanValue())
 /*      */       {
-/*  631 */         str17 = cls.getString(this.conf.jt.itake("global." + ((String)localObject2) + ":config.ndatabase", "cfg"));
-/*  632 */         str18 = cls.getString(this.conf.jt.itake("global." + ((String)localObject2) + ":config.nfpre", "cfg"));
+/*  660 */         str18 = cls.getString(this.conf.jt.itake("global." + ((String)localObject2) + ":config.ndatabase", "cfg"));
+/*  661 */         str19 = cls.getString(this.conf.jt.itake("global." + ((String)localObject2) + ":config.nfpre", "cfg"));
 /*      */       }
 /*      */       else
 /*      */       {
-/*  636 */         str17 = cls.getString(this.conf.jt.itake("global." + ((String)localObject2) + ":config.ndatabase-" + str12, "cfg"));
-/*  637 */         str18 = cls.getString(this.conf.jt.itake("global." + ((String)localObject2) + ":config.nfpre-" + str12, "cfg"));
+/*  665 */         str18 = cls.getString(this.conf.jt.itake("global." + ((String)localObject2) + ":config.ndatabase-" + str13, "cfg"));
+/*  666 */         str19 = cls.getString(this.conf.jt.itake("global." + ((String)localObject2) + ":config.nfpre-" + str13, "cfg"));
 /*      */       }
 /*      */ 
-/*  640 */       str19 = cls.cfnames(str18, "id");
-/*  641 */       if (!(cls.isEmpty(str17).booleanValue()))
+/*  669 */       str20 = cls.cfnames(str19, "id");
+/*  670 */       if (!(cls.isEmpty(str18).booleanValue()))
 /*      */       {
 /*      */         Object localObject5;
-/*  643 */         String str20 = "";
-/*  644 */         String str21 = "";
-/*  645 */         if (str7.equals("new"))
+/*  672 */         String str21 = "";
+/*  673 */         String str22 = "";
+/*  674 */         if (str8.equals("new"))
 /*      */         {
-/*  647 */           str20 = "select * from " + str17 + " where " + cls.cfnames(str18, "hidden") + "=0";
-/*  648 */           str21 = " order by " + cls.cfnames(str18, "time") + " desc";
+/*  676 */           str21 = "select * from " + str18 + " where " + cls.cfnames(str19, "hidden") + "=0";
+/*  677 */           str22 = " order by " + cls.cfnames(str19, "time") + " desc";
 /*      */         }
-/*  650 */         else if (str7.equals("-new"))
+/*  679 */         else if (str8.equals("-new"))
 /*      */         {
-/*  652 */           str20 = "select * from " + str17 + " where " + cls.cfnames(str18, "hidden") + "=0";
-/*  653 */           str21 = " order by " + cls.cfnames(str18, "time") + " asc";
+/*  681 */           str21 = "select * from " + str18 + " where " + cls.cfnames(str19, "hidden") + "=0";
+/*  682 */           str22 = " order by " + cls.cfnames(str19, "time") + " asc";
 /*      */         }
-/*  655 */         else if (str7.equals("@new"))
+/*  684 */         else if (str8.equals("@new"))
 /*      */         {
-/*  657 */           str20 = "select * from " + str17 + " where 1=1";
-/*  658 */           str21 = " order by " + cls.cfnames(str18, "time") + " desc";
+/*  686 */           str21 = "select * from " + str18 + " where 1=1";
+/*  687 */           str22 = " order by " + cls.cfnames(str19, "time") + " desc";
 /*      */         }
-/*  660 */         else if (str7.equals("top"))
+/*  689 */         else if (str8.equals("top"))
 /*      */         {
-/*  662 */           str20 = "select * from " + str17 + " where " + cls.cfnames(str18, "hidden") + "=0";
-/*  663 */           str21 = " order by " + str19 + " desc";
+/*  691 */           str21 = "select * from " + str18 + " where " + cls.cfnames(str19, "hidden") + "=0";
+/*  692 */           str22 = " order by " + str20 + " desc";
 /*      */         }
-/*  665 */         else if (str7.equals("-top"))
+/*  694 */         else if (str8.equals("-top"))
 /*      */         {
-/*  667 */           str20 = "select * from " + str17 + " where " + cls.cfnames(str18, "hidden") + "=0";
-/*  668 */           str21 = " order by " + str19 + " asc";
+/*  696 */           str21 = "select * from " + str18 + " where " + cls.cfnames(str19, "hidden") + "=0";
+/*  697 */           str22 = " order by " + str20 + " asc";
 /*      */         }
-/*  670 */         else if (str7.equals("@top"))
+/*  699 */         else if (str8.equals("@top"))
 /*      */         {
-/*  672 */           str20 = "select * from " + str17 + " where 1=1";
-/*  673 */           str21 = " order by " + str19 + " desc";
+/*  701 */           str21 = "select * from " + str18 + " where 1=1";
+/*  702 */           str22 = " order by " + str20 + " desc";
 /*      */         }
-/*  675 */         else if (str7.equals("commendatory"))
+/*  704 */         else if (str8.equals("commendatory"))
 /*      */         {
-/*  677 */           str20 = "select * from " + str17 + " where " + cls.cfnames(str18, "hidden") + "=0 and " + cls.cfnames(str18, "commendatory") + "=1";
-/*  678 */           str21 = " order by " + cls.cfnames(str18, "time") + " desc";
+/*  706 */           str21 = "select * from " + str18 + " where " + cls.cfnames(str19, "hidden") + "=0 and " + cls.cfnames(str19, "commendatory") + "=1";
+/*  707 */           str22 = " order by " + cls.cfnames(str19, "time") + " desc";
 /*      */         }
-/*  680 */         else if (str7.equals("-commendatory"))
+/*  709 */         else if (str8.equals("-commendatory"))
 /*      */         {
-/*  682 */           str20 = "select * from " + str17 + " where " + cls.cfnames(str18, "hidden") + "=0 and " + cls.cfnames(str18, "commendatory") + "=1";
-/*  683 */           str21 = " order by " + cls.cfnames(str18, "time") + " asc";
+/*  711 */           str21 = "select * from " + str18 + " where " + cls.cfnames(str19, "hidden") + "=0 and " + cls.cfnames(str19, "commendatory") + "=1";
+/*  712 */           str22 = " order by " + cls.cfnames(str19, "time") + " asc";
 /*      */         }
-/*  685 */         else if (str7.equals("@commendatory"))
+/*  714 */         else if (str8.equals("@commendatory"))
 /*      */         {
-/*  687 */           str20 = "select * from " + str17 + " where " + cls.cfnames(str18, "commendatory") + "=1";
-/*  688 */           str21 = " order by " + cls.cfnames(str18, "time") + " desc";
+/*  716 */           str21 = "select * from " + str18 + " where " + cls.cfnames(str19, "commendatory") + "=1";
+/*  717 */           str22 = " order by " + cls.cfnames(str19, "time") + " desc";
 /*      */         }
-/*  690 */         else if (str7.equals("up"))
+/*  719 */         else if (str8.equals("up"))
 /*      */         {
-/*  692 */           str20 = "select * from " + str17 + " where " + cls.cfnames(str18, "hidden") + "=0 and " + str19 + ">" + localInteger5;
-/*  693 */           str21 = " order by " + str19 + " asc";
+/*  721 */           str21 = "select * from " + str18 + " where " + cls.cfnames(str19, "hidden") + "=0 and " + str20 + ">" + localInteger5;
+/*  722 */           str22 = " order by " + str20 + " asc";
 /*      */         }
-/*  695 */         else if (str7.equals("down"))
+/*  724 */         else if (str8.equals("down"))
 /*      */         {
-/*  697 */           str20 = "select * from " + str17 + " where " + cls.cfnames(str18, "hidden") + "=0 and " + str19 + "<" + localInteger5;
-/*  698 */           str21 = " order by " + str19 + " desc";
+/*  726 */           str21 = "select * from " + str18 + " where " + cls.cfnames(str19, "hidden") + "=0 and " + str20 + "<" + localInteger5;
+/*  727 */           str22 = " order by " + str20 + " desc";
 /*      */         }
-/*  700 */         if (localInteger2.intValue() != -1)
+				   Object localObject3;
+/*  729 */         if (localInteger2.intValue() != -1)
 /*      */         {
-/*  702 */           Object localObject3 = new category(this.conf);
-/*  703 */           String str22 = ((category)localObject3).getClassChildIds((String)localObject2, localInteger4, cls.toString(localInteger2));
-/*  704 */           if (!(cls.isEmpty(str22).booleanValue())) str20 = str20 + " and " + cls.cfnames(str18, "class") + " in (" + str22 + ")";
+/*  731 */           localObject3 = new category(this.conf);
+/*  732 */           String str23 = ((category)localObject3).getClassChildIds((String)localObject2, localInteger4, cls.toString(localInteger2));
+/*  733 */           if (!(cls.isEmpty(str23).booleanValue())) str21 = str21 + " and " + cls.cfnames(str19, "class") + " in (" + str23 + ")";
 /*      */         }
-/*  706 */         if (localInteger3.intValue() != -1) str20 = str20 + " and " + cls.cfnames(str18, "class") + "=" + localInteger3;
-/*  707 */         if ((localInteger4.intValue() != -1) && (localInteger4.intValue() != -100)) str20 = str20 + " and " + cls.cfnames(str18, "lng") + "=" + localInteger4;
-/*  708 */         if (!(cls.isEmpty(str10).booleanValue())) str20 = str20 + str10;
-/*  709 */         if (!(cls.isEmpty(str11).booleanValue())) str21 = str11;
-/*  710 */         str20 = str20 + str21;
-/*  711 */         if ((localInteger6.intValue() >= 0) && (localInteger6.intValue() < 10)) str20 = str20 + " limit 0," + localInteger1;
-/*  712 */         if ((localInteger6.intValue() >= 10) && (localInteger6.intValue() < 20)) str20 = "select top " + localInteger1 + " *" + cls.getLRStr(str20, "select *", "rightr");
-/*  713 */         if ((localInteger6.intValue() >= 20) && (localInteger6.intValue() < 30)) str20 = str20 + " limit " + localInteger1;
-/*  714 */         if (!(cls.isEmpty(str6).booleanValue())) localObject1 = str6;
-/*  717 */         else if (str5.indexOf(".") != -1) localObject1 = this.conf.jt.itake(str5, "tpl");
-/*      */         else localObject1 = this.conf.jt.itake("global.tpl_transfer." + str5, "tpl");
+/*  735 */         if (localInteger3.intValue() != -1) str21 = str21 + " and " + cls.cfnames(str19, "class") + "=" + localInteger3;
+/*  736 */         if ((localInteger4.intValue() != -1) && (localInteger4.intValue() != -100)) str21 = str21 + " and " + cls.cfnames(str19, "lng") + "=" + localInteger4;
+/*  737 */         if (!(cls.isEmpty(str11).booleanValue())) str21 = str21 + str11;
+/*  738 */         if (!(cls.isEmpty(str12).booleanValue())) str22 = str12;
+/*  739 */         str21 = str21 + str22;
+/*  740 */         if ((localInteger6.intValue() >= 0) && (localInteger6.intValue() < 10)) str21 = str21 + " limit 0," + localInteger1;
+/*  741 */         if ((localInteger6.intValue() >= 10) && (localInteger6.intValue() < 20)) str21 = "select top " + localInteger1 + " *" + cls.getLRStr(str21, "select *", "rightr");
+/*  742 */         if ((localInteger6.intValue() >= 20) && (localInteger6.intValue() < 30)) str21 = str21 + " limit " + localInteger1;
+/*  743 */         if (!(cls.isEmpty(str7).booleanValue())) { localObject1 = str7;
+/*      */         }
+/*  746 */         else if (!(cls.isEmpty(str6).booleanValue()))
+/*      */         {
+/*  748 */           localObject3 = getJtbcElement(str6);
+/*  749 */           if ((localObject3 != null) && 
+/*  751 */             (((Object[][])localObject3)[0].length == 2)) localObject1 = ((Object[][])localObject3)[0][1];
 /*      */ 
-/*  720 */         if (!(cls.isEmpty(str15).booleanValue()))
+/*      */         }
+/*  756 */         else if (str5.indexOf(".") != -1) { localObject1 = this.conf.jt.itake(str5, "tpl"); } else {
+/*  757 */           localObject1 = this.conf.jt.itake("global.tpl_transfer." + str5, "tpl");
+/*      */         }
+/*      */ 
+/*  760 */         if (!(cls.isEmpty(str16).booleanValue()))
 /*      */         {
-/*  722 */           Object localObject3 = str15.split(Pattern.quote("|"));
-/*  723 */           for (int i = 0; i < ((String[])localObject3).length; ++i)
+/*  762 */           localObject3 = str16.split(Pattern.quote("|"));
+/*  763 */           for (int i = 0; i < ((Object[])localObject3).length; ++i)
 /*      */           {
-/*  725 */             Object localObject4 = ((String[])localObject3)[i];
-/*  726 */             if (cls.isEmpty(localObject4).booleanValue())
+/*  765 */             Object localObject4 = ((Object[])localObject3)[i];
+/*  766 */             if (cls.isEmpty(localObject4).booleanValue())
 /*      */               continue;
-/*  728 */             localObject5 = ((String)localObject4).split(Pattern.quote("="));
-/*  729 */             if (((String[])localObject5).length != 2) continue; localObject1 = ((String)localObject1).replace("{$" + ((String[])localObject5)[0] + "}", ((String[])localObject5)[1]);
+/*  768 */             localObject5 = ((String)localObject4).split(Pattern.quote("="));
+/*  769 */             if (((Object[])localObject5).length != 2) continue; localObject1 = ((String)localObject1).replace("{$" + ((String[])localObject5)[0] + "}", ((String[])localObject5)[1]);
 /*      */           }
 /*      */         }
 /*      */ 
-/*  733 */         Object localObject3 = db.newInstance(this.conf);
-/*  734 */         Object[] arrayOfObject = ((dbc)localObject3).getDataAry(str20);
-/*  735 */         if (arrayOfObject != null)
+/*  773 */         localObject3 = db.newInstance(this.conf);
+/*  774 */         Object[] arrayOfObject = ((dbc)localObject3).getDataAry(str21);
+/*  775 */         if (arrayOfObject != null)
 /*      */         {
-/*  737 */           String str2 = "";
-/*  738 */           String str1 = cls.ctemplate((String)localObject1, "{@}");
-/*  739 */           for (int j = 0; j < arrayOfObject.length; ++j)
+/*  777 */           String str2 = "";
+/*  778 */           String str1 = cls.ctemplate((String)localObject1, "{@}");
+/*  779 */           for (int j = 0; j < arrayOfObject.length; ++j)
 /*      */           {
-/*  741 */             String str3 = str1;
-/*  742 */             localObject5 = (Object[][])(Object[][])arrayOfObject[j];
-/*  743 */             for (int k = 0; k < ((Object[][])(Object[][])localObject5).length; ++k)
+/*  781 */             String str3 = str1;
+/*  782 */             localObject5 = (Object[][])(Object[][])arrayOfObject[j];
+/*  783 */             for (int k = 0; k < ((Object[][])(Object[][])localObject5).length; ++k)
 /*      */             {
-/*  745 */              // ((Object[][])(Object[][])localObject5)[k][0] = cls.getLRStr((String)localObject5[k][0], str18, "rightr");
-						((Object[][])(Object[][])localObject5)[k][0] = cls.getLRStr((String)((Object[][])(Object[][])localObject5)[k][0], str18, "rightr");
-/*  746 */               str3 = str3.replace("{$" + cls.toString(((Object[][])(Object[][])localObject5)[k][0]) + "}", encode.htmlencode(cls.toString(((Object[][])(Object[][])localObject5)[k][1]), "1"));
+/*  785 */               ((Object[][])(Object[][])localObject5)[k][0] = cls.getLRStr((String)((Object[][])(Object[][])localObject5)[k][0], str19, "rightr");
+/*  786 */               str3 = str3.replace("{$" + cls.toString(((Object[][])(Object[][])localObject5)[k][0]) + "}", encode.htmlencode(cls.toString(((Object[][])(Object[][])localObject5)[k][1]), "1"));
 /*      */             }
-/*  748 */             this.conf.rstAry = ((Object[][])localObject5);
-/*  749 */             str3 = str3.replace("{$-i}", cls.toString(Integer.valueOf(j)));
-/*  750 */             str3 = str3.replace("{$-genre}", (CharSequence)localObject2);
-/*  751 */             str3 = str3.replace("{$-baseurl}", str14);
+/*  788 */             this.conf.rstAry = ((Object[][])(Object[][])localObject5);
+/*  789 */             str3 = str3.replace("{$-i}", cls.toString(Integer.valueOf(j)));
+/*  790 */             str3 = str3.replace("{$-genre}", (CharSequence)localObject2);
+/*  791 */             str3 = str3.replace("{$-baseurl}", str15);
 /*      */ 
-/*  753 */             for (int k = 2; k < 7; ++k)
+/*  793 */             for (int k = 2; k < 7; ++k)
 /*      */             {
-/*  755 */               int l = j % k + 1;
-/*  756 */               str3 = str3.replace("{$-!mod" + k + "}", cls.toString(Integer.valueOf(l)));
-/*  757 */               if (l != k) str3 = str3.replace("{$-!mod" + k + "-string}", "");
-/*      */               else str3 = str3.replace("{$-!mod" + k + "-string}", cls.toString(str13));
+/*  795 */               int l = j % k + 1;
+/*  796 */               str3 = str3.replace("{$-!mod" + k + "}", cls.toString(Integer.valueOf(l)));
+/*  797 */               if (l != k) str3 = str3.replace("{$-!mod" + k + "-string}", "");
+/*      */               else str3 = str3.replace("{$-!mod" + k + "-string}", cls.toString(str14));
 /*      */             }
 /*      */ 
-/*  761 */             str3 = this.conf.jt.creplace(str3);
-/*  762 */             str2 = str2 + str3;
+/*  801 */             str3 = this.conf.jt.creplace(str3);
+/*  802 */             str2 = str2 + str3;
 /*      */           }
-/*  764 */           localObject1 = cls.ctemplates((String)localObject1, "{@}", str2);
+/*  804 */           localObject1 = cls.ctemplates((String)localObject1, "{@}", str2);
 /*      */         } else {
-/*  766 */           localObject1 = ""; }
-/*  767 */         localObject1 = this.conf.jt.creplace((String)localObject1);
+/*  806 */           localObject1 = ""; }
+/*  807 */         localObject1 = this.conf.jt.creplace((String)localObject1);
 /*      */       }
 /*      */     }
-/*  770 */     return ((String)(String)(String)(String)localObject1);
+/*  810 */     return ((String)(String)(String)(String)localObject1);
 /*      */   }
 /*      */ 
 /*      */   public String itransferSQL(String paramString)
 /*      */   {
-/*  775 */     Object localObject1 = "";
+/*  815 */     Object localObject1 = "";
 /*      */ 
-/*  777 */     String str4 = paramString;
-/*  778 */     String str5 = cls.getParameter(str4, "sql");
-/*  779 */     String str6 = cls.getParameter(str4, "tpl");
-/*  780 */     String str7 = cls.getParameter(str4, "tplstr");
-/*  781 */     Object localObject2 = cls.getParameter(str4, "genre");
-/*  782 */     String str8 = cls.getParameter(str4, "ocmode");
-/*  783 */     String str9 = cls.getParameter(str4, "baseurl");
-/*  784 */     String str10 = cls.getParameter(str4, "vars");
-/*  785 */     if (!(cls.isEmpty(str5).booleanValue()))
+/*  817 */     String str4 = paramString;
+/*  818 */     String str5 = cls.getParameter(str4, "sql");
+/*  819 */     String str6 = cls.getParameter(str4, "tpl");
+/*  820 */     String str7 = cls.getParameter(str4, "tplid");
+/*  821 */     String str8 = cls.getParameter(str4, "tplstr");
+/*  822 */     Object localObject2 = cls.getParameter(str4, "genre");
+/*  823 */     String str9 = cls.getParameter(str4, "ocmode");
+/*  824 */     String str10 = cls.getParameter(str4, "baseurl");
+/*  825 */     String str11 = cls.getParameter(str4, "vars");
+/*  826 */     if (!(cls.isEmpty(str5).booleanValue()))
 /*      */     {
-/*  787 */       String str11 = cls.getLRStr(str5, " ", "left").toLowerCase();
-/*  788 */       if (str11.equals("select"))
+/*  828 */       String str12 = cls.getLRStr(str5, " ", "left").toLowerCase();
+/*  829 */       if (str12.equals("select"))
 /*      */       {
 /*      */         Object localObject5;
-/*  790 */         String str12 = str5;
-/*  791 */         String str13 = this.conf.getNGenre();
-/*  792 */         if ((cls.isEmpty(str9).booleanValue()) && 
-/*  794 */           (!(cls.isEmpty(localObject2).booleanValue())) && (!(((String)localObject2).equals(str13))))
+/*  831 */         String str13 = str5;
+/*  832 */         String str14 = this.conf.getNGenre();
+/*  833 */         if ((cls.isEmpty(str10).booleanValue()) && 
+/*  835 */           (!(cls.isEmpty(localObject2).booleanValue())) && (!(((String)localObject2).equals(str14))))
 /*      */         {
-/*  796 */           str9 = this.conf.getActualRoute((String)localObject2);
-/*  797 */           if (!(cls.getRight(str9, Integer.valueOf(1)).equals("/"))) str9 = str9 + "/";
+/*  837 */           str10 = this.conf.getActualRoute((String)localObject2);
+/*  838 */           if (!(cls.getRight(str10, Integer.valueOf(1)).equals("/"))) str10 = str10 + "/";
 /*      */         }
 /*      */ 
-/*  800 */         if (cls.isEmpty(localObject2).booleanValue()) localObject2 = str13;
+/*  841 */         if (cls.isEmpty(localObject2).booleanValue()) localObject2 = str14;
 /*      */ 
-/*  802 */         if (!(cls.isEmpty(str7).booleanValue())) localObject1 = str7;
-/*  805 */         else if (str6.indexOf(".") != -1) localObject1 = this.conf.jt.itake(str6, "tpl");
-/*      */         else localObject1 = this.conf.jt.itake("global.tpl_transfer." + str6, "tpl");
-/*      */ 
-/*  808 */         if (!(cls.isEmpty(str10).booleanValue()))
+/*  843 */         if (!(cls.isEmpty(str8).booleanValue())) { localObject1 = str8;
+/*      */         }
+/*  846 */         else if (!(cls.isEmpty(str7).booleanValue()))
 /*      */         {
-/*  810 */           Object localObject3 = str10.split(Pattern.quote("|"));
-/*  811 */           for (int i = 0; i < ((Object[])localObject3).length; ++i)
+/*  848 */           String[][]localObject3 = getJtbcElement(str7);
+/*  849 */           if ((localObject3 != null) && 
+/*  851 */             (localObject3[0].length == 2)) localObject1 = localObject3[0][1];
+/*      */ 
+/*      */         }
+/*  856 */         else if (str6.indexOf(".") != -1) { localObject1 = this.conf.jt.itake(str6, "tpl"); } else {
+/*  857 */           localObject1 = this.conf.jt.itake("global.tpl_transfer." + str6, "tpl");
+/*      */         }
+/*      */ 
+/*  860 */         if (!(cls.isEmpty(str11).booleanValue()))
+/*      */         {
+/*  862 */           Object[] localObject3 = str11.split(Pattern.quote("|"));
+/*  863 */           for (int i = 0; i < localObject3.length; ++i)
 /*      */           {
-/*  813 */             Object localObject4 = ((Object[])localObject3)[i];
-/*  814 */             if (cls.isEmpty(localObject4).booleanValue())
+/*  865 */             Object localObject4 = localObject3[i];
+/*  866 */             if (cls.isEmpty(localObject4).booleanValue())
 /*      */               continue;
-/*  816 */             localObject5 = ((String)localObject4).split(Pattern.quote("="));
-/*  817 */             if (((Object[])localObject5).length!= 2) continue; localObject1 = ((String)localObject1).replace("{$" + ((Object[])localObject5)[0] + "}", ((String[])localObject5)[1]);
+/*  868 */            localObject5 = ((String)localObject4).split(Pattern.quote("="));
+/*  869 */             if (((String[])localObject5).length != 2) continue; localObject1 = ((String)localObject1).replace("{$" + ((String[])localObject5)[0] + "}", ((String[])localObject5)[1]);
 /*      */           }
 /*      */ 
 /*      */         }
 /*      */ 
-/*  822 */         Object localObject3 = db.newInstance(this.conf);
-/*  823 */         Object[] arrayOfObject = ((dbc)localObject3).getDataAry(str12);
-/*  824 */         if (arrayOfObject != null)
+/*  874 */         Object localObject3 = db.newInstance(this.conf);
+/*  875 */         Object[] arrayOfObject = ((dbc)localObject3).getDataAry(str13);
+/*  876 */         if (arrayOfObject != null)
 /*      */         {
-/*  826 */           String str2 = "";
-/*  827 */           String str1 = cls.ctemplate((String)localObject1, "{@}");
-/*  828 */           for (int j = 0; j < arrayOfObject.length; ++j)
+/*  878 */           String str2 = "";
+/*  879 */           String str1 = cls.ctemplate((String)localObject1, "{@}");
+/*  880 */           for (int j = 0; j < arrayOfObject.length; ++j)
 /*      */           {
-/*  830 */             String str3 = str1;
-/*  831 */             localObject5 = (Object[][])(Object[][])arrayOfObject[j];
-/*  832 */             for (int k = 0; k < ((Object[][])(Object[][])localObject5).length; ++k)
+/*  882 */             String str3 = str1;
+/*  883 */             localObject5 = (Object[][])(Object[][])arrayOfObject[j];
+/*  884 */             for (int k = 0; k < ((Object[][])(Object[][])localObject5).length; ++k)
 /*      */             {
-/*  834 */               str3 = str3.replace("{$" + cls.toString(((Object[][])localObject5)[k][0]) + "}", encode.htmlencode(cls.toString(((Object[][])localObject5)[k][1]), "1"));
+/*  886 */               str3 = str3.replace("{$" + cls.toString(((Object[][])(Object[][])localObject5)[k][0]) + "}", encode.htmlencode(cls.toString(((Object[][])(Object[][])localObject5)[k][1]), "1"));
 /*      */             }
-/*  836 */             this.conf.rstAry = ((Object[][])localObject5);
-/*  837 */             str3 = str3.replace("{$-i}", cls.toString(Integer.valueOf(j)));
-/*  838 */             str3 = str3.replace("{$-genre}", (CharSequence)localObject2);
-/*  839 */             str3 = str3.replace("{$-baseurl}", str9);
+/*  888 */             this.conf.rstAry = ((Object[][])(Object[][])localObject5);
+/*  889 */             str3 = str3.replace("{$-i}", cls.toString(Integer.valueOf(j)));
+/*  890 */             str3 = str3.replace("{$-genre}", (CharSequence)localObject2);
+/*  891 */             str3 = str3.replace("{$-baseurl}", str10);
 /*      */ 
-/*  841 */             for (int k = 2; k < 7; ++k)
+/*  893 */             for (int k = 2; k < 7; ++k)
 /*      */             {
-/*  843 */               int l = j % k + 1;
-/*  844 */               str3 = str3.replace("{$-!mod" + k + "}", cls.toString(Integer.valueOf(l)));
-/*  845 */               if (l != k) str3 = str3.replace("{$-!mod" + k + "-string}", "");
-/*      */               else str3 = str3.replace("{$-!mod" + k + "-string}", cls.toString(str8));
+/*  895 */               int l = j % k + 1;
+/*  896 */               str3 = str3.replace("{$-!mod" + k + "}", cls.toString(Integer.valueOf(l)));
+/*  897 */               if (l != k) str3 = str3.replace("{$-!mod" + k + "-string}", "");
+/*      */               else str3 = str3.replace("{$-!mod" + k + "-string}", cls.toString(str9));
 /*      */             }
 /*      */ 
-/*  849 */             str3 = this.conf.jt.creplace(str3);
-/*  850 */             str2 = str2 + str3;
+/*  901 */             str3 = this.conf.jt.creplace(str3);
+/*  902 */             str2 = str2 + str3;
 /*      */           }
-/*  852 */           localObject1 = cls.ctemplates((String)localObject1, "{@}", str2);
+/*  904 */           localObject1 = cls.ctemplates((String)localObject1, "{@}", str2);
 /*      */         } else {
-/*  854 */           localObject1 = ""; }
-/*  855 */         localObject1 = this.conf.jt.creplace((String)localObject1);
+/*  906 */           localObject1 = ""; }
+/*  907 */         localObject1 = this.conf.jt.creplace((String)localObject1);
 /*      */       }
 /*      */     }
-/*  858 */     return ((String)(String)(String)(String)localObject1);
+/*  910 */     return ((String)(String)(String)(String)localObject1);
 /*      */   }
 /*      */ 
 /*      */   public String itransferITakes(String paramString)
 /*      */   {
-/*  863 */     Object localObject1 = "";
+/*  915 */     Object localObject1 = "";
 /*      */ 
-/*  865 */     String str4 = paramString;
-/*  866 */     String str5 = cls.getParameter(str4, "xinfostr");
-/*  867 */     String str6 = cls.getParameter(str4, "xinfotype");
-/*  868 */     String str7 = cls.getParameter(str4, "xinfolimit");
-/*  869 */     String str8 = cls.getParameter(str4, "tpl");
-/*  870 */     String str9 = cls.getParameter(str4, "tplstr");
-/*  871 */     Object localObject2 = cls.getParameter(str4, "genre");
-/*  872 */     String str10 = cls.getParameter(str4, "ocmode");
-/*  873 */     String str11 = cls.getParameter(str4, "baseurl");
-/*  874 */     String str12 = cls.getParameter(str4, "vars");
-/*  875 */     if (!(cls.isEmpty(str5).booleanValue()))
+/*  917 */     String str4 = paramString;
+/*  918 */     String str5 = cls.getParameter(str4, "xinfostr");
+/*  919 */     String str6 = cls.getParameter(str4, "xinfotype");
+/*  920 */     String str7 = cls.getParameter(str4, "xinfolimit");
+/*  921 */     String str8 = cls.getParameter(str4, "tpl");
+/*  922 */     String str9 = cls.getParameter(str4, "tplid");
+/*  923 */     String str10 = cls.getParameter(str4, "tplstr");
+/*  924 */     Object localObject2 = cls.getParameter(str4, "genre");
+/*  925 */     String str11 = cls.getParameter(str4, "ocmode");
+/*  926 */     String str12 = cls.getParameter(str4, "baseurl");
+/*  927 */     String str13 = cls.getParameter(str4, "vars");
+/*  928 */     if (!(cls.isEmpty(str5).booleanValue()))
 /*      */     {
 /*      */       Object localObject3;
-/*  877 */       String str13 = this.conf.getNGenre();
-/*  878 */       if ((cls.isEmpty(str11).booleanValue()) && 
-/*  880 */         (!(cls.isEmpty(localObject2).booleanValue())) && (!(((String)localObject2).equals(str13))))
+/*      */       Object localObject5;
+/*  930 */       String str14 = this.conf.getNGenre();
+/*  931 */       if ((cls.isEmpty(str12).booleanValue()) && 
+/*  933 */         (!(cls.isEmpty(localObject2).booleanValue())) && (!(((String)localObject2).equals(str14))))
 /*      */       {
-/*  882 */         str11 = this.conf.getActualRoute((String)localObject2);
-/*  883 */         if (!(cls.getRight(str11, Integer.valueOf(1)).equals("/"))) str11 = str11 + "/";
+/*  935 */         str12 = this.conf.getActualRoute((String)localObject2);
+/*  936 */         if (!(cls.getRight(str12, Integer.valueOf(1)).equals("/"))) str12 = str12 + "/";
 /*      */       }
 /*      */ 
-/*  886 */       if (cls.isEmpty(localObject2).booleanValue()) localObject2 = str13;
+/*  939 */       if (cls.isEmpty(localObject2).booleanValue()) localObject2 = str14;
 /*      */ 
-/*  888 */       if (!(cls.isEmpty(str9).booleanValue())) localObject1 = str9;
-/*  891 */       else if (str8.indexOf(".") != -1) localObject1 = this.conf.jt.itake(str8, "tpl");
-/*      */       else localObject1 = this.conf.jt.itake("global.tpl_transfer." + str8, "tpl");
-/*      */ 
-/*  894 */       if (!(cls.isEmpty(str12).booleanValue()))
+/*  941 */       if (!(cls.isEmpty(str10).booleanValue())) { localObject1 = str10;
+/*      */       }
+/*  944 */       else if (!(cls.isEmpty(str9).booleanValue()))
 /*      */       {
-/*  896 */         String[] arrayOfString = str12.split(Pattern.quote("|"));
-/*  897 */         for (int j = 0; j < arrayOfString.length; ++j)
+/*  946 */         localObject3 = getJtbcElement(str9);
+/*  947 */         if ((localObject3 != null) && 
+/*  949 */           (((String[][])localObject3)[0].length == 2)) localObject1 = ((String[][])localObject3)[0][1];
+/*      */ 
+/*      */       }
+/*  954 */       else if (str8.indexOf(".") != -1) { localObject1 = this.conf.jt.itake(str8, "tpl"); } else {
+/*  955 */         localObject1 = this.conf.jt.itake("global.tpl_transfer." + str8, "tpl");
+/*      */       }
+/*      */ 
+/*  958 */       if (!(cls.isEmpty(str13).booleanValue()))
+/*      */       {
+/*  960 */         localObject3 = str13.split(Pattern.quote("|"));
+/*  961 */         for (int j = 0; j < ((Object[])localObject3).length; ++j)
 /*      */         {
-/*  899 */           String str14 = arrayOfString[j];
-/*  900 */           if (cls.isEmpty(str14).booleanValue())
+/*  963 */           Object localObject4 = ((Object[])localObject3)[j];
+/*  964 */           if (cls.isEmpty(localObject4).booleanValue())
 /*      */             continue;
-/*  902 */           localObject3 = str14.split(Pattern.quote("="));
-/*  903 */           if (((Object[])localObject3).length != 2) continue; localObject1 = ((String)localObject1).replace("{$" + ((Object[])localObject3)[0] + "}", ((String[])localObject3)[1]);
+/*  966 */           localObject5 = ((String)localObject4).split(Pattern.quote("="));
+/*  967 */           if (((String[])localObject5).length != 2) continue; localObject1 = ((String)localObject1).replace("{$" + ((String[])localObject5)[0] + "}", ((String[])localObject5)[1]);
 /*      */         }
 /*      */ 
 /*      */       }
 /*      */ 
-/*  908 */       int i = 0;
-/*  909 */       if (cls.isEmpty(str6).booleanValue()) str6 = "lng";
-/*  910 */       String[][] arrayOfString1 = this.conf.jt.itakes(str5, str6);
-/*  911 */       if (arrayOfString1 != null)
+/*  972 */       int i = 0;
+/*  973 */       if (cls.isEmpty(str6).booleanValue()) str6 = "lng";
+/*  974 */       String[][] arrayOfString = this.conf.jt.itakes(str5, str6);
+/*  975 */       if (arrayOfString != null)
 /*      */       {
-/*  913 */         String str2 = "";
-/*  914 */         String str1 = cls.ctemplate((String)localObject1, "{@}");
-/*  915 */         for (int k = 0; k < arrayOfString1.length; ++k)
+/*  977 */         String str2 = "";
+/*  978 */         String str1 = cls.ctemplate((String)localObject1, "{@}");
+/*  979 */         for (int k = 0; k < arrayOfString.length; ++k)
 /*      */         {
-/*  917 */           localObject3 = arrayOfString1[k][0];
-/*  918 */           String str15 = arrayOfString1[k][1];
-/*  919 */           if ((!(cls.isEmpty(str7).booleanValue())) && (!(cls.cinstr(str7, (String)localObject3, ",").booleanValue())))
+/*  981 */           localObject5 = arrayOfString[k][0];
+/*  982 */           String str15 = arrayOfString[k][1];
+/*  983 */           if ((!(cls.isEmpty(str7).booleanValue())) && (!(cls.cinstr(str7, (String)localObject5, ",").booleanValue())))
 /*      */             continue;
-/*  921 */           String str3 = str1;
-/*  922 */           str3 = str3.replace("{$namestring}", (CharSequence)localObject3);
-/*  923 */           str3 = str3.replace("{$valuestring}", str15);
-/*  924 */           str3 = str3.replace("{$name}", encode.htmlencode((String)localObject3));
-/*  925 */           str3 = str3.replace("{$value}", encode.htmlencode(str15));
-/*  926 */           str3 = str3.replace("{$-i}", cls.toString(Integer.valueOf(i)));
-/*  927 */           str3 = str3.replace("{$-genre}", (CharSequence)localObject2);
-/*  928 */           str3 = str3.replace("{$-baseurl}", str11);
+/*  985 */           String str3 = str1;
+/*  986 */           str3 = str3.replace("{$namestring}", (CharSequence)localObject5);
+/*  987 */           str3 = str3.replace("{$valuestring}", str15);
+/*  988 */           str3 = str3.replace("{$name}", encode.htmlencode((String)localObject5));
+/*  989 */           str3 = str3.replace("{$value}", encode.htmlencode(str15));
+/*  990 */           str3 = str3.replace("{$-i}", cls.toString(Integer.valueOf(i)));
+/*  991 */           str3 = str3.replace("{$-genre}", (CharSequence)localObject2);
+/*  992 */           str3 = str3.replace("{$-baseurl}", str12);
 /*      */ 
-/*  930 */           for (int l = 2; l < 7; ++l)
+/*  994 */           for (int l = 2; l < 7; ++l)
 /*      */           {
-/*  932 */             int i1 = i % l + 1;
-/*  933 */             str3 = str3.replace("{$-!mod" + l + "}", cls.toString(Integer.valueOf(i1)));
-/*  934 */             if (i1 != l) str3 = str3.replace("{$-!mod" + l + "-string}", "");
-/*      */             else str3 = str3.replace("{$-!mod" + l + "-string}", cls.toString(str10));
+/*  996 */             int i1 = i % l + 1;
+/*  997 */             str3 = str3.replace("{$-!mod" + l + "}", cls.toString(Integer.valueOf(i1)));
+/*  998 */             if (i1 != l) str3 = str3.replace("{$-!mod" + l + "-string}", "");
+/*      */             else str3 = str3.replace("{$-!mod" + l + "-string}", cls.toString(str11));
 /*      */           }
 /*      */ 
-/*  938 */           str2 = str2 + str3;
-/*  939 */           ++i;
+/* 1002 */           str2 = str2 + str3;
+/* 1003 */           ++i;
 /*      */         }
 /*      */ 
-/*  942 */         localObject1 = cls.ctemplates((String)localObject1, "{@}", str2);
+/* 1006 */         localObject1 = cls.ctemplates((String)localObject1, "{@}", str2);
 /*      */       } else {
-/*  944 */         localObject1 = ""; }
-/*  945 */       localObject1 = this.conf.jt.creplace((String)localObject1);
+/* 1008 */         localObject1 = ""; }
+/* 1009 */       localObject1 = this.conf.jt.creplace((String)localObject1);
 /*      */     }
-/*  947 */     return ((String)(String)(String)localObject1);
+/* 1011 */     return ((String)(String)(String)(String)localObject1);
 /*      */   }
 /*      */ 
 /*      */   public String itransferMultiGenre(String paramString)
 /*      */   {
-/*  952 */     Object localObject1 = "";
-/*      */ 	   Object localObject2 = "";
-/*  954 */     String str4 = paramString;
-/*  955 */     String str5 = cls.getParameter(str4, "tpl");
-/*  956 */     String str6 = cls.getParameter(str4, "tplstr");
-/*  957 */     String str7 = cls.getParameter(str4, "type");
-/*  958 */     String str8 = cls.getParameter(str4, "genre");
-/*  959 */     String str9 = cls.getParameter(str4, "field");
-/*  960 */     String str10 = cls.getParameter(str4, "osql");
-/*  961 */     String str11 = cls.getParameter(str4, "osqlorder");
-/*  962 */     String str12 = cls.getParameter(str4, "ocmode");
-/*  963 */     String str13 = cls.getParameter(str4, "baseurl");
-/*  964 */     String str14 = cls.getParameter(str4, "vars");
-/*  965 */     Integer localInteger1 = cls.getNum(cls.getParameter(str4, "topx"), Integer.valueOf(-1));
-/*  966 */     Integer localInteger2 = cls.getNum(cls.getParameter(str4, "lng"), Integer.valueOf(-1));
-/*  967 */     Integer localInteger3 = cls.getNum(this.conf.dbtype, Integer.valueOf(0));
-/*  968 */     if (localInteger2.intValue() == -1) localInteger2 = cls.getNum(this.conf.getNLng(), Integer.valueOf(-1));
-/*  969 */     if (localInteger1.intValue() > 0)
+/* 1016 */     Object localObject1 = "";
+/*      */ 
+/* 1018 */     String str4 = paramString;
+/* 1019 */     String str5 = cls.getParameter(str4, "tpl");
+/* 1020 */     String str6 = cls.getParameter(str4, "tplid");
+/* 1021 */     String str7 = cls.getParameter(str4, "tplstr");
+/* 1022 */     String str8 = cls.getParameter(str4, "type");
+/* 1023 */     String str9 = cls.getParameter(str4, "genre");
+/* 1024 */     String str10 = cls.getParameter(str4, "field");
+/* 1025 */     String str11 = cls.getParameter(str4, "osql");
+/* 1026 */     String str12 = cls.getParameter(str4, "osqlorder");
+/* 1027 */     String str13 = cls.getParameter(str4, "ocmode");
+/* 1028 */     String str14 = cls.getParameter(str4, "baseurl");
+/* 1029 */     String str15 = cls.getParameter(str4, "vars");
+/* 1030 */     Integer localInteger1 = cls.getNum(cls.getParameter(str4, "topx"), Integer.valueOf(-1));
+/* 1031 */     Integer localInteger2 = cls.getNum(cls.getParameter(str4, "lng"), Integer.valueOf(-1));
+/* 1032 */     Integer localInteger3 = cls.getNum(this.conf.dbtype, Integer.valueOf(0));
+/* 1033 */     if (localInteger2.intValue() == -1) localInteger2 = cls.getNum(this.conf.getNLng(), Integer.valueOf(-1));
+/* 1034 */     if (localInteger1.intValue() > 0)
 /*      */     {
-/*  971 */       String str15 = this.conf.getNGenre();
-/*  972 */       if (!(cls.isEmpty(str8).booleanValue()))
+/* 1036 */       String str16 = this.conf.getNGenre();
+/* 1037 */       if (!(cls.isEmpty(str9).booleanValue()))
 /*      */       {
-/*      */         String str19;
+/*      */         String str20;
 /*      */         Object localObject3;
-/*  974 */         String str16 = "";
-/*  975 */         String str17 = "";
-/*  976 */         str16 = str16 + "select * from (";
-/*  977 */         String[] arrayOfString1 = str8.split(Pattern.quote("&"));
-/*  978 */         for (int i = 0; i < arrayOfString1.length; ++i)
+/* 1039 */         String str17 = "";
+/* 1040 */         String str18 = "";
+/* 1041 */         str17 = str17 + "select * from (";
+/* 1042 */         String[] arrayOfString1 = str9.split(Pattern.quote("&"));
+/* 1043 */         for (int i = 0; i < arrayOfString1.length; ++i)
 /*      */         {
-/*  980 */           String str18 = arrayOfString1[i];
-/*  981 */           str19 = cls.getString(this.conf.jt.itake("global." + str18 + ":config.ndatabase", "cfg"));
-/*  982 */           localObject3 = cls.getString(this.conf.jt.itake("global." + str18 + ":config.nfpre", "cfg"));
-/*  983 */           if (cls.isEmpty(str19).booleanValue())
+/* 1045 */           String str19 = arrayOfString1[i];
+/* 1046 */           str20 = cls.getString(this.conf.jt.itake("global." + str19 + ":config.ndatabase", "cfg"));
+/* 1047 */           localObject3 = cls.getString(this.conf.jt.itake("global." + str19 + ":config.nfpre", "cfg"));
+/* 1048 */           if (cls.isEmpty(str20).booleanValue())
 /*      */             continue;
-/*  985 */           str16 = str16 + "select " + cls.cfnames((String)localObject3, "id") + " as un_id,";
-/*  986 */           String[] arrayOfString2 = str9.split(Pattern.quote("&"));
-/*  987 */           for (int i1 = 0; i1 < arrayOfString2.length; ++i1)
+/* 1050 */           str17 = str17 + "select " + cls.cfnames((String)localObject3, "id") + " as un_id,";
+/* 1051 */           String[] arrayOfString2 = str10.split(Pattern.quote("&"));
+/* 1052 */           for (int i1 = 0; i1 < arrayOfString2.length; ++i1)
 /*      */           {
-/*  989 */             String str22 = arrayOfString2[i1];
-/*  990 */             str16 = str16 + cls.cfnames((String)localObject3, str22) + " as un_" + str22 + ",";
+/* 1054 */             String str23 = arrayOfString2[i1];
+/* 1055 */             str17 = str17 + cls.cfnames((String)localObject3, str23) + " as un_" + str23 + ",";
 /*      */           }
-/*  992 */           str16 = str16 + cls.cfnames((String)localObject3, "time") + " as un_time, '" + str18 + "' as un_genre from " + str19;
-/*  993 */           if (str7.equals("new"))
+/* 1057 */           str17 = str17 + cls.cfnames((String)localObject3, "time") + " as un_time, '" + str19 + "' as un_genre from " + str20;
+/* 1058 */           if (str8.equals("new"))
 /*      */           {
-/*  995 */             str16 = str16 + " where " + cls.cfnames((String)localObject3, "hidden") + "=0";
-/*  996 */             str17 = " order by un_time desc";
+/* 1060 */             str17 = str17 + " where " + cls.cfnames((String)localObject3, "hidden") + "=0";
+/* 1061 */             str18 = " order by un_time desc";
 /*      */           }
-/*  998 */           else if (str7.equals("-new"))
+/* 1063 */           else if (str8.equals("-new"))
 /*      */           {
-/* 1000 */             str16 = str16 + " where " + cls.cfnames((String)localObject3, "hidden") + "=0";
-/* 1001 */             str17 = " order by un_time desc";
+/* 1065 */             str17 = str17 + " where " + cls.cfnames((String)localObject3, "hidden") + "=0";
+/* 1066 */             str18 = " order by un_time desc";
 /*      */           }
-/* 1003 */           else if (str7.equals("@new"))
+/* 1068 */           else if (str8.equals("@new"))
 /*      */           {
-/* 1005 */             str16 = str16 + " where 1=1";
-/* 1006 */             str17 = " order by un_time desc";
+/* 1070 */             str17 = str17 + " where 1=1";
+/* 1071 */             str18 = " order by un_time desc";
 /*      */           }
-/* 1008 */           else if (str7.equals("commendatory"))
+/* 1073 */           else if (str8.equals("commendatory"))
 /*      */           {
-/* 1010 */             str16 = str16 + " where " + cls.cfnames((String)localObject3, "hidden") + "=0 and " + cls.cfnames((String)localObject3, "commendatory") + "=1";
-/* 1011 */             str17 = " order by un_time desc";
+/* 1075 */             str17 = str17 + " where " + cls.cfnames((String)localObject3, "hidden") + "=0 and " + cls.cfnames((String)localObject3, "commendatory") + "=1";
+/* 1076 */             str18 = " order by un_time desc";
 /*      */           }
-/* 1013 */           else if (str7.equals("-commendatory"))
+/* 1078 */           else if (str8.equals("-commendatory"))
 /*      */           {
-/* 1015 */             str16 = str16 + " where " + cls.cfnames((String)localObject3, "hidden") + "=0 and " + cls.cfnames((String)localObject3, "commendatory") + "=1";
-/* 1016 */             str17 = " order by un_time desc";
+/* 1080 */             str17 = str17 + " where " + cls.cfnames((String)localObject3, "hidden") + "=0 and " + cls.cfnames((String)localObject3, "commendatory") + "=1";
+/* 1081 */             str18 = " order by un_time desc";
 /*      */           }
-/* 1018 */           else if (str7.equals("@commendatory"))
+/* 1083 */           else if (str8.equals("@commendatory"))
 /*      */           {
-/* 1020 */             str16 = str16 + " where " + cls.cfnames((String)localObject3, "commendatory") + "=1";
-/* 1021 */             str17 = " order by un_time desc";
+/* 1085 */             str17 = str17 + " where " + cls.cfnames((String)localObject3, "commendatory") + "=1";
+/* 1086 */             str18 = " order by un_time desc";
 /*      */           }
 /*      */           else
 /*      */           {
-/* 1025 */             str16 = str16 + " where " + cls.cfnames((String)localObject3, "hidden") + "=0";
-/* 1026 */             str17 = " order by un_time desc";
+/* 1090 */             str17 = str17 + " where " + cls.cfnames((String)localObject3, "hidden") + "=0";
+/* 1091 */             str18 = " order by un_time desc";
 /*      */           }
-/* 1028 */           if ((localInteger2.intValue() != -1) && (localInteger2.intValue() != -100)) str16 = str16 + " and " + cls.cfnames((String)localObject3, "lng") + "=" + localInteger2;
-/* 1029 */           str16 = str16 + " union all ";
+/* 1093 */           if ((localInteger2.intValue() != -1) && (localInteger2.intValue() != -100)) str17 = str17 + " and " + cls.cfnames((String)localObject3, "lng") + "=" + localInteger2;
+/* 1094 */           str17 = str17 + " union all ";
 /*      */         }
 /*      */ 
-/* 1032 */         if (str16.indexOf(" union all ") != -1) str16 = cls.getLRStr(str16, " union all ", "leftr");
-/* 1033 */         str16 = str16 + ") t1 where 1=1";
-/* 1034 */         if (!(cls.isEmpty(str10).booleanValue())) str16 = str16 + str10;
-/* 1035 */         if (!(cls.isEmpty(str11).booleanValue())) str17 = str11;
-/* 1036 */         str16 = str16 + str17;
-/* 1037 */         if ((localInteger3.intValue() >= 0) && (localInteger3.intValue() < 10)) str16 = str16 + " limit 0," + localInteger1;
-/* 1038 */         if ((localInteger3.intValue() >= 10) && (localInteger3.intValue() < 20)) str16 = "select top " + localInteger1 + " *" + cls.getLRStr(str16, "select *", "rightr");
-/* 1039 */         if ((localInteger3.intValue() >= 20) && (localInteger3.intValue() < 30)) str16 = str16 + " limit " + localInteger1;
+/* 1097 */         if (str17.indexOf(" union all ") != -1) str17 = cls.getLRStr(str17, " union all ", "leftr");
+/* 1098 */         str17 = str17 + ") t1 where 1=1";
+/* 1099 */         if (!(cls.isEmpty(str11).booleanValue())) str17 = str17 + str11;
+/* 1100 */         if (!(cls.isEmpty(str12).booleanValue())) str18 = str12;
+/* 1101 */         str17 = str17 + str18;
+/* 1102 */         if ((localInteger3.intValue() >= 0) && (localInteger3.intValue() < 10)) str17 = str17 + " limit 0," + localInteger1;
+/* 1103 */         if ((localInteger3.intValue() >= 10) && (localInteger3.intValue() < 20)) str17 = "select top " + localInteger1 + " *" + cls.getLRStr(str17, "select *", "rightr");
+/* 1104 */         if ((localInteger3.intValue() >= 20) && (localInteger3.intValue() < 30)) str17 = str17 + " limit " + localInteger1;
 /*      */ 
-/* 1041 */         if (!(cls.isEmpty(str6).booleanValue())) localObject1 = str6;
-/* 1044 */         else if (str5.indexOf(".") != -1) localObject1 = this.conf.jt.itake(str5, "tpl");
-/*      */         else localObject1 = this.conf.jt.itake("global.tpl_transfer." + str5, "tpl");
-/*      */ 
-/* 1047 */         if (!(cls.isEmpty(str14).booleanValue()))
+/* 1106 */         if (!(cls.isEmpty(str7).booleanValue())) { localObject1 = str7;
+/*      */         }
+/* 1109 */         else if (!(cls.isEmpty(str6).booleanValue()))
 /*      */         {
-/* 1049 */           localObject2 = str14.split(Pattern.quote("|"));
-/* 1050 */           for (int j = 0; j < ((Object[])localObject2).length; ++j)
+/* 1111 */          String[][] localObject2 = getJtbcElement(str6);
+/* 1112 */           if ((localObject2 != null) && 
+/* 1114 */             (localObject2[0].length == 2)) localObject1 = localObject2[0][1];
+/*      */ 
+/*      */         }
+/* 1119 */         else if (str5.indexOf(".") != -1) { localObject1 = this.conf.jt.itake(str5, "tpl"); } else {
+/* 1120 */           localObject1 = this.conf.jt.itake("global.tpl_transfer." + str5, "tpl");
+/*      */         }
+/*      */ 
+/* 1123 */         if (!(cls.isEmpty(str15).booleanValue()))
+/*      */         {
+/* 1125 */          String[] localObject2 = str15.split(Pattern.quote("|"));
+/* 1126 */           for (int j = 0; j < localObject2.length; ++j)
 /*      */           {
-/* 1052 */             str19 = ((String[])localObject2)[j];
-/* 1053 */             if (cls.isEmpty(str19).booleanValue())
+/* 1128 */             str20 = localObject2[j];
+/* 1129 */             if (cls.isEmpty(str20).booleanValue())
 /*      */               continue;
-/* 1055 */             localObject3 = str19.split(Pattern.quote("="));
-/* 1056 */             if (((Object[])localObject3).length != 2) continue; localObject1 = ((String)localObject1).replace("{$" + ((Object[])localObject3)[0] + "}", ((String[])localObject3)[1]);
+/* 1131 */             localObject3 = str20.split(Pattern.quote("="));
+/* 1132 */             if (((String[])localObject3).length != 2) continue; localObject1 = ((String)localObject1).replace("{$" + ((String[])localObject3)[0] + "}", ((String[])localObject3)[1]);
 /*      */           }
 /*      */ 
 /*      */         }
 /*      */ 
-/* 1061 */         localObject2 = db.newInstance(this.conf);
-/* 1062 */         Object[] arrayOfObject = ((dbc)localObject2).getDataAry(str16);
-/* 1063 */         if (arrayOfObject != null)
+/* 1137 */         Object localObject2 = db.newInstance(this.conf);
+/* 1138 */         Object[] arrayOfObject = ((dbc)localObject2).getDataAry(str17);
+/* 1139 */         if (arrayOfObject != null)
 /*      */         {
-/* 1065 */           String str2 = "";
-/* 1066 */           String str1 = cls.ctemplate((String)localObject1, "{@}");
-/* 1067 */           for (int k = 0; k < arrayOfObject.length; ++k)
+/* 1141 */           String str2 = "";
+/* 1142 */           String str1 = cls.ctemplate((String)localObject1, "{@}");
+/* 1143 */           for (int k = 0; k < arrayOfObject.length; ++k)
 /*      */           {
-/* 1069 */             String str3 = str1;
-/* 1070 */             localObject3 = (Object[][])(Object[][])arrayOfObject[k];
-/* 1071 */             for (int l = 0; l < ((Object[][])localObject3).length; ++l)
+/* 1145 */             String str3 = str1;
+/* 1146 */             localObject3 = (Object[][])(Object[][])arrayOfObject[k];
+/* 1147 */             for (int l = 0; l < ((Object[][])(Object[][])localObject3).length; ++l)
 /*      */             {
-/* 1073 */               ((Object[][])localObject3)[l][0] = cls.getLRStr((String)((Object[][])localObject3)[l][0], "un_", "rightr");
-/* 1074 */               str3 = str3.replace("{$" + cls.toString(((Object[][])localObject3)[l][0]) + "}", encode.htmlencode(cls.toString(((Object[][])localObject3)[l][1]), "1"));
+/* 1149 */               ((Object[][])(Object[][])localObject3)[l][0] = cls.getLRStr((String)((Object[][])(Object[][])localObject3)[l][0], "un_", "rightr");
+/* 1150 */               str3 = str3.replace("{$" + cls.toString(((Object[][])(Object[][])localObject3)[l][0]) + "}", encode.htmlencode(cls.toString(((Object[][])(Object[][])localObject3)[l][1]), "1"));
 /*      */             }
-/* 1076 */             this.conf.rstAry = ((Object[][])localObject3);
-/* 1077 */             String str20 = cls.toString(((dbc)localObject2).getValue((Object[][])localObject3, "genre"));
-/* 1078 */             String str21 = "";
-/* 1079 */             if (!(str20.equals(str15)))
-/*      */             {
-/* 1081 */               str21 = this.conf.getActualRoute(str20);
-/* 1082 */               if (!(cls.getRight(str21, Integer.valueOf(1)).equals("/"))) str21 = str21 + "/";
+/* 1152 */             this.conf.rstAry = ((Object[][])(Object[][])localObject3);
+/* 1153 */             String str21 = cls.toString(((dbc)localObject2).getValue(((Object[][])(Object[][])localObject3), "genre"));
+/* 1154 */             String str22 = "";
+/* 1155 */             if (!(cls.isEmpty(str14).booleanValue())) { str22 = str14;
 /*      */             }
-/* 1084 */             str3 = str3.replace("{$-i}", cls.toString(Integer.valueOf(k)));
-/* 1085 */             str3 = str3.replace("{$-genre}", encode.htmlencode(str20));
-/* 1086 */             str3 = str3.replace("{$-baseurl}", str21);
-/*      */ 
-/* 1088 */             for (int i2 = 2; i2 < 7; ++i2)
+/* 1158 */             else if (!(str21.equals(str16)))
 /*      */             {
-/* 1090 */               int i3 = k % i2 + 1;
-/* 1091 */               str3 = str3.replace("{$-!mod" + i2 + "}", cls.toString(Integer.valueOf(i3)));
-/* 1092 */               if (i3 != i2) str3 = str3.replace("{$-!mod" + i2 + "-string}", "");
-/*      */               else str3 = str3.replace("{$-!mod" + i2 + "-string}", cls.toString(str12));
+/* 1160 */               str22 = this.conf.getActualRoute(str21);
+/* 1161 */               if (!(cls.getRight(str22, Integer.valueOf(1)).equals("/"))) str22 = str22 + "/";
 /*      */             }
 /*      */ 
-/* 1096 */             str3 = this.conf.jt.creplace(str3);
-/* 1097 */             str2 = str2 + str3;
+/* 1164 */             str3 = str3.replace("{$-i}", cls.toString(Integer.valueOf(k)));
+/* 1165 */             str3 = str3.replace("{$-genre}", encode.htmlencode(str21));
+/* 1166 */             str3 = str3.replace("{$-baseurl}", str22);
+/*      */ 
+/* 1168 */             for (int i2 = 2; i2 < 7; ++i2)
+/*      */             {
+/* 1170 */               int i3 = k % i2 + 1;
+/* 1171 */               str3 = str3.replace("{$-!mod" + i2 + "}", cls.toString(Integer.valueOf(i3)));
+/* 1172 */               if (i3 != i2) str3 = str3.replace("{$-!mod" + i2 + "-string}", "");
+/*      */               else str3 = str3.replace("{$-!mod" + i2 + "-string}", cls.toString(str13));
+/*      */             }
+/*      */ 
+/* 1176 */             str3 = this.conf.jt.creplace(str3);
+/* 1177 */             str2 = str2 + str3;
 /*      */           }
-/* 1099 */           localObject1 = cls.ctemplates((String)localObject1, "{@}", str2);
+/* 1179 */           localObject1 = cls.ctemplates((String)localObject1, "{@}", str2);
 /*      */         } else {
-/* 1101 */           localObject1 = ""; }
-/* 1102 */         localObject1 = this.conf.jt.creplace((String)localObject1);
+/* 1181 */           localObject1 = ""; }
+/* 1182 */         localObject1 = this.conf.jt.creplace((String)localObject1);
 /*      */       }
 /*      */     }
-/* 1105 */     return ((String)(String)(String)localObject1);
+/* 1185 */     return ((String)(String)(String)localObject1);
 /*      */   }
 /*      */ 
 /*      */   public String isort(String paramString)
 /*      */   {
-/* 1110 */     String str1 = "";
+/* 1190 */     String str1 = "";
 /*      */ 
-/* 1112 */     String str5 = paramString;
-/* 1113 */     String str6 = cls.getParameter(str5, "tpl");
-/* 1114 */     Object localObject1 = cls.getParameter(str5, "genre");
-/* 1115 */     String str7 = cls.getParameter(str5, "lng");
-/* 1116 */     String str8 = cls.getParameter(str5, "fid");
-/* 1117 */     String str9 = cls.getParameter(str5, "vars");
-/* 1118 */     String str10 = cls.getParameter(str5, "valids");
-/* 1119 */     String str11 = "";
-/* 1120 */     String str12 = this.conf.getNGenre();
-/* 1121 */     if (cls.isEmpty(localObject1).booleanValue()) localObject1 = str12;
-/* 1122 */     if (cls.isEmpty(str7).booleanValue()) str7 = this.conf.getNLng();
-/* 1123 */     if (str10.equals("-1")) str10 = "";
-/* 1124 */     if (!(((String)localObject1).equals(str12)))
+/* 1192 */     String str5 = paramString;
+/* 1193 */     String str6 = cls.getParameter(str5, "tpl");
+/* 1194 */     Object localObject1 = cls.getParameter(str5, "genre");
+/* 1195 */     String str7 = cls.getParameter(str5, "lng");
+/* 1196 */     String str8 = cls.getParameter(str5, "fid");
+/* 1197 */     String str9 = cls.getParameter(str5, "vars");
+/* 1198 */     String str10 = cls.getParameter(str5, "valids");
+/* 1199 */     String str11 = "";
+/* 1200 */     String str12 = this.conf.getNGenre();
+/* 1201 */     if (cls.isEmpty(localObject1).booleanValue()) localObject1 = str12;
+/* 1202 */     if (cls.isEmpty(str7).booleanValue()) str7 = this.conf.getNLng();
+/* 1203 */     if (str10.equals("-1")) str10 = "";
+/* 1204 */     if (!(((String)localObject1).equals(str12)))
 /*      */     {
-/* 1126 */       str11 = this.conf.getActualRoute((String)localObject1);
-/* 1127 */       if (cls.getRight(str11, Integer.valueOf(1)) != "/") str11 = str11 + "/";
+/* 1206 */       str11 = this.conf.getActualRoute((String)localObject1);
+/* 1207 */       if (cls.getRight(str11, Integer.valueOf(1)) != "/") str11 = str11 + "/";
 /*      */     }
-/* 1129 */     if (str6.indexOf(".") != -1) str1 = this.conf.jt.itake(str6, "tpl");
+/* 1209 */     if (str6.indexOf(".") != -1) str1 = this.conf.jt.itake(str6, "tpl");
 /*      */     else str1 = this.conf.jt.itake("global.tpl_transfer." + str6, "tpl");
-/* 1131 */     if (!(cls.isEmpty(str9).booleanValue()))
+/* 1211 */     if (!(cls.isEmpty(str9).booleanValue()))
 /*      */     {
-/* 1133 */       Object localObject2 = str9.split(Pattern.quote("|"));
-/* 1134 */       for (int i = 0; i < ((Object[])localObject2).length; ++i)
+/* 1213 */      Object[] localObject2 = str9.split(Pattern.quote("|"));
+/* 1214 */       for (int i = 0; i < localObject2.length; ++i)
 /*      */       {
-/* 1136 */         Object localObject3 = ((Object[])localObject2)[i];
-/* 1137 */         if (cls.isEmpty(localObject3).booleanValue())
+/* 1216 */         Object localObject3 = localObject2[i];
+/* 1217 */         if (cls.isEmpty(localObject3).booleanValue())
 /*      */           continue;
-/* 1139 */         String[] arrayOfString1 = ((String)localObject3).split(Pattern.quote("="));
-/* 1140 */         if (arrayOfString1.length != 2) continue; str1 = str1.replace("{$" + arrayOfString1[0] + "}", arrayOfString1[1]);
+/* 1219 */         String[] arrayOfString1 = ((String)localObject3).split(Pattern.quote("="));
+/* 1220 */         if (arrayOfString1.length != 2) continue; str1 = str1.replace("{$" + arrayOfString1[0] + "}", arrayOfString1[1]);
 /*      */       }
 /*      */     }
 /*      */ 
-/* 1144 */     String str3 = "";
-/* 1145 */     String str2 = cls.ctemplate(str1, "{@}");
-/* 1146 */     Object localObject2 = new category(this.conf);
-/* 1147 */     String[][] arrayOfString = ((category)localObject2).getCatAry((String)localObject1, cls.getNum(str7, Integer.valueOf(0)));
-/* 1148 */     if (arrayOfString != null)
+/* 1224 */     String str3 = "";
+/* 1225 */     String str2 = cls.ctemplate(str1, "{@}");
+/* 1226 */     Object localObject2 = new category(this.conf);
+/* 1227 */     String[][] arrayOfString = ((category)localObject2).getCatAry((String)localObject1, cls.getNum(str7, Integer.valueOf(0)));
+/* 1228 */     if (arrayOfString != null)
 /*      */     {
-/* 1150 */       for (int j = 0; j < arrayOfString.length; ++j)
+/* 1230 */       for (int j = 0; j < arrayOfString.length; ++j)
 /*      */       {
-/* 1152 */         if ((!(cls.getNum(arrayOfString[j][2], Integer.valueOf(0)).equals(cls.getNum(str8, Integer.valueOf(0))))) || (
-/* 1154 */           (!(cls.isEmpty(str10).booleanValue())) && (!(cls.cinstr(str10, cls.toString(cls.getNum(arrayOfString[j][0], Integer.valueOf(0))), ",").booleanValue()))))
+/* 1232 */         if ((!(cls.getNum(arrayOfString[j][2], Integer.valueOf(0)).equals(cls.getNum(str8, Integer.valueOf(0))))) || (
+/* 1234 */           (!(cls.isEmpty(str10).booleanValue())) && (!(cls.cinstr(str10, cls.toString(cls.getNum(arrayOfString[j][0], Integer.valueOf(0))), ",").booleanValue()))))
 /*      */           continue;
-/* 1156 */         String str4 = str2;
-/* 1157 */         str4 = str4.replace("{$topic}", encode.htmlencode(arrayOfString[j][1]));
-/* 1158 */         str4 = str4.replace("{$id}", encode.htmlencode(arrayOfString[j][0]));
-/* 1159 */         str4 = str4.replace("{$-genre}", (CharSequence)localObject1);
-/* 1160 */         str4 = str4.replace("{$-baseurl}", str11);
-/* 1161 */         str3 = str3 + str4;
+/* 1236 */         String str4 = str2;
+/* 1237 */         str4 = str4.replace("{$topic}", encode.htmlencode(arrayOfString[j][1]));
+/* 1238 */         str4 = str4.replace("{$id}", encode.htmlencode(arrayOfString[j][0]));
+/* 1239 */         str4 = str4.replace("{$-genre}", (CharSequence)localObject1);
+/* 1240 */         str4 = str4.replace("{$-baseurl}", str11);
+/* 1241 */         str3 = str3 + str4;
 /*      */       }
 /*      */ 
 /*      */     }
 /*      */ 
-/* 1166 */     str1 = cls.ctemplates(str1, "{@}", str3);
-/* 1167 */     str1 = this.conf.jt.creplace(str1);
-/* 1168 */     return ((String)(String)str1);
+/* 1246 */     str1 = cls.ctemplates(str1, "{@}", str3);
+/* 1247 */     str1 = this.conf.jt.creplace(str1);
+/* 1248 */     return ((String)(String)str1);
 /*      */   }
 /*      */ 
 /*      */   public String inavigation(String paramString)
 /*      */   {
-/* 1173 */     Object localObject1 = "";
-/* 1174 */     String str1 = paramString;
-/* 1175 */     Object localObject2 = cls.getParameter(str1, "genre");
-/* 1176 */     String str2 = cls.getParameter(str1, "lng");
-/* 1177 */     String str3 = cls.getParameter(str1, "class");
-/* 1178 */     String str4 = cls.getParameter(str1, "genrelink");
-/* 1179 */     String str5 = "";
-/* 1180 */     String str6 = this.conf.getNGenre();
-/* 1181 */     if (cls.isEmpty(localObject2).booleanValue()) localObject2 = str6;
-/* 1182 */     if (cls.isEmpty(str2).booleanValue()) str2 = this.conf.getNLng();
-/* 1183 */     if (!(((String)localObject2).equals(str6)))
+/* 1253 */     Object localObject1 = "";
+/* 1254 */     String str1 = paramString;
+/* 1255 */     Object localObject2 = cls.getParameter(str1, "genre");
+/* 1256 */     String str2 = cls.getParameter(str1, "lng");
+/* 1257 */     String str3 = cls.getParameter(str1, "class");
+/* 1258 */     String str4 = cls.getParameter(str1, "genrelink");
+/* 1259 */     String str5 = "";
+/* 1260 */     String str6 = this.conf.getNGenre();
+/* 1261 */     if (cls.isEmpty(localObject2).booleanValue()) localObject2 = str6;
+/* 1262 */     if (cls.isEmpty(str2).booleanValue()) str2 = this.conf.getNLng();
+/* 1263 */     if (!(((String)localObject2).equals(str6)))
 /*      */     {
-/* 1185 */       str5 = this.conf.getActualRoute((String)localObject2);
-/* 1186 */       if (!(cls.getRight(str5, Integer.valueOf(1)).equals("/"))) str5 = str5 + "/";
+/* 1265 */       str5 = this.conf.getActualRoute((String)localObject2);
+/* 1266 */       if (!(cls.getRight(str5, Integer.valueOf(1)).equals("/"))) str5 = str5 + "/";
 /*      */     }
-/* 1188 */     String str7 = this.conf.jt.itake("global.tpl_config.a_href_self", "tpl");
-/* 1189 */     String str8 = this.conf.jt.itake("global.default.channel_title", "lng");
-/* 1190 */     localObject1 = str7;
-/* 1191 */     localObject1 = ((String)localObject1).replace("{$explain}", str8);
-/* 1192 */     localObject1 = ((String)localObject1).replace("{$value}", this.conf.getActualRoute("./"));
-			
-/* 1193 */     if (localObject2 != "&hidden")
+/* 1268 */     String str7 = this.conf.jt.itake("global.tpl_config.a_href_self", "tpl");
+/* 1269 */     String str8 = this.conf.jt.itake("global.default.channel_title", "lng");
+/* 1270 */     localObject1 = str7;
+/* 1271 */     localObject1 = ((String)localObject1).replace("{$explain}", str8);
+/* 1272 */     localObject1 = ((String)localObject1).replace("{$value}", this.conf.getActualRoute("./"));
+/* 1273 */     if (localObject2 != "&hidden")
 /*      */     {
-/* 1195 */       String str9 = this.conf.jt.itake("global." + ((String)localObject2) + ":default.channel_title", "lng");
-/* 1196 */       if (!(str4.equals("&hidden")))
+/* 1275 */      String str9 = this.conf.jt.itake("global." + ((String)localObject2) + ":default.channel_title", "lng");
+/* 1276 */       if (!(str4.equals("&hidden")))
 /*      */       {
-/* 1198 */         localObject1 = ((String)localObject1) + this.conf.navSpStr + str7;
-/* 1199 */         if (cls.isEmpty(str4).booleanValue()) str4 = this.conf.getActualRoute((String)localObject2);
-/* 1200 */         localObject1 = ((String)localObject1).replace("{$explain}", str9);
-/* 1201 */         localObject1 = ((String)localObject1).replace("{$value}", str4);
+/* 1278 */         localObject1 = ((String)localObject1) + this.conf.navSpStr + str7;
+/* 1279 */         if (cls.isEmpty(str4).booleanValue()) str4 = this.conf.getActualRoute((String)localObject2);
+/* 1280 */         localObject1 = ((String)localObject1).replace("{$explain}", str9);
+/* 1281 */         localObject1 = ((String)localObject1).replace("{$value}", str4);
 /*      */       } else {
-/* 1203 */         localObject1 = ((String)localObject1) + this.conf.navSpStr + str9; }
+/* 1283 */         localObject1 = ((String)localObject1) + this.conf.navSpStr + str9; }
 /*      */     }
-/* 1205 */     String str9 = "<!--fixed-->{@}" + this.conf.navSpStr + str7 + "{@}<!--fixed-->";
-/* 1206 */     str9 = str9.replace("{$explain}", "{$topic}");
-/* 1207 */     str9 = str9.replace("{$value}", curl(str5, iurl("genre=" + ((String)localObject2) + ";type=list;key={$id}")));
-/* 1208 */     if (!(cls.isEmpty(str3).booleanValue()))
+/* 1285 */     String str9 = "<!--fixed-->{@}" + this.conf.navSpStr + str7 + "{@}<!--fixed-->";
+/* 1286 */     str9 = str9.replace("{$explain}", "{$topic}");
+/* 1287 */     str9 = str9.replace("{$value}", curl(str5, iurl("genre=" + ((String)localObject2) + ";type=list;key={$id}")));
+/* 1288 */     if (!(cls.isEmpty(str3).booleanValue()))
 /*      */     {
-/* 1210 */       category localcategory = new category(this.conf);
-/* 1211 */       localObject1 = ((String)localObject1) + localcategory.getFaCatHtml(str9, (String)localObject2, cls.getNum(str2, Integer.valueOf(0)), cls.getNum(str3, Integer.valueOf(0)));
+/* 1290 */       category localcategory = new category(this.conf);
+/* 1291 */       localObject1 = ((String)localObject1) + localcategory.getFaCatHtml(str9, (String)localObject2, cls.getNum(str2, Integer.valueOf(0)), cls.getNum(str3, Integer.valueOf(0)));
 /*      */     }
-/* 1213 */     return ((String)(String)localObject1);
+/* 1293 */     return ((String)(String)localObject1);
 /*      */   }
 /*      */ 
-public String iurl(String paramString)
-{
-  String str1 = "";
-  String str2 = "";
-  String str3 = paramString;
-  String str4 = cls.getParameter(str3, "type");
-  String str5 = cls.getParameter(str3, "genre");
-  String str6 = cls.getParameter(str3, "key");
-  String str7 = cls.getParameter(str3, "time");
-  String str8 = cls.getParameter(str3, "page");
-  String str9 = cls.getParameter(str3, "ctpage");
-  str2 = cls.getSafeString(str6);
-  if (cls.isEmpty(str2).booleanValue()) str2 = "0";
-  str8 = cls.getSafeString(str8);
-  if (cls.isEmpty(str8).booleanValue()) str8 = "0";
-  str9 = cls.getSafeString(str9);
-  if (cls.isEmpty(str9).booleanValue()) str9 = "0";
-  if (cls.isEmpty(str5).booleanValue()) str5 = this.conf.getNGenre();
-  Integer localInteger = cls.getNum(this.conf.jt.itake("global." + str5 + ":config.nurltype", "cfg"), Integer.valueOf(0));
-  String str10 = this.conf.jt.itake("global." + str5 + ":config.ncreatefolder", "cfg");
-  String str11 = this.conf.jt.itake("global." + str5 + ":config.ncreatefiletype", "cfg");
-  label1480: switch (localInteger.intValue())
-  {
-  case 0:
-    if (str4.equals("list")) { str1 = "?type=list&amp;class=" + str2; break label1480;  }
-    if (str4.equals("detail")) { str1 = "?type=detail&amp;id=" + str2; break label1480; }
-    if (str4.equals("page")) { str1 = "?" + encode.htmlencode(cls.reparameter(this.conf.getNURS(), "page", str8)); break label1480; }
-    if (!(str4.equals("ctpage"))) break label1480; str1 = "?" + encode.htmlencode(cls.reparameter(this.conf.getNURS(), "ctpage", str9)); break;
-  case 1:
-    if (str4.equals("list")) { str1 = str10 + "/list/" + str2 + "/1" + str11; break label1480; }
-    if (str4.equals("detail")) { str1 = str10 + "/detail/" + cls.formatDate(str7, Integer.valueOf(5)) + "/" + str2 + str11; break label1480; }
-    if (str4.equals("page")) { str1 = str10 + "/list/" + str2 + "/" + str8 + str11; break label1480; }
-    if (!(str4.equals("ctpage"))) break label1480; str1 = str10 + "/detail/" + cls.formatDate(str7, Integer.valueOf(5)) + "/" + str2 + "_" + str9 + str11; break;
-  case 2:
-    if (str4.equals("list")) { str1 = "list-" + str2 + "-1.jsp"; break label1480; }
-    if (str4.equals("detail")) { str1 = "detail-" + str2 + ".jsp"; break label1480; }
-    if (str4.equals("page")) { str1 = "list-" + str2 + "-" + str8 + ".jsp"; break label1480; }
-    if (!(str4.equals("ctpage"))) break label1480; str1 = "detail-" + str2 + "-" + str9 + ".jsp"; break;
-  case 3:
-    if (str4.equals("list")) { str1 = "list-" + str2 + "-1.htm"; break label1480; }
-    if (str4.equals("detail")) { str1 = "detail-" + str2 + ".htm"; break label1480; }
-    if (str4.equals("page")) { str1 = "list-" + str2 + "-" + str8 + ".htm"; break label1480; }
-    if (!(str4.equals("ctpage"))) break label1480; str1 = "detail-" + str2 + "-" + str9 + ".htm"; break;
-  case 4:
-    if (str4.equals("list")) { str1 = "list-" + str2 + "-1.xhtml"; break label1480; }
-    if (str4.equals("detail")) { str1 = "detail-" + str2 + ".xhtml"; break label1480; }
-    if (str4.equals("page")) { str1 = "list-" + str2 + "-" + str8 + ".xhtml"; break label1480; }
-    if (!(str4.equals("ctpage"))) break label1480; str1 = "detail-" + str2 + "-" + str9 + ".xhtml"; break;
-  case 5:
-    if (str4.equals("list")) { str1 = "list-" + str2 + "-1.html"; break label1480; }
-    if (str4.equals("detail")) { str1 = "detail-" + str2 + ".html"; break label1480; }
-    if (str4.equals("page")) { str1 = "list-" + str2 + "-" + str8 + ".html"; break label1480; }
-    if (!(str4.equals("ctpage"))) break label1480; str1 = "detail-" + str2 + "-" + str9 + ".html";
-  }
-
-  return str1;
-}
+/*      */   public String iurl(String paramString)
+/*      */   {
+/* 1298 */     String str1 = "";
+/* 1299 */     String str2 = "";
+/* 1300 */     String str3 = paramString;
+/* 1301 */     String str4 = cls.getParameter(str3, "type");
+/* 1302 */     String str5 = cls.getParameter(str3, "genre");
+/* 1303 */     String str6 = cls.getParameter(str3, "key");
+/* 1304 */     String str7 = cls.getParameter(str3, "time");
+/* 1305 */     String str8 = cls.getParameter(str3, "page");
+/* 1306 */     String str9 = cls.getParameter(str3, "ctpage");
+/* 1307 */     str2 = cls.getSafeString(str6);
+/* 1308 */     if (cls.isEmpty(str2).booleanValue()) str2 = "0";
+/* 1309 */     str8 = cls.getSafeString(str8);
+/* 1310 */     if (cls.isEmpty(str8).booleanValue()) str8 = "0";
+/* 1311 */     str9 = cls.getSafeString(str9);
+/* 1312 */     if (cls.isEmpty(str9).booleanValue()) str9 = "0";
+/* 1313 */     if (cls.isEmpty(str5).booleanValue()) str5 = this.conf.getNGenre();
+/* 1314 */     Integer localInteger = cls.getNum(this.conf.jt.itake("global." + str5 + ":config.nurltype", "cfg"), Integer.valueOf(0));
+/* 1315 */     String str10 = this.conf.jt.itake("global." + str5 + ":config.ncreatefolder", "cfg");
+/* 1316 */     String str11 = this.conf.jt.itake("global." + str5 + ":config.ncreatefiletype", "cfg");
+/* 1317 */    label1480: switch (localInteger.intValue())
+/*      */     {
+/*      */     case 0:
+/* 1320 */       if (str4.equals("list")) { str1 = "?type=list&amp;class=" + str2; break label1480; }
+/* 1321 */       if (str4.equals("detail")) { str1 = "?type=detail&amp;id=" + str2; break label1480; }
+/* 1322 */       if (str4.equals("page")) { str1 = "?" + encode.htmlencode(cls.reparameter(this.conf.getNURS(), "page", str8)); break label1480; }
+/* 1323 */       if (!(str4.equals("ctpage"))) break label1480; str1 = "?" + encode.htmlencode(cls.reparameter(this.conf.getNURS(), "ctpage", str9)); break;
+/*      */     case 1:
+/* 1326 */       if (str4.equals("list")) { str1 = str10 + "/list/" + str2 + "/1" + str11; break label1480; }
+/* 1327 */       if (str4.equals("detail")) { str1 = str10 + "/detail/" + cls.formatDate(str7, Integer.valueOf(5)) + "/" + str2 + str11; break label1480; }
+/* 1328 */       if (str4.equals("page")) { str1 = str10 + "/list/" + str2 + "/" + str8 + str11; break label1480; }
+/* 1329 */       if (!(str4.equals("ctpage"))) break label1480; str1 = str10 + "/detail/" + cls.formatDate(str7, Integer.valueOf(5)) + "/" + str2 + "_" + str9 + str11; break;
+/*      */     case 2:
+/* 1332 */       if (str4.equals("list")) { str1 = "list-" + str2 + "-1.jsp"; break label1480; }
+/* 1333 */       if (str4.equals("detail")) { str1 = "detail-" + str2 + ".jsp"; break label1480; }
+/* 1334 */       if (str4.equals("page")) { str1 = "list-" + str2 + "-" + str8 + ".jsp"; break label1480; }
+/* 1335 */       if (!(str4.equals("ctpage"))) break label1480; str1 = "detail-" + str2 + "-" + str9 + ".jsp"; break;
+/*      */     case 3:
+/* 1338 */       if (str4.equals("list")) { str1 = "list-" + str2 + "-1.htm"; break label1480;}
+/* 1339 */       if (str4.equals("detail")) { str1 = "detail-" + str2 + ".htm"; break label1480;}
+/* 1340 */       if (str4.equals("page")) { str1 = "list-" + str2 + "-" + str8 + ".htm"; break label1480; }
+/* 1341 */       if (!(str4.equals("ctpage"))) break label1480; str1 = "detail-" + str2 + "-" + str9 + ".htm"; break;
+/*      */     case 4:
+/* 1344 */       if (str4.equals("list")) { str1 = "list-" + str2 + "-1.xhtml"; break label1480; }
+/* 1345 */       if (str4.equals("detail")) { str1 = "detail-" + str2 + ".xhtml"; break label1480; }
+/* 1346 */       if (str4.equals("page")) { str1 = "list-" + str2 + "-" + str8 + ".xhtml"; break label1480; }
+/* 1347 */       if (!(str4.equals("ctpage"))) break label1480; str1 = "detail-" + str2 + "-" + str9 + ".xhtml"; break;
+/*      */     case 5:
+/* 1350 */       if (str4.equals("list")) { str1 = "list-" + str2 + "-1.html"; break label1480; }
+/* 1351 */       if (str4.equals("detail")) { str1 = "detail-" + str2 + ".html"; break label1480; }
+/* 1352 */       if (str4.equals("page")) { str1 = "list-" + str2 + "-" + str8 + ".html"; break label1480; }
+/* 1353 */       if (!(str4.equals("ctpage"))) break label1480; str1 = "detail-" + str2 + "-" + str9 + ".html";
+/*      */     }
+/*      */ 
+/* 1356 */     label1480: return str1;
+/*      */   }
 /*      */ 
 /*      */   public String loadEditor(String paramString1, String paramString2)
 /*      */   {
-/* 1281 */     String str1 = "";
-/* 1282 */     String str2 = paramString1;
-/* 1283 */     String str3 = paramString2;
-/* 1284 */     str1 = loadEditor(str2, str3, "1");
-/* 1285 */     return str1;
+/* 1361 */     String str1 = "";
+/* 1362 */     String str2 = paramString1;
+/* 1363 */     String str3 = paramString2;
+/* 1364 */     str1 = loadEditor(str2, str3, "1");
+/* 1365 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String loadEditor(String paramString1, String paramString2, String paramString3)
 /*      */   {
-/* 1290 */     String str1 = "";
-/* 1291 */     String str2 = paramString1;
-/* 1292 */     String str3 = paramString2;
-/* 1293 */     String str4 = paramString3;
-/* 1294 */     str1 = loadEditor(str2, str3, str4, "300");
-/* 1295 */     return str1;
+/* 1370 */     String str1 = "";
+/* 1371 */     String str2 = paramString1;
+/* 1372 */     String str3 = paramString2;
+/* 1373 */     String str4 = paramString3;
+/* 1374 */     str1 = loadEditor(str2, str3, str4, "300");
+/* 1375 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String loadEditor(String paramString1, String paramString2, String paramString3, String paramString4)
 /*      */   {
-/* 1300 */     String str1 = "";
-/* 1301 */     String str2 = paramString1;
-/* 1302 */     String str3 = paramString2;
-/* 1303 */     String str4 = paramString3;
-/* 1304 */     String str5 = paramString4;
-/* 1305 */     if (cls.getNum(str4, Integer.valueOf(-1)).intValue() != -1) str4 = "Style" + str4;
-/* 1306 */     if (str2.substring(0, 1).equals("~")) str2 = cls.getLRStr(str2, "~", "rightr");
+/* 1380 */     String str1 = "";
+/* 1381 */     String str2 = paramString1;
+/* 1382 */     String str3 = paramString2;
+/* 1383 */     String str4 = paramString3;
+/* 1384 */     String str5 = paramString4;
+/* 1385 */     if (cls.getNum(str4, Integer.valueOf(-1)).intValue() != -1) str4 = "Style" + str4;
+/* 1386 */     if (str2.substring(0, 1).equals("~")) str2 = cls.getLRStr(str2, "~", "rightr");
 /*      */     else str1 = str1 + this.conf.jt.itake("global.tpl_common.editor_script", "tpl");
-/* 1308 */     str1 = str1 + this.conf.jt.itake("global.tpl_common.editor_content", "tpl");
-/* 1309 */     str1 = str1.replace("{$name}", encode.htmlencode(str2));
-/* 1310 */     str1 = str1.replace("{$value}", encode.htmlencode(str3));
-/* 1311 */     str1 = str1.replace("{$-style}", encode.htmlencode(str4));
-/* 1312 */     str1 = str1.replace("{$-height}", encode.htmlencode(str5));
-/* 1313 */     str1 = this.conf.jt.creplace(str1);
-/* 1314 */     return str1;
+/* 1388 */     str1 = str1 + this.conf.jt.itake("global.tpl_common.editor_content", "tpl");
+/* 1389 */     str1 = str1.replace("{$name}", encode.htmlencode(str2));
+/* 1390 */     str1 = str1.replace("{$value}", encode.htmlencode(str3));
+/* 1391 */     str1 = str1.replace("{$-style}", encode.htmlencode(str4));
+/* 1392 */     str1 = str1.replace("{$-height}", encode.htmlencode(str5));
+/* 1393 */     str1 = this.conf.jt.creplace(str1);
+/* 1394 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String pagi(String paramString1, String paramString2, String paramString3, String paramString4)
 /*      */   {
-/* 1319 */     String str1 = "";
-/* 1320 */     String str2 = paramString1;
-/* 1321 */     String str3 = paramString2;
-/* 1322 */     String str4 = paramString3;
-/* 1323 */     String str5 = paramString4;
-/* 1324 */     str1 = pagi(str2, str3, str4, str5, "");
-/* 1325 */     return str1;
+/* 1399 */     String str1 = "";
+/* 1400 */     String str2 = paramString1;
+/* 1401 */     String str3 = paramString2;
+/* 1402 */     String str4 = paramString3;
+/* 1403 */     String str5 = paramString4;
+/* 1404 */     str1 = pagi(str2, str3, str4, str5, "");
+/* 1405 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String pagi(String paramString1, String paramString2, String paramString3, String paramString4, String paramString5)
 /*      */   {
-/* 1330 */     String str1 = "";
+/* 1410 */     String str1 = "";
 /*      */ 
-/* 1332 */     Integer localInteger1 = Integer.valueOf(10);
-/* 1333 */     Integer localInteger2 = localInteger1;
-/* 1334 */     Object localObject = cls.getNum(paramString1, Integer.valueOf(0));
-/* 1335 */     Integer localInteger3 = cls.getNum(paramString2, Integer.valueOf(0));
-/* 1336 */     String str5 = cls.getString(paramString3);
-/* 1337 */     String str6 = cls.getString(paramString4);
-/* 1338 */     String str7 = cls.getString(paramString5);
-/* 1339 */     if (cls.isEmpty(str7).booleanValue()) str7 = "pagi-1";
-/* 1340 */     Integer localInteger4 = Integer.valueOf(0);
-/* 1341 */     if (str6.equals("ct-cutepage")) localInteger4 = Integer.valueOf(1);
-/* 1342 */     if (localInteger3.intValue() > localInteger4.intValue())
+/* 1412 */     Integer localInteger1 = Integer.valueOf(10);
+/* 1413 */     Integer localInteger2 = localInteger1;
+/* 1414 */     Object localObject = cls.getNum(paramString1, Integer.valueOf(0));
+/* 1415 */     Integer localInteger3 = cls.getNum(paramString2, Integer.valueOf(0));
+/* 1416 */     String str5 = cls.getString(paramString3);
+/* 1417 */     String str6 = cls.getString(paramString4);
+/* 1418 */     String str7 = cls.getString(paramString5);
+/* 1419 */     if (cls.isEmpty(str7).booleanValue()) str7 = "pagi-1";
+/* 1420 */     Integer localInteger4 = Integer.valueOf(0);
+/* 1421 */     if (str6.equals("ct-cutepage")) localInteger4 = Integer.valueOf(1);
+/* 1422 */     if (localInteger3.intValue() > localInteger4.intValue())
 /*      */     {
-/* 1344 */       str1 = this.conf.jt.itake("global.tpl_common." + str7, "tpl");
-/* 1345 */       String str3 = "";
-/* 1346 */       String str2 = cls.ctemplate(str1, "{@}");
-/* 1347 */       if (((Integer)localObject).intValue() < 1) localObject = Integer.valueOf(1);
-/* 1348 */       if (((Integer)localObject).intValue() > localInteger3.intValue()) localObject = localInteger3;
-/* 1349 */       Integer localInteger5 = cls.getNum(cls.getLRStr(cls.toString(Double.valueOf(((Integer)localObject).intValue() - Math.floor(localInteger1.intValue() / 2))), ".", "left"), Integer.valueOf(0));
-/* 1350 */       if (localInteger5.intValue() < 1) localInteger5 = Integer.valueOf(1);
-/* 1351 */       Integer localInteger6 = Integer.valueOf(localInteger5.intValue() + localInteger2.intValue() - 1);
-/* 1352 */       if (localInteger6.intValue() > localInteger3.intValue()) localInteger6 = localInteger3;
-/* 1353 */       if (localInteger5.intValue() <= localInteger6.intValue())
+/* 1424 */       str1 = this.conf.jt.itake("global.tpl_common." + str7, "tpl");
+/* 1425 */       String str3 = "";
+/* 1426 */       String str2 = cls.ctemplate(str1, "{@}");
+/* 1427 */       if (((Integer)localObject).intValue() < 1) localObject = Integer.valueOf(1);
+/* 1428 */       if (((Integer)localObject).intValue() > localInteger3.intValue()) localObject = localInteger3;
+/* 1429 */       Integer localInteger5 = cls.getNum(cls.getLRStr(cls.toString(Double.valueOf(((Integer)localObject).intValue() - Math.floor(localInteger1.intValue() / 2))), ".", "left"), Integer.valueOf(0));
+/* 1430 */       if (localInteger5.intValue() < 1) localInteger5 = Integer.valueOf(1);
+/* 1431 */       Integer localInteger6 = Integer.valueOf(localInteger5.intValue() + localInteger2.intValue() - 1);
+/* 1432 */       if (localInteger6.intValue() > localInteger3.intValue()) localInteger6 = localInteger3;
+/* 1433 */       if (localInteger5.intValue() <= localInteger6.intValue())
 /*      */       {
-/* 1355 */         if (localInteger6.intValue() - localInteger5.intValue() < localInteger2.intValue() - 1)
+/* 1435 */         if (localInteger6.intValue() - localInteger5.intValue() < localInteger2.intValue() - 1)
 /*      */         {
-/* 1357 */           localInteger5 = Integer.valueOf(localInteger5.intValue() - (localInteger2.intValue() - 1 - (localInteger6.intValue() - localInteger5.intValue())));
-/* 1358 */           if (localInteger5.intValue() < 1) localInteger5 = Integer.valueOf(1);
+/* 1437 */           localInteger5 = Integer.valueOf(localInteger5.intValue() - (localInteger2.intValue() - 1 - (localInteger6.intValue() - localInteger5.intValue())));
+/* 1438 */           if (localInteger5.intValue() < 1) localInteger5 = Integer.valueOf(1);
 /*      */         }
-/* 1360 */         for (int i = localInteger5.intValue(); i <= localInteger6.intValue(); ++i)
+/* 1440 */         for (int i = localInteger5.intValue(); i <= localInteger6.intValue(); ++i)
 /*      */         {
-/* 1362 */           String str4 = str2;
-/* 1363 */           str4 = str4.replace("{$-num}", cls.toString(Integer.valueOf(i)));
-/* 1364 */           str4 = str4.replace("{$-link}", str5.replace("[~page]", cls.toString(Integer.valueOf(i))));
-/* 1365 */           if (i != ((Integer)localObject).intValue()) str4 = str4.replace("{$-class}", "");
+/* 1442 */           String str4 = str2;
+/* 1443 */           str4 = str4.replace("{$-num}", cls.toString(Integer.valueOf(i)));
+/* 1444 */           str4 = str4.replace("{$-link}", str5.replace("[~page]", cls.toString(Integer.valueOf(i))));
+/* 1445 */           if (i != ((Integer)localObject).intValue()) str4 = str4.replace("{$-class}", "");
 /*      */           else str4 = str4.replace("{$-class}", "selected");
-/* 1367 */           str3 = str3 + str4;
+/* 1447 */           str3 = str3 + str4;
 /*      */         }
 /*      */       }
-/* 1370 */       str1 = cls.ctemplates(str1, "{@}", str3);
-/* 1371 */       str1 = str1.replace("{$-page1}", cls.toString(localObject));
-/* 1372 */       str1 = str1.replace("{$-page2}", cls.toString(localInteger3));
-/* 1373 */       str1 = str1.replace("{$-firstpagelink}", str5.replace("[~page]", "1"));
-/* 1374 */       str1 = str1.replace("{$-lastpagelink}", str5.replace("[~page]", cls.toString(localInteger3)));
-/* 1375 */       str1 = str1.replace("{$-tid}", encode.htmlencode(str6));
-/* 1376 */       str1 = str1.replace("{$-value1}", cls.toString(Integer.valueOf((((Integer)localObject).equals(localInteger6)) ? ((Integer)localObject).intValue() : ((Integer)localObject).intValue() + 1)));
-/* 1377 */       str1 = str1.replace("{$-baselink}", encode.scriptencode(encode.htmlencode(str5)));
-/* 1378 */       str1 = this.conf.jt.creplace(str1);
+/* 1450 */       str1 = cls.ctemplates(str1, "{@}", str3);
+/* 1451 */       str1 = str1.replace("{$-page1}", cls.toString(localObject));
+/* 1452 */       str1 = str1.replace("{$-page2}", cls.toString(localInteger3));
+/* 1453 */       str1 = str1.replace("{$-firstpagelink}", str5.replace("[~page]", "1"));
+/* 1454 */       str1 = str1.replace("{$-lastpagelink}", str5.replace("[~page]", cls.toString(localInteger3)));
+/* 1455 */       str1 = str1.replace("{$-tid}", encode.htmlencode(str6));
+/* 1456 */       str1 = str1.replace("{$-value1}", cls.toString(Integer.valueOf((((Integer)localObject).equals(localInteger6)) ? ((Integer)localObject).intValue() : ((Integer)localObject).intValue() + 1)));
+/* 1457 */       str1 = str1.replace("{$-baselink}", encode.scriptencode(encode.htmlencode(str5)));
+/* 1458 */       str1 = this.conf.jt.creplace(str1);
 /*      */     }
-/* 1380 */     return ((String)str1);
+/* 1460 */     return ((String)str1);
 /*      */   }
 /*      */ 
 /*      */   public String repathencode(String paramString)
 /*      */   {
-/* 1385 */     String str1 = paramString;
-/* 1386 */     if ((!(cls.isEmpty(str1).booleanValue())) && (this.conf.repath.equals("1")))
+/* 1465 */     String str1 = paramString;
+/* 1466 */     if ((!(cls.isEmpty(str1).booleanValue())) && (this.conf.repath.equals("1")))
 /*      */     {
-/* 1388 */       String str2 = this.conf.getNGenre();
-/* 1389 */       String str3 = this.conf.getNURLPre() + this.conf.getNURL();
-/* 1390 */       String str4 = str2 + "/";
-/* 1391 */       String str5 = cls.getLRStr(str3, str2, "leftr");
-/* 1392 */       str1 = str1.replace(str5, "{$->>repath}");
+/* 1468 */       String str2 = this.conf.getNGenre();
+/* 1469 */       String str3 = this.conf.getNURLPre() + this.conf.getNURL();
+/* 1470 */       String str4 = str2 + "/";
+/* 1471 */       String str5 = cls.getLRStr(str3, str2, "leftr");
+/* 1472 */       str1 = str1.replace(str5, "{$->>repath}");
 /*      */     }
-/* 1394 */     return str1;
+/* 1474 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String repathdecode(String paramString)
 /*      */   {
-/* 1399 */     String str1 = paramString;
-/* 1400 */     if (!(cls.isEmpty(str1).booleanValue()))
+/* 1479 */     String str1 = paramString;
+/* 1480 */     if (!(cls.isEmpty(str1).booleanValue()))
 /*      */     {
-/* 1402 */       String str2 = this.conf.getNGenre();
-/* 1403 */       String str3 = this.conf.getNURLPre() + this.conf.getNURL();
-/* 1404 */       String str4 = str2 + "/";
-/* 1405 */       String str5 = cls.getLRStr(str3, str2, "leftr");
-/* 1406 */       str1 = str1.replace("{$->>repath}", str5);
+/* 1482 */       String str2 = this.conf.getNGenre();
+/* 1483 */       String str3 = this.conf.getNURLPre() + this.conf.getNURL();
+/* 1484 */       String str4 = str2 + "/";
+/* 1485 */       String str5 = cls.getLRStr(str3, str2, "leftr");
+/* 1486 */       str1 = str1.replace("{$->>repath}", str5);
 /*      */     }
-/* 1408 */     return str1;
+/* 1488 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String selClass(String paramString)
 /*      */   {
-/* 1413 */     String str1 = "";
-/* 1414 */     String str2 = paramString;
-/* 1415 */     str1 = selClass(str2, "-1");
-/* 1416 */     return str1;
+/* 1493 */     String str1 = "";
+/* 1494 */     String str2 = paramString;
+/* 1495 */     str1 = selClass(str2, "-1");
+/* 1496 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String selClass(String paramString1, String paramString2)
 /*      */   {
-/* 1421 */     String str1 = "";
+/* 1501 */     String str1 = "";
 /*      */ 
-/* 1423 */     String str5 = paramString1;
-/* 1424 */     String str6 = paramString2;
-/* 1425 */     String str7 = cls.getParameter(str5, "genre");
-/* 1426 */     String str8 = cls.getParameter(str5, "lng");
-/* 1427 */     String str9 = cls.getParameter(str5, "fid");
-/* 1428 */     Integer localInteger1 = cls.getNum(cls.getParameter(str5, "class"), Integer.valueOf(0));
-/* 1429 */     Integer localInteger2 = cls.getNum(cls.getParameter(str5, "inum"), Integer.valueOf(0));
-/* 1430 */     str1 = this.conf.jt.itake("global.tpl_common.sel-class", "tpl");
-/* 1431 */     String str3 = "";
-/* 1432 */     String str2 = cls.ctemplate(str1, "{@}");
-/* 1433 */     category localcategory = new category(this.conf);
-/* 1434 */     String[][] arrayOfString = localcategory.getCatAry(str7, cls.getNum(str8, Integer.valueOf(0)));
-/* 1435 */     if (arrayOfString != null)
+/* 1503 */     String str5 = paramString1;
+/* 1504 */     String str6 = paramString2;
+/* 1505 */     String str7 = cls.getParameter(str5, "genre");
+/* 1506 */     String str8 = cls.getParameter(str5, "lng");
+/* 1507 */     String str9 = cls.getParameter(str5, "fid");
+/* 1508 */     Integer localInteger1 = cls.getNum(cls.getParameter(str5, "class"), Integer.valueOf(0));
+/* 1509 */     Integer localInteger2 = cls.getNum(cls.getParameter(str5, "inum"), Integer.valueOf(0));
+/* 1510 */     str1 = this.conf.jt.itake("global.tpl_common.sel-class", "tpl");
+/* 1511 */     String str3 = "";
+/* 1512 */     String str2 = cls.ctemplate(str1, "{@}");
+/* 1513 */     category localcategory = new category(this.conf);
+/* 1514 */     String[][] arrayOfString = localcategory.getCatAry(str7, cls.getNum(str8, Integer.valueOf(0)));
+/* 1515 */     if (arrayOfString != null)
 /*      */     {
-/* 1437 */       localInteger2 = Integer.valueOf(localInteger2.intValue() + 1);
-/* 1438 */       for (int i = 0; i < arrayOfString.length; ++i)
+/* 1517 */       localInteger2 = Integer.valueOf(localInteger2.intValue() + 1);
+/* 1518 */       for (int i = 0; i < arrayOfString.length; ++i)
 /*      */       {
-/* 1440 */         if ((!(cls.getNum(arrayOfString[i][2], Integer.valueOf(0)).equals(cls.getNum(str9, Integer.valueOf(0))))) || (
-/* 1442 */           (!(str6.equals("-1"))) && (!(cls.cinstr(str6, arrayOfString[i][0], ",").booleanValue()))))
+/* 1520 */         if ((!(cls.getNum(arrayOfString[i][2], Integer.valueOf(0)).equals(cls.getNum(str9, Integer.valueOf(0))))) || (
+/* 1522 */           (!(str6.equals("-1"))) && (!(cls.cinstr(str6, arrayOfString[i][0], ",").booleanValue()))))
 /*      */           continue;
-/* 1444 */         String str4 = str2;
-/* 1445 */         str4 = str4.replace("{$topic}", encode.htmlencode(arrayOfString[i][1]));
-/* 1446 */         str4 = str4.replace("{$id}", encode.htmlencode(arrayOfString[i][0]));
-/* 1447 */         if (localInteger1 != cls.getNum(arrayOfString[i][0], Integer.valueOf(0))) str4 = str4.replace("{$-selected}", "");
+/* 1524 */         String str4 = str2;
+/* 1525 */         str4 = str4.replace("{$topic}", encode.htmlencode(arrayOfString[i][1]));
+/* 1526 */         str4 = str4.replace("{$id}", encode.htmlencode(arrayOfString[i][0]));
+/* 1527 */         if (!(cls.getNum(arrayOfString[i][0], Integer.valueOf(0)).equals(localInteger1))) str4 = str4.replace("{$-selected}", "");
 /*      */         else str4 = str4.replace("{$-selected}", "selected=\"selected\"");
-/* 1449 */         str4 = str4.replace("{$-prestr}", cls.getRepeatedString(this.conf.jt.itake("global.lng_common.sys-spsort", "lng"), localInteger2));
-/* 1450 */         str4 = str4.replace("{$-child}", selClass("genre=" + str7 + ";lng=" + str8 + ";class=" + localInteger1 + ";inum=" + localInteger2 + ";fid=" + cls.getNum(arrayOfString[i][0], Integer.valueOf(0)), str6));
-/* 1451 */         str3 = str3 + str4;
+/* 1529 */         str4 = str4.replace("{$-prestr}", cls.getRepeatedString(this.conf.jt.itake("global.lng_common.sys-spsort", "lng"), localInteger2));
+/* 1530 */         str4 = str4.replace("{$-child}", selClass("genre=" + str7 + ";lng=" + str8 + ";class=" + localInteger1 + ";inum=" + localInteger2 + ";fid=" + cls.getNum(arrayOfString[i][0], Integer.valueOf(0)), str6));
+/* 1531 */         str3 = str3 + str4;
 /*      */       }
 /*      */ 
 /*      */     }
 /*      */ 
-/* 1456 */     str1 = cls.ctemplates(str1, "{@}", str3);
-/* 1457 */     str1 = this.conf.jt.creplace(str1);
-/* 1458 */     return str1;
+/* 1536 */     str1 = cls.ctemplates(str1, "{@}", str3);
+/* 1537 */     str1 = this.conf.jt.creplace(str1);
+/* 1538 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public Boolean sendMail(String paramString1, String paramString2, String paramString3)
 /*      */   {
-/* 1463 */     Boolean localBoolean = Boolean.valueOf(false);
-/* 1464 */     String str1 = paramString1;
-/* 1465 */     String str2 = paramString2;
-/* 1466 */     String str3 = paramString3;
-/* 1467 */     String str4 = this.conf.application.getInitParameter("mail_smtpusername");
-/* 1468 */     if (cls.isEmpty(str4).booleanValue()) str4 = this.conf.jt.itake("global.config.mail-smtpusername", "cfg");
-/* 1469 */     String str5 = this.conf.application.getInitParameter("mail_smtppassword");
-/* 1470 */     if (cls.isEmpty(str5).booleanValue()) str5 = this.conf.jt.itake("global.config.mail-smtppassword", "cfg");
-/* 1471 */     String str6 = this.conf.application.getInitParameter("mail_smtpfrom");
-/* 1472 */     if (cls.isEmpty(str6).booleanValue()) str6 = this.conf.jt.itake("global.config.mail-smtpfrom", "cfg");
-/* 1473 */     if (cls.isEmpty(str6).booleanValue()) str6 = str4;
-/* 1474 */     String str7 = this.conf.application.getInitParameter("mail_smtpcharset");
-/* 1475 */     if (cls.isEmpty(str7).booleanValue()) str7 = this.conf.jt.itake("global.config.mail-smtpcharset", "cfg");
-/* 1476 */     String str8 = this.conf.application.getInitParameter("mail_smtpserver");
-/* 1477 */     if (cls.isEmpty(str8).booleanValue()) str8 = this.conf.jt.itake("global.config.mail-smtpserver", "cfg");
+/* 1543 */     Boolean localBoolean = Boolean.valueOf(false);
+/* 1544 */     String str1 = paramString1;
+/* 1545 */     String str2 = paramString2;
+/* 1546 */     String str3 = paramString3;
+/* 1547 */     String str4 = this.conf.application.getInitParameter("mail_smtpusername");
+/* 1548 */     if (cls.isEmpty(str4).booleanValue()) str4 = this.conf.jt.itake("global.config.mail-smtpusername", "cfg");
+/* 1549 */     String str5 = this.conf.application.getInitParameter("mail_smtppassword");
+/* 1550 */     if (cls.isEmpty(str5).booleanValue()) str5 = this.conf.jt.itake("global.config.mail-smtppassword", "cfg");
+/* 1551 */     String str6 = this.conf.application.getInitParameter("mail_smtpfrom");
+/* 1552 */     if (cls.isEmpty(str6).booleanValue()) str6 = this.conf.jt.itake("global.config.mail-smtpfrom", "cfg");
+/* 1553 */     if (cls.isEmpty(str6).booleanValue()) str6 = str4;
+/* 1554 */     String str7 = this.conf.application.getInitParameter("mail_smtpcharset");
+/* 1555 */     if (cls.isEmpty(str7).booleanValue()) str7 = this.conf.jt.itake("global.config.mail-smtpcharset", "cfg");
+/* 1556 */     String str8 = this.conf.application.getInitParameter("mail_smtpserver");
+/* 1557 */     if (cls.isEmpty(str8).booleanValue()) str8 = this.conf.jt.itake("global.config.mail-smtpserver", "cfg");
 /*      */     try
 /*      */     {
-/* 1480 */       String str9 = "";
-/* 1481 */       Socket localSocket = new Socket(str8, 25);
-/* 1482 */       BufferedReader localBufferedReader = new BufferedReader(new InputStreamReader(localSocket.getInputStream()));
-/* 1483 */       BufferedWriter localBufferedWriter = new BufferedWriter(new OutputStreamWriter(localSocket.getOutputStream()));
-/* 1484 */       str9 = localBufferedReader.readLine();
-/* 1485 */       if ((str9.substring(0, 3).equals("220")) || (str9.substring(0, 3).equals("250")))
+/* 1560 */       String str9 = "";
+/* 1561 */       Socket localSocket = new Socket(str8, 25);
+/* 1562 */       BufferedReader localBufferedReader = new BufferedReader(new InputStreamReader(localSocket.getInputStream()));
+/* 1563 */       BufferedWriter localBufferedWriter = new BufferedWriter(new OutputStreamWriter(localSocket.getOutputStream()));
+/* 1564 */       str9 = localBufferedReader.readLine();
+/* 1565 */       if ((str9.substring(0, 3).equals("220")) || (str9.substring(0, 3).equals("250")))
 /*      */       {
-/* 1487 */         localBufferedWriter.write("HELO JTBC\n");
-/* 1488 */         localBufferedWriter.flush();
-/* 1489 */         str9 = localBufferedReader.readLine();
-/* 1490 */         if (str9.substring(0, 3).equals("250"))
+/* 1567 */         localBufferedWriter.write("HELO JTBC\n");
+/* 1568 */         localBufferedWriter.flush();
+/* 1569 */         str9 = localBufferedReader.readLine();
+/* 1570 */         if (str9.substring(0, 3).equals("250"))
 /*      */         {
-/* 1492 */           localBufferedWriter.write("AUTH LOGIN\n");
-/* 1493 */           localBufferedWriter.flush();
-/* 1494 */           str9 = localBufferedReader.readLine();
-/* 1495 */           if (str9.substring(0, 3).equals("334"))
+/* 1572 */           localBufferedWriter.write("AUTH LOGIN\n");
+/* 1573 */           localBufferedWriter.flush();
+/* 1574 */           str9 = localBufferedReader.readLine();
+/* 1575 */           if (str9.substring(0, 3).equals("334"))
 /*      */           {
-/* 1497 */             localBufferedWriter.write(encode.base64encode(str4.getBytes()) + "\n");
-/* 1498 */             localBufferedWriter.flush();
-/* 1499 */             str9 = localBufferedReader.readLine();
-/* 1500 */             if (str9.substring(0, 3).equals("334"))
+/* 1577 */             localBufferedWriter.write(encode.base64encode(str4.getBytes()) + "\n");
+/* 1578 */             localBufferedWriter.flush();
+/* 1579 */             str9 = localBufferedReader.readLine();
+/* 1580 */             if (str9.substring(0, 3).equals("334"))
 /*      */             {
-/* 1502 */               localBufferedWriter.write(encode.base64encode(str5.getBytes()) + "\n");
-/* 1503 */               localBufferedWriter.flush();
-/* 1504 */               str9 = localBufferedReader.readLine();
-/* 1505 */               if (str9.substring(0, 3).equals("235"))
+/* 1582 */               localBufferedWriter.write(encode.base64encode(str5.getBytes()) + "\n");
+/* 1583 */               localBufferedWriter.flush();
+/* 1584 */               str9 = localBufferedReader.readLine();
+/* 1585 */               if (str9.substring(0, 3).equals("235"))
 /*      */               {
-/* 1507 */                 localBufferedWriter.write("MAIL FROM: <" + str6 + ">\n");
-/* 1508 */                 localBufferedWriter.flush();
-/* 1509 */                 str9 = localBufferedReader.readLine();
-/* 1510 */                 if (str9.substring(0, 3).equals("250"))
+/* 1587 */                 localBufferedWriter.write("MAIL FROM: <" + str6 + ">\n");
+/* 1588 */                 localBufferedWriter.flush();
+/* 1589 */                 str9 = localBufferedReader.readLine();
+/* 1590 */                 if (str9.substring(0, 3).equals("250"))
 /*      */                 {
-/* 1512 */                   localBufferedWriter.write("RCPT TO: <" + str1 + ">\n");
-/* 1513 */                   localBufferedWriter.flush();
-/* 1514 */                   str9 = localBufferedReader.readLine();
-/* 1515 */                   if (str9.substring(0, 3).equals("250"))
+/* 1592 */                   localBufferedWriter.write("RCPT TO: <" + str1 + ">\n");
+/* 1593 */                   localBufferedWriter.flush();
+/* 1594 */                   str9 = localBufferedReader.readLine();
+/* 1595 */                   if (str9.substring(0, 3).equals("250"))
 /*      */                   {
-/* 1517 */                     localBufferedWriter.write("DATA\n");
-/* 1518 */                     localBufferedWriter.flush();
-/* 1519 */                     str9 = localBufferedReader.readLine();
-/* 1520 */                     if (str9.substring(0, 3).equals("354"))
+/* 1597 */                     localBufferedWriter.write("DATA\n");
+/* 1598 */                     localBufferedWriter.flush();
+/* 1599 */                     str9 = localBufferedReader.readLine();
+/* 1600 */                     if (str9.substring(0, 3).equals("354"))
 /*      */                     {
-/* 1522 */                       localBufferedWriter.write("MIME-Version: 1.0\nContent-type: text/html; charset=" + str7 + "\nTo: <" + str1 + ">\nFrom: <" + str6 + ">\nSubject: " + str2 + "\n\n" + str3 + "\n.\n");
-/* 1523 */                       localBufferedWriter.flush();
-/* 1524 */                       localBufferedWriter.write("QUIT\n");
-/* 1525 */                       localBufferedWriter.flush();
-/* 1526 */                       localBoolean = Boolean.valueOf(true);
+/* 1602 */                       localBufferedWriter.write("MIME-Version: 1.0\nContent-type: text/html; charset=" + str7 + "\nTo: <" + str1 + ">\nFrom: <" + str6 + ">\nSubject: " + str2 + "\n\n" + str3 + "\n.\n");
+/* 1603 */                       localBufferedWriter.flush();
+/* 1604 */                       localBufferedWriter.write("QUIT\n");
+/* 1605 */                       localBufferedWriter.flush();
+/* 1606 */                       localBoolean = Boolean.valueOf(true);
 /*      */                     }
 /*      */                   }
 /*      */                 }
@@ -1517,99 +1588,99 @@ public String iurl(String paramString)
 /*      */       }
 /*      */     } catch (Exception localException) {
 /*      */     }
-/* 1537 */     return localBoolean;
+/* 1617 */     return localBoolean;
 /*      */   }
 /*      */ 
 /*      */   public String webBase(String paramString)
 /*      */   {
-/* 1542 */     String str1 = "";
-/* 1543 */     String str2 = paramString;
-/* 1544 */     Integer localInteger = cls.getNum(this.conf.jt.itake("global.config.nbasehref", "cfg"), Integer.valueOf(0));
-/* 1545 */     if (!(cls.isEmpty(str2).booleanValue())) localInteger = cls.getNum(this.conf.jt.itake("global." + str2 + ":config.nbasehref", "cfg"), Integer.valueOf(0));
-/* 1546 */     if (localInteger.intValue() == 1)
+/* 1622 */     String str1 = "";
+/* 1623 */     String str2 = paramString;
+/* 1624 */     Integer localInteger = cls.getNum(this.conf.jt.itake("global.config.nbasehref", "cfg"), Integer.valueOf(0));
+/* 1625 */     if (!(cls.isEmpty(str2).booleanValue())) localInteger = cls.getNum(this.conf.jt.itake("global." + str2 + ":config.nbasehref", "cfg"), Integer.valueOf(0));
+/* 1626 */     if (localInteger.intValue() == 1)
 /*      */     {
-/* 1548 */       str1 = this.conf.jt.itake("global.tpl_public.base", "tpl");
-/* 1549 */       str1 = str1.replace("{$-base}", cls.getLRStr(new StringBuilder().append(this.conf.getNURLPre()).append(this.conf.getNURI()).toString(), "/", "leftr") + "/");
-/* 1550 */       str1 = this.conf.jt.creplace(str1);
+/* 1628 */       str1 = this.conf.jt.itake("global.tpl_public.base", "tpl");
+/* 1629 */       str1 = str1.replace("{$-base}", cls.getLRStr(new StringBuilder().append(this.conf.getNURLPre()).append(this.conf.getNURI()).toString(), "/", "leftr") + "/");
+/* 1630 */       str1 = this.conf.jt.creplace(str1);
 /*      */     }
-/* 1552 */     return str1;
+/* 1632 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String webHead(String paramString)
 /*      */   {
-/* 1557 */     String str1 = "";
-/* 1558 */     String str2 = paramString;
-/* 1559 */     str1 = this.conf.jt.itake("global.tpl_public." + str2, "tpl");
-/* 1560 */     str1 = this.conf.jt.creplace(str1);
-/* 1561 */     return str1;
+/* 1637 */     String str1 = "";
+/* 1638 */     String str2 = paramString;
+/* 1639 */     str1 = this.conf.jt.itake("global.tpl_public." + str2, "tpl");
+/* 1640 */     str1 = this.conf.jt.creplace(str1);
+/* 1641 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String webFoot(String paramString)
 /*      */   {
-/* 1566 */     String str1 = "";
-/* 1567 */     String str2 = paramString;
-/* 1568 */     str1 = this.conf.jt.itake("global.tpl_public." + str2, "tpl");
-/* 1569 */     str1 = this.conf.jt.creplace(str1);
-/* 1570 */     return str1;
+/* 1646 */     String str1 = "";
+/* 1647 */     String str2 = paramString;
+/* 1648 */     str1 = this.conf.jt.itake("global.tpl_public." + str2, "tpl");
+/* 1649 */     str1 = this.conf.jt.creplace(str1);
+/* 1650 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String webMessage(String paramString)
 /*      */   {
-/* 1575 */     String str1 = paramString;
-/* 1576 */     String str2 = this.conf.jt.itake("global.tpl_common.wfront-message", "tpl");
-/* 1577 */     str2 = str2.replace("{$message}", encode.htmlencode(str1));
-/* 1578 */     str2 = this.conf.jt.creplace(str2);
-/* 1579 */     return str2;
+/* 1655 */     String str1 = paramString;
+/* 1656 */     String str2 = this.conf.jt.itake("global.tpl_common.wfront-message", "tpl");
+/* 1657 */     str2 = str2.replace("{$message}", encode.htmlencode(str1));
+/* 1658 */     str2 = this.conf.jt.creplace(str2);
+/* 1659 */     return str2;
 /*      */   }
 /*      */ 
 /*      */   public String webMessages(String paramString1, String paramString2)
 /*      */   {
-/* 1584 */     String str1 = paramString1;
-/* 1585 */     String str2 = paramString2;
-/* 1586 */     String str3 = this.conf.jt.itake("global.tpl_common.wfront-messages", "tpl");
-/* 1587 */     str3 = str3.replace("{$message}", encode.htmlencode(str1));
-/* 1588 */     str3 = str3.replace("{$backurl}", encode.htmlencode(str2));
-/* 1589 */     str3 = this.conf.jt.creplace(str3);
-/* 1590 */     return str3;
+/* 1664 */     String str1 = paramString1;
+/* 1665 */     String str2 = paramString2;
+/* 1666 */     String str3 = this.conf.jt.itake("global.tpl_common.wfront-messages", "tpl");
+/* 1667 */     str3 = str3.replace("{$message}", encode.htmlencode(str1));
+/* 1668 */     str3 = str3.replace("{$backurl}", encode.htmlencode(str2));
+/* 1669 */     str3 = this.conf.jt.creplace(str3);
+/* 1670 */     return str3;
 /*      */   }
 /*      */ 
 /*      */   public String xmlSelect(String paramString1, String paramString2, String paramString3)
 /*      */   {
-/* 1595 */     String str1 = "";
-/* 1596 */     String str2 = paramString1;
-/* 1597 */     String str3 = paramString2;
-/* 1598 */     String str4 = paramString3;
-/* 1599 */     str1 = xmlSelect(str2, str3, str4, "");
-/* 1600 */     return str1;
+/* 1675 */     String str1 = "";
+/* 1676 */     String str2 = paramString1;
+/* 1677 */     String str3 = paramString2;
+/* 1678 */     String str4 = paramString3;
+/* 1679 */     str1 = xmlSelect(str2, str3, str4, "");
+/* 1680 */     return str1;
 /*      */   }
 /*      */ 
 /*      */   public String xmlSelect(String paramString1, String paramString2, String paramString3, String paramString4)
 /*      */   {
-/* 1605 */     String str1 = paramString1;
-/* 1606 */     String str2 = paramString2;
-/* 1607 */     String str3 = paramString3;
-/* 1608 */     String str4 = paramString4;
-/* 1609 */     String str5 = "";
-/* 1610 */     String str6 = this.conf.jt.itake("global.tpl_config.xmlselect_" + str3, "tpl");
-/* 1611 */     String str7 = this.conf.jt.itake("global.tpl_config.xmlselect_un" + str3, "tpl");
-/* 1612 */     if ((!(cls.isEmpty(str6).booleanValue())) && (!(cls.isEmpty(str7).booleanValue())))
+/* 1685 */     String str1 = paramString1;
+/* 1686 */     String str2 = paramString2;
+/* 1687 */     String str3 = paramString3;
+/* 1688 */     String str4 = paramString4;
+/* 1689 */     String str5 = "";
+/* 1690 */     String str6 = this.conf.jt.itake("global.tpl_config.xmlselect_" + str3, "tpl");
+/* 1691 */     String str7 = this.conf.jt.itake("global.tpl_config.xmlselect_un" + str3, "tpl");
+/* 1692 */     if ((!(cls.isEmpty(str6).booleanValue())) && (!(cls.isEmpty(str7).booleanValue())))
 /*      */     {
-/* 1614 */       String[][] arrayOfString = this.conf.jt.itakes(str1, "sel");
-/* 1615 */       for (int i = 0; i < arrayOfString.length; ++i)
+/* 1694 */       String[][] arrayOfString = this.conf.jt.itakes(str1, "sel");
+/* 1695 */       for (int i = 0; i < arrayOfString.length; ++i)
 /*      */       {
-/* 1617 */         if (cls.cinstr(str2, arrayOfString[i][0], ",").booleanValue()) str5 = str5 + str6;
+/* 1697 */         if (cls.cinstr(str2, arrayOfString[i][0], ",").booleanValue()) str5 = str5 + str6;
 /*      */         else str5 = str5 + str7;
-/* 1619 */         str5 = str5.replace("{$value}", encode.htmlencode(arrayOfString[i][0]));
-/* 1620 */         str5 = str5.replace("{$explain}", encode.htmlencode(arrayOfString[i][1]));
+/* 1699 */         str5 = str5.replace("{$value}", encode.htmlencode(arrayOfString[i][0]));
+/* 1700 */         str5 = str5.replace("{$explain}", encode.htmlencode(arrayOfString[i][1]));
 /*      */       }
-/* 1622 */       if (!(cls.isEmpty(str4).booleanValue())) str5 = str5.replace("{$name}", encode.htmlencode(str4));
-/* 1623 */       str5 = this.conf.jt.creplace(str5);
+/* 1702 */       if (!(cls.isEmpty(str4).booleanValue())) str5 = str5.replace("{$name}", encode.htmlencode(str4));
+/* 1703 */       str5 = this.conf.jt.creplace(str5);
 /*      */     }
-/* 1625 */     return str5;
+/* 1705 */     return str5;
 /*      */   }
 /*      */ 
 /*      */   public common(conf paramconf)
 /*      */   {
-/* 1630 */     this.conf = paramconf;
+/* 1710 */     this.conf = paramconf;
 /*      */   }
 /*      */ }

@@ -9,8 +9,7 @@ class module extends jpage
   {
     String tmpstr = "";
     String tsqlstr = "";
-    String tsqlstrs = cls.getString(conf.getRequestParameter("sqlstrs"));
-    System.out.println(tsqlstrs);
+    String tsqlstrs = cls.getString(conf.getRequestUsParameter("sqlstrs"));
     if (!cls.isEmpty(tsqlstrs))
     {
       Integer tstate2 = 0;
@@ -26,7 +25,6 @@ class module extends jpage
         if (!cls.isEmpty(tsqlstr))
         {
           dbc tDbc = db.newInstance(conf);
-          System.out.println(tsqlstr);
           tstate2 = tDbc.Executes(tsqlstr);
           if (tstate2 != -101) tstate1 = "1";
           ttpl = ttplstr;

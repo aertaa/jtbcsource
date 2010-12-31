@@ -285,6 +285,19 @@ class module extends jpage
     return tmpstr;
   }
 
+  private String Module_Add()
+  {
+    String tmpstr = "";
+    Integer tfid = cls.getNum(conf.getRequestUsParameter("fid"), 0);
+    if (tfid.equals(0)) tmpstr = conf.jt.itake("manage_category-interface.add-1", "tpl");
+    else tmpstr = conf.jt.itake("manage_category-interface.add-2", "tpl");
+    tmpstr = tmpstr.replace("{$-fid}", cls.toString(tfid));
+    tmpstr = tmpstr.replace("{$-naccount}", cls.toString(conf.jt.itake("config.naccount", "cfg")));
+    tmpstr = conf.jt.creplace(tmpstr);
+    tmpstr = conf.ajaxPreContent + tmpstr;
+    return tmpstr;
+  }
+
   private String Module_Edit()
   {
     String tmpstr = "";
@@ -356,18 +369,6 @@ class module extends jpage
     tmpstr = tmpstr.replace("{$pagi.pagenum}", cls.toString(pagi.pagenum));
     tmpstr = tmpstr.replace("{$pagi.pagenums}", cls.toString(pagi.pagenums));
     tmpstr = tmpstr.replace("{$category.FaCatHtml}", PP_GetFaCatHtml(conf.jt.itake("manage_category-interface.data_fa_category", "tpl"), admin.slng, tfid));
-    //*********************************************************************************//
-    tmprstr = "";
-    tmpastr = cls.ctemplate(tmpstr, "{@@}");
-    tmptstr = tmpastr;
-    String[] tmptstrAry = tmptstr.split(Pattern.quote("{@-@}"));
-    if (tmptstrAry.length == 2)
-    {
-      if (tfid.equals(0)) tmprstr = tmptstrAry[0];
-      else tmprstr = tmptstrAry[1];
-    }
-    tmpstr = cls.ctemplates(tmpstr, "{@@}", tmprstr);
-    //*********************************************************************************//
     tmpstr = conf.jt.creplace(tmpstr);
     tmpstr = conf.ajaxPreContent + tmpstr;
     return tmpstr;
@@ -387,6 +388,7 @@ class module extends jpage
       String tType = cls.getString(conf.getRequestUsParameter("type"));
 
       if (tType.equals("action")) tmpstr = Module_Action();
+      else if (tType.equals("add")) tmpstr = Module_Add();
       else if (tType.equals("edit")) tmpstr = Module_Edit();
       else if (tType.equals("list")) tmpstr = Module_List();
       else tmpstr = Module_List();

@@ -42,6 +42,8 @@ manages = {
       {
         var tAction = tformObj.action;
         var tstrform = cls.form.tgetValues(tformObj);
+        tstrform += '&fid=' + iescape($('fid').value);
+        tstrform += '&genre=' + iescape($('genre').value);
         $('ajaxSubmit').disabled = true;
         manage.windows.tShowPanelLoading();
         manage.tajaxPost(tAction, tstrform, manages.tAdds);

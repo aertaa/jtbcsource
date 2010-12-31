@@ -11,6 +11,10 @@
       <chinese><![CDATA[版块列表]]></chinese>
     </item>
     <item>
+      <name><![CDATA[nav_add]]></name>
+      <chinese><![CDATA[添加新版块]]></chinese>
+    </item>
+    <item>
       <name><![CDATA[nav_edit]]></name>
       <chinese><![CDATA[编辑版块]]></chinese>
     </item>

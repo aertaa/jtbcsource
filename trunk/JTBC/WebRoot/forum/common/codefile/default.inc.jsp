@@ -169,6 +169,7 @@ class module extends jpage
             String tnForumStateString = "0";
             String tnForumNumNoteNewString = "0";
             Object[][] tAry2 = (Object[][])tArys2[tis2];
+            String tnForumIType = cls.toString(tDbc.getValue(tAry2, cls.cfnames(tfpre, "itype")));
             String tnForumPopedom = cls.toString(tDbc.getValue(tAry2, cls.cfnames(tfpre, "popedom")));
             String tnForumNumNoteNew = cls.toString(tDbc.getValue(tAry2, cls.cfnames(tfpre, "num_note_new")));
             String tnForumLastTime = cls.toString(tDbc.getValue(tAry2, cls.cfnames(tfpre, "last_time")));
@@ -188,7 +189,11 @@ class module extends jpage
             tmp3rstr = "";
             tmp3astr = cls.ctemplate(tmp2tstr, "{@@@}");
             tmp3tstr = tmp3astr;
-            if (PP_CheckPopedom(tnForumPopedom)) tmp3tstr = cls.getLRStr(tmp3tstr, "{@-@-@}", "left");
+            if (PP_CheckPopedom(tnForumPopedom))
+            {
+              if (!tnForumIType.equals("99")) tmp3tstr = cls.getLRStr(tmp3tstr, "{@-@-@}", "left");
+              else tmp3tstr = cls.getLRStr(tmp3tstr, "{@-@-@}", "right");
+            }
             else
             {
               tnForumStateString = "2";
@@ -434,7 +439,7 @@ class module extends jpage
         }
         tmpstr = cls.ctemplates(tmpstr, "{@}", tmprstr);
         String tnUserReply = "1";
-        if (tForumLock.equals("1")) tnUserReply = "0";
+        if (tForumLock.equals("1") || cls.isEmpty(account.nusername)) tnUserReply = "0";
         tmpstr = conf.common.crValcodeTpl(tmpstr);
         tmpstr = conf.common.crValHtml(tmpstr, tnUserReply, "{@reply@}");
         tmpstr = tmpstr.replace("{$pagi.pagenum}", cls.toString(pagi.pagenum));
@@ -600,6 +605,7 @@ class module extends jpage
             String tnForumStateString = "0";
             String tnForumNumNoteNewString = "0";
             Object[][] tAry2 = (Object[][])tArys2[tis2];
+            String tnForumIType = cls.toString(tDbc.getValue(tAry2, cls.cfnames(tfpre, "itype")));
             String tnForumPopedom = cls.toString(tDbc.getValue(tAry2, cls.cfnames(tfpre, "popedom")));
             String tnForumNumNoteNew = cls.toString(tDbc.getValue(tAry2, cls.cfnames(tfpre, "num_note_new")));
             String tnForumLastTime = cls.toString(tDbc.getValue(tAry2, cls.cfnames(tfpre, "last_time")));
@@ -619,7 +625,11 @@ class module extends jpage
             tmp3rstr = "";
             tmp3astr = cls.ctemplate(tmp2tstr, "{@@@}");
             tmp3tstr = tmp3astr;
-            if (PP_CheckPopedom(tnForumPopedom)) tmp3tstr = cls.getLRStr(tmp3tstr, "{@-@-@}", "left");
+            if (PP_CheckPopedom(tnForumPopedom))
+            {
+              if (!tnForumIType.equals("99")) tmp3tstr = cls.getLRStr(tmp3tstr, "{@-@-@}", "left");
+              else tmp3tstr = cls.getLRStr(tmp3tstr, "{@-@-@}", "right");
+            }
             else
             {
               tnForumStateString = "2";

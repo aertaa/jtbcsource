@@ -24,7 +24,7 @@
       <tpl_default><![CDATA[  <div id="{$lnkname}-DIV" link="{$link}" onmousedown="cls.drag.tstart(this);" onmouseup="cls.drag.tstop(this);" onmousemove="cls.drag.tdrag(this, event);" onmouseout="cls.drag.tmouseout(this);" onclick="manage.desktop.tSelect(this);" ondblclick="manage.desktop.tSelectdbl(this);" oncontextmenu="manage.desktop.tSelect(this); manage.contextmenu.tLoad('DesktopLnk', event, '{$lnkname}');">
     <span class="space"></span>
     <span class="icon"><span class="hand" ondblclick="{$link}" title="{$topic}"><img ondrag="return false;" src="{$icon}" width="32" height="32" class="absmiddle" onerror="this.src = '{$=$admin.theme}lnk.default.png'; this.parentNode.ondblclick = null;" /></span></span>
-    <span class="text"><nobr id="{$lnkname}-Topic">{$topic}</nobr></span>
+    <span class="text"><span class="hand" ondblclick="{$link}" title="{$topic}"><nobr id="{$lnkname}-Topic">{$topic}</nobr></span></span>
   </div>]]></tpl_default>
     </item>
     <item>

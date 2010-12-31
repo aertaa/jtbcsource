@@ -95,6 +95,15 @@ manage = {
       tversion = cls.tgetNum(tversion, 0);
       if (tversion >= 4) tbool = true;
     };
+    if (tagt.indexOf('chrome') != -1)
+    {
+      tversion = tagt.substr(tagt.indexOf('chrome'));
+      tversion = tversion.substr(0, tversion.indexOf('.'));
+      tversion = tversion.replace('chrome', '');
+      tversion = tversion.replace('/', '');
+      tversion = cls.tgetNum(tversion, 0);
+      if (tversion >= 6) tbool = true;
+    };
     return tbool;
   },
   tgetPoundURLParameter: function(_strers)
@@ -1198,6 +1207,7 @@ manage.windows.drag = {
     var tobj = _obj;
     manage.windows.tAddShade(tobj);
     manage.windows.drag.tdobj = tobj;
+    document.onselectstart = function() {return false};
   },
   tstop: function(_obj)
   {
@@ -1208,6 +1218,7 @@ manage.windows.drag = {
       manage.windows.drag.tmy = 0;
       manage.windows.drag.tdobj = null;
       document.onmousemove = null;
+      document.onselectstart = function() {return true};
       manage.windows.tRemoveShade(tobj);
     };
   },
@@ -1307,13 +1318,13 @@ manage.windows.resize = {
   {
     var tobj = _obj;
     manage.windows.resize.tdobj = tobj;
+    document.onselectstart = function() {return false};
   },
   tstop: function(_obj)
   {
     var tobj = _obj;
     if (manage.windows.resize.tdobj == tobj)
     {
-
       manage.windows.resize.tmx = 0;
       manage.windows.resize.tmy = 0;
       try
@@ -1328,6 +1339,7 @@ manage.windows.resize = {
       manage.windows.resize.tdobj = null;
       document.onmousemove = null;
       document.onmouseup = null;
+      document.onselectstart = function() {return true};
     };
   },
   tmouseout: function(_obj)

@@ -194,6 +194,11 @@ manage_categorys.popup = {
       cls.mask.tSetStyle();
     };
   },
+  tLoadAdd: function()
+  {
+    var tFidObj = $('fid');
+    if (tFidObj) manage_categorys.popup.tLoad('?type=add&fid=' + tFidObj.value);
+  },
   tClose: function()
   {
     cls.mask.tClose();

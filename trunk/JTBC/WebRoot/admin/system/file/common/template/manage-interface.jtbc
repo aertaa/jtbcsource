@@ -62,25 +62,25 @@
     <item>
       <name><![CDATA[file_add]]></name>
       <tpl_default><![CDATA[
-                <div class="popup">
-                  <div class="popupTitle">
+                <div class="popup2">
+                  <div class="popup2Title">
                     <div>{$=itake("manage.nav_file_add", "lng")}</div>
                     <span class="hand" onclick="manages.popup.tClose();"><img src="{$=$admin.theme}close.2.png" /></span>
                   </div>
-                  <div class="popupContent">
+                  <div class="popup2Content">
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tr>
                         <td valign="top">
                           <form id="form3" method="post" action="manage-interface.jsp?type=action&atype=file&ftype=add">
                           <table width="100%" cellspacing="0" cellpadding="0" border="0">
                             <tr>
-                              <td height="25"><input type="text" name="file" size="30" class="text" value="{$=formatDate($now, "7")}.txt" /></td>
+                              <td height="25"><input type="text" name="file" size="40" class="text" value="{$=formatDate($now, "7")}.txt" /></td>
                             </tr>
                             <tr>
                               <td height="5"></td>
                             </tr>
                             <tr>
-                              <td><textarea class="textarea" name="content" style="WIDTH: 280px; HEIGHT: 200px"></textarea></td>
+                              <td><textarea class="textarea" name="content" style="WIDTH: 580px; HEIGHT: 200px"></textarea></td>
                             </tr>
                             <tr>
                               <td height="5"></td>
@@ -169,16 +169,14 @@
                   <tr onmouseover="cls.style.tover(this);" onmouseout="cls.style.tout(this);">
                     <td></td>
                     <td class="txt"><img src="{$=$images}/files/{$filetype}.gif" class="absmiddle" onerror="this.src = '{$=$images}/files/default.gif';" /> <span id="list-keywords-{$id}" class="hand" onclick="{$onclick1}">{$name}</span></td>
-                    <td class="txt">{$time}</td>
+                    <td class="txt">{$=formatDate("{$time}", "100")}</td>
                     <td class="txt">{$size}</td>
                     <td class="nimg"><span class="hand" title="{$=itake("global.lng_config.edit", "lng")}" onclick="{$onclick2}"><img src="{$=$admin.theme}edit.1.png" class="absmiddle" /></span></td>
                     <td class="nimg"><span class="hand" title="{$=itake("global.lng_config.delete", "lng")}" onclick="manage.windows.dialog.tConfirm('{$=itake("global.lng_common.deleteconfirm", "lng")}[' + cls.tgetMBcString($('list-keywords-{$id}').innerHTML, 30) + ']{$=itake("global.lng_common.questionmark", "lng")}', '{$onclick3}');"><img src="{$=$admin.theme}delete.1.png" class="absmiddle" /></span></td>
                     <td></td>
                   </tr>{@}
-                </table>
-                <table cellspacing="0" cellpadding="0" class="tabler">
                   <tr>
-                    <td height="5"></td>
+                    <td colspan="7" height="10"></td>
                   </tr>
                 </table>]]></tpl_default>
     </item>

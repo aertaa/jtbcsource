@@ -20,7 +20,7 @@ var $F = function(_id)
   {
     try
     {
-      tobj = $(tid).contentDocument;
+      tobj = $(tid).contentWindow;
     } catch(e){};
   };
   return tobj;

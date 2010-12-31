@@ -10,7 +10,7 @@ class module extends jpage
   {
     Integer tID = argID;
     Integer tID2 = tID % 1000;
-    String tID2String = "";
+    String tID2String = cls.toString(tID2);
     if (tID2 < 10) tID2String = "00" + tID2;
     if (tID2 >= 10 && tID2 < 100) tID2String = "0" + tID2;
     tID2String = cls.formatDate(cls.getDate(), 30) + tID2String;

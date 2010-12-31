@@ -4,6 +4,5 @@
 module module = new module();
 module.Init(request, response);
 String nOutput = module.getOutput();
-out.clear();
-out.print(nOutput);
+module.PagePrint(nOutput);
 %>

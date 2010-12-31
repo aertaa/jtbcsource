@@ -11,6 +11,27 @@ class module extends jpage
     String tidfield = cls.cfnames(tfpre, "id");
     String tvalcode = cls.getString(conf.getRequestUsParameter("valcode"));
     if (!conf.common.ckValcodes(tvalcode)) tmpstr = conf.jt.itake("global.lng_common.valcode-error-1", "lng");
+    //******************************************************************************************
+    if (cls.isEmpty(tmpstr))
+    {
+      try
+      {
+        String tKey = cls.getString(conf.getRequestUsParameter("key"));
+        tKey = new String(encode.base64decode(tKey));
+        String tKeyT = cls.getParameter(tKey, "t");
+        String tKeyK = cls.getParameter(tKey, "k");
+        if (!tKeyK.equals(encode.md5(("jetiben-" + tKeyT).getBytes()))) tmpstr = conf.jt.itake("default.add-error-1", "lng");
+        if (cls.isEmpty(tmpstr) && cls.getDate().equals(cls.getDate(tKeyT))) tmpstr = conf.jt.itake("default.add-error-2", "lng");
+        if (cls.isEmpty(tmpstr))
+        {
+          long tNowUnixStamp = cls.getUnixStamp();
+          long tReqUnixStamp = cls.getUnixStamp(tKeyT);
+          if (tNowUnixStamp - tReqUnixStamp > 7200) tmpstr = conf.jt.itake("default.add-error-3", "lng");
+        }
+      }
+      catch(Exception e) {}
+    }
+    //******************************************************************************************
     if (cls.isEmpty(tmpstr))
     {
       String tsqlstr = "insert into " + tdatabase + " (";
