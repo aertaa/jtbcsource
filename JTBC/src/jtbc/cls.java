@@ -43,11 +43,13 @@
 				
 				System.out.println("ad才".length());
 				System.out.println(getNum("d5678",123));
+				
+				System.out.println(reparameter("gggg", "a", "d"));
 			}
 			/*连接两个字符串*/
 			public static String cfnames(String paramString1, String paramString2)
 /*     */   {
-/*  15 */	 String str1 = "";
+/*  15 */	  String str1 = "";
 /*  16 */     String str2 = paramString1;
 /*  17 */     String str3 = paramString2;  
 /*  18 */     str1 = concat(str2, str3);

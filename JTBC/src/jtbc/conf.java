@@ -7,7 +7,7 @@
 /*     */ import javax.servlet.ServletContext;
 /*     */ import javax.servlet.http.HttpServletRequest;
 /*     */ import javax.servlet.http.HttpServletResponse;
-/*     */ import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 /*     */ 
 /*     */ public class conf
 /*     */ {
@@ -41,7 +41,8 @@
 /*     */   public Object[][] rstAry;
 /*     */   public String sysName;
 /*     */   public String xmlsfx;
-/*     */ 
+/*     */ 	
+			
 /*     */   public conf()
 /*     */   {
 /*  19 */     this.ajaxPreContent = "<!--jtbc-->";
@@ -97,6 +98,7 @@
 /*  70 */     String str1 = "";
 /*  71 */     String str2 = paramString;
 /*  72 */     str1 = this.appName + str2;
+			  //System.out.println(paramString+":"+str1);
 /*  73 */     return str1;
 /*     */   }
 /*     */ 
@@ -135,6 +137,7 @@
 /* 108 */     str5 = cls.getString(str5);
 /* 109 */     if (!(cls.isEmpty(str5).booleanValue())) str1 = encode.htmlencode(str5);
 /*     */     else str1 = encode.htmlencode(str3);
+			  //System.out.println(paramString+":"+str1);
 /* 111 */     return str1;
 /*     */   }
 /*     */ 
@@ -143,6 +146,7 @@
 /* 116 */     String str1 = "";
 /* 117 */     String str2 = paramString;
 /* 118 */     str1 = getActualRoute(str2, getNroute());
+			  //System.out.println(paramString+":"+str1);
 /* 119 */     return str1;
 /*     */   }
 /*     */ 
@@ -176,7 +180,7 @@
 /* 151 */     else if (str2.equals("child")) localObject = "../../" + str1;
 /* 152 */     else if (str2.equals("node")) localObject = "../" + str1;
 /*     */     else localObject = str1;
-/*     */ 
+/*     */ 	
 /* 155 */     return ((String)localObject);
 /*     */   }
 /*     */ 
@@ -228,7 +232,8 @@
 /*     */ 
 /* 206 */     str6 = cls.getLRStr(str6, "|", "leftr");
 /* 207 */     str6 = getActiveGenreOrdered(str3, str6);
-/* 208 */     return str6;
+//System.out.println("getActiveGenre#"+paramString1+ "1-"+ paramString2 +"2-"+ paramString3 + "3-:"+str6);
+/* 208 */     return str6;          
 /*     */   }
 /*     */ 
 /*     */   public String getActiveGenreOrdered(String paramString1, String paramString2)
@@ -270,6 +275,7 @@
 /*     */       } else {
 /* 248 */         localObject = str2; }
 /*     */     }
+//System.out.println("getActiveGenreOrdered#"+paramString1+ "-1-"+ paramString2 +"-2-:"+(String)localObject);			  
 /* 250 */     return ((String)localObject);
 /*     */   }
 /*     */ 
@@ -294,7 +300,7 @@
 /* 271 */           localInteger = Integer.valueOf(1); } }
 /*     */     }
 /* 273 */     while (localInteger.intValue() == 0);
-/* 274 */     str1 = str2 + "/" + str3;
+/* 274 */     str1 = str2 + "/" + str3;			
 /* 275 */     return str1;
 /*     */   }
 /*     */ 
