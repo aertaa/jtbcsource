@@ -104,7 +104,8 @@
 /* 109 */     Object[] arrayOfObject = null;
 /* 110 */     String str = cls.getString(paramString);
 /* 111 */     if (!(cls.isEmpty(str).booleanValue())) arrayOfObject = (Object[])(Object[])this.conf.application.getAttribute(this.conf.getAppKey("dbcache-" + str));
-/* 112 */     return arrayOfObject;
+/* 112 */     //System.out.println(this.conf.getAppKey("dbcache-" + str));
+			  return arrayOfObject;
 /*     */   }
 /*     */ 
 /*     */   public Object getValue(String paramString1, String paramString2, Integer paramInteger, String paramString3)
