@@ -23,6 +23,7 @@ manages = {
     if (tstrArg) tstrURL += tstrArg;
     manage.windows.tShowPanelLoading();
     manage.tajaxGet(tstrURL, manages.tLoads);
+    manages.tSelectGroup(cls.tgetParameter(tstrArg, 'group'));
   },
   tLoads: function(_strers)
   {
@@ -121,6 +122,20 @@ manages = {
     manage.tajaxCompleted();
     manage.windows.tHidePanelLoading();
     if (tstrers == '200') manages.tLoad(manages.ttempArg);
+  },
+  tSelectGroup: function(_id)
+  {
+    var tid = _id;
+    var tobjs = document.getElementsByName('group-icon');
+    if (tobjs)
+    {
+      for (ti = 0; ti < tobjs.length; ti ++)
+      {
+        tobjs[ti].src = tobjs[ti].getAttribute('srcunselected');
+      };
+    };
+    var tselectedObj = $('group-icon-' + tid);
+    if (tselectedObj) tselectedObj.src = tselectedObj.getAttribute('srcselected');
   },
   tRefresh: function()
   {

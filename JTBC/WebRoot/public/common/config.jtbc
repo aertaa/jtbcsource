@@ -8,7 +8,7 @@
   <item_list>
     <item>
       <name><![CDATA[genre-order]]></name>
-      <chinese><![CDATA[linktexts,linkimages,comment,guestbook]]></chinese>
+      <chinese><![CDATA[scripts,linktexts,linkimages,comment,guestbook]]></chinese>
     </item>
     <item>
       <name><![CDATA[nuninstall]]></name>

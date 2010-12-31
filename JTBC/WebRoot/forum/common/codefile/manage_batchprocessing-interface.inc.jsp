@@ -184,6 +184,16 @@ class module extends jpage
       if (cls.cinstr(tCondition, "num_note_new", ",")) tDbc.Execute("update " + tdatabase + " set " + cls.cfnames(tfpre, "num_note_new") + "=(select count(*) from " + tdatabaseT + " where " + cls.cfnames(tfpreT, "class") + "=" + tClass + " and " + cls.cfnames(tfpreT, "timestamp") + ">=" + tDateNowUnixStamp + ") where " + tidfield + "=" + tClass);
       if (cls.cinstr(tCondition, "num_topic", ",")) tDbc.Execute("update " + tdatabase + " set " + cls.cfnames(tfpre, "num_topic") + "=(select count(*) from " + tdatabaseT + " where " + cls.cfnames(tfpreT, "class") + "=" + tClass + " and " + cls.cfnames(tfpreT, "fid") + "=0) where " + tidfield + "=" + tClass);
       if (cls.cinstr(tCondition, "num_note", ",")) tDbc.Execute("update " + tdatabase + " set " + cls.cfnames(tfpre, "num_note") + "=(select count(*) from " + tdatabaseT + " where " + cls.cfnames(tfpreT, "class") + "=" + tClass + ") where " + tidfield + "=" + tClass);
+      String tsqlstrT = "select * from " + tdatabaseT + " where " + tidfieldT + "=(select max(" + tidfieldT + ") from " + tdatabaseT + " where " + cls.cfnames(tfpreT, "hidden") + "=0 and " + cls.cfnames(tfpreT, "fid") + "=0 and " + cls.cfnames(tfpreT, "class") + "=" + tClass + ")";
+      Object[] tArysT = tDbc.getDataAry(tsqlstrT);
+      if (tArysT != null)
+      {
+        Object[][] tAryT = (Object[][])tArysT[0];
+        String tLastTopic = cls.toString(tDbc.getValue(tAryT, cls.cfnames(tfpreT, "topic")));
+        String tLastTopicTime = cls.toString(tDbc.getValue(tAryT, cls.cfnames(tfpreT, "time")));
+        Integer tLastTopicID = cls.getNum(cls.toString(tDbc.getValue(tAryT, tidfieldT)), 0);
+        tDbc.Execute("update " + tdatabase + " set " + cls.cfnames(tfpre, "last_topic") + "='" + cls.getLeft(encode.addslashes(tLastTopic), 255) + "'," + cls.cfnames(tfpre, "last_topic_time") + "='" + cls.getDate(tLastTopicTime) + "'," + cls.cfnames(tfpre, "last_topic_id") + "=" + tLastTopicID + " where " + tidfield + "=" + tClass);
+      }
       tmpstr = conf.jt.itake("manage_batchprocessing.submit-done", "lng");
     }
     else tmpstr = conf.jt.itake("manage_batchprocessing.submit-done", "lng");

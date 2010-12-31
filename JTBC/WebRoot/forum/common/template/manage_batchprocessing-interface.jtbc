@@ -39,11 +39,11 @@
                         </tr>
                         <tr>
                           <td class="txt">{$=itake("manage_batchprocessing.txt-starttime", "lng")}</td>
-                          <td class="txt"><input type="text" name="starttime" value="{$=formatDate($now)}" class="text" size="20" /></td>
+                          <td class="txt"><input type="text" name="starttime" value="{$=formatDate($now, "100")}" class="text" size="20" /></td>
                         </tr>
                         <tr>
                           <td class="txt">{$=itake("manage_batchprocessing.txt-endtime", "lng")}</td>
-                          <td class="txt"><input type="text" name="endtime" value="{$=formatDate($now)}" class="text" size="20" /></td>
+                          <td class="txt"><input type="text" name="endtime" value="{$=formatDate($now, "100")}" class="text" size="20" /></td>
                         </tr>
                         <tr>
                           <td class="txt">{$=itake("manage_batchprocessing.txt-author", "lng")}</td>
@@ -99,11 +99,11 @@
                         </tr>
                         <tr>
                           <td class="txt">{$=itake("manage_batchprocessing.txt-starttime", "lng")}</td>
-                          <td class="txt"><input type="text" name="starttime" value="{$=formatDate($now)}" class="text" size="20" /></td>
+                          <td class="txt"><input type="text" name="starttime" value="{$=formatDate($now, "100")}" class="text" size="20" /></td>
                         </tr>
                         <tr>
                           <td class="txt">{$=itake("manage_batchprocessing.txt-endtime", "lng")}</td>
-                          <td class="txt"><input type="text" name="endtime" value="{$=formatDate($now)}" class="text" size="20" /></td>
+                          <td class="txt"><input type="text" name="endtime" value="{$=formatDate($now, "100")}" class="text" size="20" /></td>
                         </tr>
                         <tr>
                           <td class="txt">{$=itake("manage_batchprocessing.txt-author", "lng")}</td>

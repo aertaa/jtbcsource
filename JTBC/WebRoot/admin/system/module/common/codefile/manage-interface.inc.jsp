@@ -121,7 +121,11 @@ class module extends jpage
             if (tValue1.equals("ndatabase") || cls.getLRStr(tValue1, "-", "left").equals("ndatabase"))
             {
               String tsqlstr1 = "DROP TABLE [" + tValue2 + "]";
-              if (tDbc.Executes(tsqlstr1) == -101) tState1 = -101;
+              if (tDbc.Executes(tsqlstr1) != -101) tState1 = 200;
+              else
+              {
+                if (tState1 == 0) tState1 = -101;
+              }
             }
           }
         }

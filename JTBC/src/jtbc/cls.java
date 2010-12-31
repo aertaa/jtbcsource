@@ -7,51 +7,15 @@
 /*     */ import java.util.Random;
 /*     */ import java.util.TimeZone;
 /*     */ import java.util.regex.Matcher;
-			import java.util.regex.Pattern;
+/*     */ import java.util.regex.Pattern;
 /*     */ 
 /*     */ public class cls
 /*     */ {
-/*     */   /*测试主函数*/
-			public static void main(String[] args)
-			{
-				System.out.println(concat("ab","c"));
-				System.out.println(cper(1,2));
-				System.out.println(ctemplate("ad@bcRRRR@","@"));
-				System.out.println(ctemplates("ad@bcRRRR@----","@","R"));
-				System.out.println(cidary("1,2,a,4"));
-				
-				String str1 = "abcd&efghijk&lmnopqrst";
-				String str2 = "&";
-				System.out.println("str1:"+str1);
-				System.out.println("getLRStr-left:"+getLRStr(str1,str2,"left"));
-				System.out.println("getLRStr-leftr:"+getLRStr(str1,str2,"leftr"));
-				System.out.println("getLRStr-right:"+getLRStr(str1,str2,"right"));
-				System.out.println("getLRStr-rightr:"+getLRStr(str1,str2,"rightr"));
-				
-				String str3 ="1,2,3,4";
-				String str4 = "1,2";
-				System.out.println(cinstr(str3,"12",","));
-				System.out.println(cinstrs(str3,str4,","));
-				
-				System.out.println(formatByte("a"));
-				
-				System.out.println(formatTime(-1));
-				
-				System.out.println(formatText("b[text]b_,c[text]-------","*[text]",","));
-				
-				System.out.println(getLeft("a国c",2,"dddd"));
-				
-				System.out.println("ad才".length());
-				System.out.println(getNum("d5678",123));
-				
-				System.out.println(reparameter("gggg", "a", "d"));
-			}
-			/*连接两个字符串*/
-			public static String cfnames(String paramString1, String paramString2)
+/*     */   public static String cfnames(String paramString1, String paramString2)
 /*     */   {
-/*  15 */	  String str1 = "";
+/*  15 */     String str1 = "";
 /*  16 */     String str2 = paramString1;
-/*  17 */     String str3 = paramString2;  
+/*  17 */     String str3 = paramString2;
 /*  18 */     str1 = concat(str2, str3);
 /*  19 */     return str1;
 /*     */   }
@@ -65,7 +29,7 @@
 /*  28 */     str3 = getString(str3);
 /*  29 */     str1 = str2 + str3;
 /*  30 */     return str1;
-/*     */   } 
+/*     */   }
 /*     */ 
 /*     */   public static String cper(Integer paramInteger1, Integer paramInteger2)
 /*     */   {
@@ -74,7 +38,7 @@
 /*  37 */     Integer localInteger2 = paramInteger2;
 /*  38 */     String str2 = toString(localInteger1);
 /*  39 */     String str3 = toString(localInteger2);
-/*  40 */     if ((!(localInteger1.equals(Integer.valueOf(0)))) || (!(localInteger2.equals(Integer.valueOf(0))))) str1 = toString(Double.valueOf(getDouble(str2).doubleValue() / getDouble(str3).doubleValue() * 100.0D));
+/*  40 */     if ((!(localInteger1.equals(Integer.valueOf(0)))) && (!(localInteger2.equals(Integer.valueOf(0))))) str1 = toString(Double.valueOf(getDouble(str2).doubleValue() / getDouble(str3).doubleValue() * 100.0D));
 /*  41 */     str1 = getLRStr(str1, ".", "left");
 /*  42 */     return str1;
 /*     */   }
@@ -135,7 +99,7 @@
 /*  98 */     String str2 = paramString2;
 /*  99 */     String str3 = paramString3;
 /* 100 */     if (str1.equals(str2)) localBoolean = Boolean.valueOf(true);
-/* 103 */     else if (str1.indexOf(str3 + str2 + str3) > 0) localBoolean = Boolean.valueOf(true);
+/* 103 */     else if (str1.indexOf(str3 + str2 + str3) >= 0) localBoolean = Boolean.valueOf(true);
 /* 106 */     else if (getLRStr(str1, str3, "left").equals(str2)) localBoolean = Boolean.valueOf(true);
 /* 109 */     else if (getLRStr(str1, str3, "right").equals(str2)) localBoolean = Boolean.valueOf(true);
 /*     */ 
@@ -614,9 +578,7 @@
 /* 590 */     for (int i = 1; i < localInteger.intValue(); ++i) str2 = str2 + str1;
 /* 591 */     return str2;
 /*     */   }
-/*     */ 	/*
- * 			把字符串转成非null值，方便程序开发的转化。
- * 			*/
+/*     */ 
 /*     */   public static String getString(String paramString)
 /*     */   {
 /* 596 */     String str = paramString;
@@ -718,13 +680,13 @@
 /* 694 */       Integer localInteger4 = Integer.valueOf(arrayOfString2[0].length);
 /* 695 */       if (localInteger2.equals(localInteger4))
 /*     */       {
-/*     */         int j,i;
+/*     */         int i,j;
 /* 697 */         localObject = new String[localInteger1.intValue() + localInteger3.intValue()][localInteger2.intValue()];
 /* 698 */         for (i = 0; i < localInteger1.intValue(); ++i)
 /*     */         {
 /* 700 */           for (j = 0; j < localInteger2.intValue(); ++j)
 /*     */           {
-/* 702 */            ((String[][])localObject)[i][j] = arrayOfString1[i][j];
+/* 702 */             ((String[][])localObject)[i][j] = arrayOfString1[i][j];
 /*     */           }
 /*     */         }
 /* 705 */         for (i = 0; i < localInteger3.intValue(); ++i)

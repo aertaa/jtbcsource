@@ -73,7 +73,7 @@
       <tr>
         <td valign="top">
           <script type="text/javascript" src="{$=$images}/js/defaults.js"></script>
-          <script type="text/javascript" src="{$=getActualRoute("common")}/editor/jtbceditor/jtbcEditor.js"></script>
+          <script type="text/javascript" src="{$=getActualRoute("common")}/editor/ubbeditor/ubbEditor.js"></script>
           <form id="form1" method="post" action="default-interface.jsp?type=action&atype=release" onsubmit="return false;">
           <input type="hidden" name="class" value="{$id}" />
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -161,8 +161,9 @@
   </div>
 </div>
 <script type="text/javascript">
-var nEditor = new jtbcEditor('content');
-nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
+var nEditor = new ubbEditor('content');
+nEditor.tLang = 'zh-cn';
+nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/ubbeditor/');
 </script>
 {$=webFoot("default_foot")}]]></tpl_default>
     </item>
@@ -179,7 +180,7 @@ nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
       <tr>
         <td valign="top">
           <script type="text/javascript" src="{$=$images}/js/defaults.js"></script>
-          <script type="text/javascript" src="{$=getActualRoute("common")}/editor/jtbceditor/jtbcEditor.js"></script>
+          <script type="text/javascript" src="{$=getActualRoute("common")}/editor/ubbeditor/ubbEditor.js"></script>
           <form id="form1" method="post" action="default-interface.jsp?type=action&atype=edit&id={$id}" onsubmit="return false;">
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
@@ -238,8 +239,9 @@ nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
   </div>
 </div>
 <script type="text/javascript">
-var nEditor = new jtbcEditor('content');
-nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
+var nEditor = new ubbEditor('content');
+nEditor.tLang = 'zh-cn';
+nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/ubbeditor/');
 </script>
 {$=webFoot("default_foot")}]]></tpl_default>
     </item>
@@ -279,7 +281,7 @@ nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
           </table>
         </td>
         <td width="30%">{@@@}
-          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <table width="96%" cellpadding="0" cellspacing="0" border="0">
             <tr>
               <td height="22" colspan="3"><img src="{$=$images}/icon/topic.gif" class="absmiddle" /> <a href="{$=iurl("type=detail;key={$-last_topic_id};time={$-last_topic_time}")}">{$-last_topic}</a></td>
             </tr>
@@ -292,9 +294,9 @@ nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
               <td width="34%"><img src="{$=$images}/icon/num_note.gif" class="absmiddle" /> {$-num_note}</td>
             </tr>
           </table>{@-@-@}
-          <table cellpadding="0" cellspacing="0" width="96%">
+          <table width="96%" cellpadding="0" cellspacing="0" border="0">
             <tr>
-              <td align="center" class="ash">{$=itake("default.popedom-error-1", "lng")}</td>
+              <td align="center" class="ash">{$=itake("default.statistics-error-1", "lng")}</td>
             </tr>
           </table>{@@@}
         </td>
@@ -476,7 +478,7 @@ nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
       </tr>
       <tr>
         <td valign="top">
-          <script type="text/javascript" src="{$=getActualRoute("common")}/editor/jtbceditor/jtbcEditor.js"></script>
+          <script type="text/javascript" src="{$=getActualRoute("common")}/editor/ubbeditor/ubbEditor.js"></script>
           <form id="form1" method="post" action="default-interface.jsp?type=action&atype=release" onsubmit="return false;">
           <input type="hidden" name="class" value="{$class}" />
           <input type="hidden" name="fid" value="{$id}" />
@@ -520,8 +522,9 @@ nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
       </tr>
     </table>
 <script type="text/javascript">
-var nEditor = new jtbcEditor('content');
-nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
+var nEditor = new ubbEditor('content');
+nEditor.tLang = 'zh-cn';
+nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/ubbeditor/');
 </script>{@reply@}
   </div>
 </div>
@@ -554,7 +557,7 @@ nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
           </table>
         </td>
         <td width="30%">{@@@}
-          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <table width="96%" cellpadding="0" cellspacing="0" border="0">
             <tr>
               <td height="22" colspan="3"><img src="{$=$images}/icon/topic.gif" class="absmiddle" /> <a href="{$=iurl("type=detail;key={$-last_topic_id};time={$-last_topic_time}")}">{$-last_topic}</a></td>
             </tr>
@@ -567,9 +570,9 @@ nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');
               <td width="34%"><img src="{$=$images}/icon/num_note.gif" class="absmiddle" /> {$-num_note}</td>
             </tr>
           </table>{@-@-@}
-          <table cellpadding="0" cellspacing="0" width="96%">
+          <table width="96%" cellpadding="0" cellspacing="0" border="0">
             <tr>
-              <td align="center" class="ash">{$=itake("default.popedom-error-1", "lng")}</td>
+              <td align="center" class="ash">{$=itake("default.statistics-error-1", "lng")}</td>
             </tr>
           </table>{@@@}
         </td>

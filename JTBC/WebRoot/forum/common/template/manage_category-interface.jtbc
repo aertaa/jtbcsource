@@ -11,6 +11,102 @@
       <tpl_default><![CDATA[<span class="hand" onclick="manage_categorys.tLoad(cls.treparameter(manage_categorys.ttempArg, 'fid', '0'));">{$=itake("manage_category.list", "lng")}</span>{@} <img src="{$=$admin.theme}icon.2.png" class="absmiddle" /> <span class="hand" onclick="manage_categorys.tLoad(cls.treparameter(manage_categorys.ttempArg, 'fid', '{$id}'));">{$topic}</span>{@}&nbsp;]]></tpl_default>
     </item>
     <item>
+      <name><![CDATA[add-1]]></name>
+      <tpl_default><![CDATA[                <div class="popup">
+                  <div class="popupTitle">
+                    <div>{$=itake("manage_category.nav_add", "lng")}</div>
+                    <span class="hand" onclick="manage_categorys.popup.tClose();"><img src="{$=$admin.theme}close.2.png" /></span>
+                  </div>
+                  <div class="popupContent">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td valign="top">
+                          <form id="form1" method="post" action="manage_category-interface.jsp?type=action&atype=add" onsubmit="return manage_categorys.tAdd('form1');">
+                          <input type="hidden" name="fid" value="{$-fid}" />
+                          <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                              <td width="85" height="25">{$=itake("manage_category.txt-topic", "lng")}</td>
+                              <td><input type="text" name="topic" size="20" class="text" rtype="Require" rmessage="{$=itake("manage_category.req_topic", "lng")}" /> <input id="ajaxSubmit" type="submit" class="btn" value="{$=itake("global.lng_config.submit", "lng")}" /></td>
+                            </tr>
+                          </table>
+                          </form>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[add-2]]></name>
+      <tpl_default><![CDATA[                <div class="popup2">
+                  <div class="popup2Title">
+                    <div>{$=itake("manage_category.nav_add", "lng")}</div>
+                    <span class="hand" onclick="manage_categorys.popup.tClose();"><img src="{$=$admin.theme}close.2.png" /></span>
+                  </div>
+                  <div class="popup2Content">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td valign="top">
+                          <form id="form1" method="post" action="manage_category-interface.jsp?type=action&atype=add" onsubmit="return manage_categorys.tAdd('form1');">
+                          <input type="hidden" name="fid" value="{$-fid}" />
+                          <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                              <td width="85" height="25">{$=itake("manage_category.txt-topic", "lng")}</td>
+                              <td><input type="text" name="topic" size="20" class="text" rtype="Require" rmessage="{$=itake("manage_category.req_topic", "lng")}" /></td>
+                            </tr>
+                            <tr>
+                              <td height="25">{$=itake("manage_category.txt-itype", "lng")}</td>
+                              <td><select name="itype" class="select">{$=xmlSelect("sel_itype.all", "0", "select")}</select></td>
+                            </tr>
+                            <tr>
+                              <td height="25">{$=itake("manage_category.txt-popedom", "lng")}</td>
+                              <td>{$=xmlSelect("global.{$-naccount}:sel_group.all", "", "checkbox", "popedom")}</td>
+                            </tr>
+                            <tr>
+                              <td height="25">{$=itake("manage_category.txt-image", "lng")}</td>
+                              <td><input type="text" name="image" size="40" class="text" /></td>
+                            </tr>
+                            <tr>
+                              <td height="25">{$=itake("manage_category.txt-manager", "lng")}</td>
+                              <td><input type="text" name="manager" size="40" class="text" /></td>
+                            </tr>
+                            <tr>
+                              <td height="5"></td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <td>{$=itake("manage_category.txt-rule", "lng")}</td>
+                              <td><textarea rows="2" name="rule" cols="75" class="textarea"></textarea></td>
+                            </tr>
+                            <tr>
+                              <td height="5"></td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <td>{$=itake("manage_category.txt-explain", "lng")}</td>
+                              <td><textarea rows="2" name="explain" cols="75" class="textarea"></textarea></td>
+                            </tr>
+                            <tr>
+                              <td height="5"></td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <td height="25">{$=itake("manage_category.txt-hidden", "lng")}</td>
+                              <td>{$=xmlSelect("global.sel_yesno.all", "0", "radio", "hidden")}</td>
+                            </tr>
+                            <tr>
+                              <td height="25"></td>
+                              <td><input id="ajaxSubmit" type="submit" class="btn" value="{$=itake("global.lng_config.submit", "lng")}" /> <input type="reset" class="btn" value="{$=itake("global.lng_config.reset", "lng")}" /></td>
+                            </tr>
+                          </table>
+                          </form>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>]]></tpl_default>
+    </item>
+    <item>
       <name><![CDATA[edit-1]]></name>
       <tpl_default><![CDATA[                <div class="popup">
                   <div class="popupTitle">
@@ -107,6 +203,7 @@
     <item>
       <name><![CDATA[list]]></name>
       <tpl_default><![CDATA[
+                <input type="hidden" id="fid" name="fid" value="{$-fid}" />
                 <table cellspacing="0" cellpadding="0" class="tabler">
                   <tr>
                     <td class="tit tdl"></td>
@@ -133,103 +230,13 @@
                     <td class="nimg"><span class="hand" title="{$=itake("global.lng_config.delete", "lng")}" onclick="manage.windows.dialog.tConfirm('{$=itake("global.lng_common.deleteconfirm", "lng")}[' + cls.tgetMBcString($('list-keywords-{$id}').innerHTML, 30) + ']{$=itake("global.lng_common.questionmark", "lng")}', 'manage_categorys.tDelete({$id});');"><img src="{$=$admin.theme}delete.1.png" class="absmiddle" /></span></td>
                     <td></td>
                   </tr>{@}
-                </table>
-                <table cellspacing="0" cellpadding="0" class="tabler">
                   <tr>
-                    <td height="5"></td>
-                  </tr>
-                </table>
-                <table cellspacing="0" cellpadding="0" class="tabler">
-                  <tr>
-                    <td id="cutepage" class="cutepage"><div class="dfn"><dfn><textarea>cls.pagi.tpagi({$pagi.pagenum}, {$pagi.pagenums}, 'manage_categorys.tLoad(cls.treparameter(manage_categorys.ttempArg, \'page\', [$page]));', 'cutepage');</textarea></dfn></div></td>
-                    <td class="tdr"></td>
-                  </tr>
-                  <tr>
-                    <td height="5"></td>
+                    <td colspan="6" id="cutepage" class="cutepage"><div class="dfn"><dfn><textarea>cls.pagi.tpagi({$pagi.pagenum}, {$pagi.pagenums}, 'manage_categorys.tLoad(cls.treparameter(manage_categorys.ttempArg, \'page\', [$page]));', 'cutepage');</textarea></dfn></div></td>
                     <td></td>
                   </tr>
                   <tr>
-                    <td class="selected-switch">{$=itake("global.lng_common.selected-switch", "lng")} <select name="swtype" id="swtype" class="select">{$=getSwitchOptions("select,hidden")}</select> <input type="button" class="button" value="{$=itake("global.lng_common.switch", "lng")}" onclick="manage.windows.dialog.tConfirm('{$=itake("global.lng_common.selected-switch-attentions", "lng")}', 'manage_categorys.tSwitch($(\'swtype\').value, cls.tgetCheckboxsValue(\'id\'));');" /></td>
+                    <td colspan="6" class="selected-switch">{$=itake("global.lng_common.selected-switch", "lng")} <select name="swtype" id="swtype" class="select">{$=getSwitchOptions("select,hidden")}</select> <input type="button" class="button" value="{$=itake("global.lng_common.switch", "lng")}" onclick="manage.windows.dialog.tConfirm('{$=itake("global.lng_common.selected-switch-attentions", "lng")}', 'manage_categorys.tSwitch($(\'swtype\').value, cls.tgetCheckboxsValue(\'id\'));');" /></td>
                     <td></td>
-                  </tr>
-                </table>
-                <table cellspacing="0" cellpadding="0" class="tabler">
-                  <tr>
-                    <td height="5"></td>
-                  </tr>
-                </table>
-                <table cellspacing="0" cellpadding="0" class="tabler">
-                  <tr>
-                    <td class="txt tdl"></td>
-                    <td class="txt">{$=itake("manage.nav_add", "lng")}</td>
-                    <td class="txt tdr"></td>
-                  </tr>{@@}
-                  <tr>
-                    <td></td>
-                    <td valign="top">
-                      <form id="form1" method="post" action="manage_category-interface.jsp?type=action&atype=add" onsubmit="return manage_categorys.tAdd('form1');">
-                      <input type="hidden" name="fid" value="{$-fid}" />
-                      <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                        <tr>
-                          <td width="80" class="txt">{$=itake("manage_category.txt-topic", "lng")}</td>
-                          <td class="txt"><input type="text" name="topic" size="20" class="text" rtype="Require" rmessage="{$=itake("manage_category.req_topic", "lng")}" /> <input id="ajaxSubmit" type="submit" class="btn" value="{$=itake("global.lng_config.submit", "lng")}" /></td>
-                        </tr>
-                      </table>
-                      </form>
-                    </td>
-                    <td></td>
-                  </tr>{@-@}
-                  <tr>
-                    <td></td>
-                    <td valign="top">
-                      <form id="form1" method="post" action="manage_category-interface.jsp?type=action&atype=add" onsubmit="return manage_categorys.tAdd('form1');">
-                      <input type="hidden" name="fid" value="{$-fid}" />
-                      <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                        <tr>
-                          <td width="80" class="txt">{$=itake("manage_category.txt-topic", "lng")}</td>
-                          <td class="txt"><input type="text" name="topic" size="20" class="text" rtype="Require" rmessage="{$=itake("manage_category.req_topic", "lng")}" /></td>
-                        </tr>
-                        <tr>
-                          <td class="txt">{$=itake("manage_category.txt-itype", "lng")}</td>
-                          <td class="txt"><select name="itype" class="select">{$=xmlSelect("sel_itype.all", "0", "select")}</select></td>
-                        </tr>
-                        <tr>
-                          <td class="txt">{$=itake("manage_category.txt-popedom", "lng")}</td>
-                          <td class="txt">{$=xmlSelect("global.{$-naccount}:sel_group.all", "", "checkbox", "popedom")}</td>
-                        </tr>
-                        <tr>
-                          <td class="txt">{$=itake("manage_category.txt-image", "lng")}</td>
-                          <td class="txt"><input type="text" name="image" size="40" class="text" /></td>
-                        </tr>
-                        <tr>
-                          <td class="txt">{$=itake("manage_category.txt-manager", "lng")}</td>
-                          <td class="txt"><input type="text" name="manager" size="40" class="text" /></td>
-                        </tr>
-                        <tr>
-                          <td class="txt">{$=itake("manage_category.txt-rule", "lng")}</td>
-                          <td class="txt"><textarea rows="2" name="rule" cols="75" class="textarea"></textarea></td>
-                        </tr>
-                        <tr>
-                          <td class="txt">{$=itake("manage_category.txt-explain", "lng")}</td>
-                          <td class="txt"><textarea rows="2" name="explain" cols="75" class="textarea"></textarea></td>
-                        </tr>
-                        <tr>
-                          <td class="txt">{$=itake("manage_category.txt-hidden", "lng")}</td>
-                          <td class="txt">{$=xmlSelect("global.sel_yesno.all", "0", "radio", "hidden")}</td>
-                        </tr>
-                        <tr>
-                          <td class="txt"></td>
-                          <td class="txt"><input id="ajaxSubmit" type="submit" class="btn" value="{$=itake("global.lng_config.submit", "lng")}" /> <input type="reset" class="btn" value="{$=itake("global.lng_config.reset", "lng")}" /></td>
-                        </tr>
-                      </table>
-                      </form>
-                    </td>
-                    <td></td>
-                  </tr>{@@}
-                </table>
-                <table cellspacing="0" cellpadding="0" class="tabler">
-                  <tr>
-                    <td height="5"></td>
                   </tr>
                 </table>]]></tpl_default>
     </item>

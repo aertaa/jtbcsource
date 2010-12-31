@@ -166,6 +166,7 @@ class module extends jpage
         tmpstr = tmpstr.replace("{$-genre}", tNGenre);
         tmpstr = tmpstr.replace("{$-lng}", cls.toString(tNLng));
         tmpstr = tmpstr.replace("{$-class}", cls.toString(tClass));
+        tmpstr = tmpstr.replace("{$-att}", encode.htmlencode(tAtt));
         tmpstr = tmpstr.replace("{$-controlstring}", cls.toString(tControlString));
         tmpstr = tmpstr.replace("{$-topHtml}", PP_GetTopHtml(cls.toString(tClass)));
         tmpstr = conf.jt.creplace(tmpstr);

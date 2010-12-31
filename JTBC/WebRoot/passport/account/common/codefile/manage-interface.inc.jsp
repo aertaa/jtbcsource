@@ -174,6 +174,7 @@ class module extends jpage
     String tmpstr = "";
     String tmpastr, tmprstr, tmptstr;
     Integer tpage = cls.getNum(conf.getRequestUsParameter("page"));
+    Integer tgroup = cls.getNum(conf.getRequestUsParameter("group"), -1);
     String tfield = cls.getSafeString(conf.getRequestUsParameter("field"));
     String tkeyword = cls.getSafeString(conf.getRequestUsParameter("keyword"));
     tmpstr = conf.jt.itake("manage-interface.list", "tpl");
@@ -182,6 +183,7 @@ class module extends jpage
     String tdatabase = cls.getString(conf.jt.itake("config.ndatabase", "cfg"));
     String tfpre = cls.getString(conf.jt.itake("config.nfpre", "cfg"));
     String tsqlstr = "select * from " + tdatabase + " where 1=1";
+    if (tgroup != -1) tsqlstr += " and " + cls.cfnames(tfpre, "group") + "=" + tgroup;
     if (tfield.equals("username")) tsqlstr += " and " + cls.cfnames(tfpre, "username") + " like '%" + tkeyword + "%'";
     if (tfield.equals("lock")) tsqlstr += " and " + cls.cfnames(tfpre, "lock") + "=" + cls.getNum(tkeyword);
     if (tfield.equals("id")) tsqlstr += " and " + cls.cfnames(tfpre, "id") + "=" + cls.getNum(tkeyword);

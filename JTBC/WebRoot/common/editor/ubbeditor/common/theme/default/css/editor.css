@@ -1,93 +1,93 @@
-.jtbcEditorDiv {
+.ubbEditorDiv {
 	POSITION: relative; MARGIN: 0px; BACKGROUND: #EFEFDE; BORDER: #999999 1px solid
 }
-.jtbcEditorDivPanel {
+.ubbEditorDivPanel {
 	MARGIN: 0px; PADDING: 2px; BORDER-BOTTOM: #999999 1px solid
 }
-.jtbcEditorDivPanel IMG {
+.ubbEditorDivPanel IMG {
 	CURSOR: pointer; PADDING: 2px; BORDER: #EFEFDE 1px solid
 }
-.jtbcEditorDivPanel IMG.jtbcEditorSelected {
+.ubbEditorDivPanel IMG.ubbEditorSelected {
 	CURSOR: pointer; PADDING: 2px; BORDER: #316AC5 1px solid; BACKGROUND: #DFF1FF
 }
-.jtbcEditorTextarea {
+.ubbEditorTextarea {
 	POSITION: absolute; TOP: 27px; LEFT: 0px; MARGIN: 0px; PADDING: 0px; FONT-SIZE: 12px; BACKGROUND: #FFFFFF; BORDER: 0px; OVERFLOW-Y: scroll; VERTICAL-ALIGN: middle
 }
-.jtbcEditorIframe {
+.ubbEditorIframe {
 	MARGIN: 0px; BACKGROUND: #FFFFFF
 }
-.jtbcEditorMaskDIV TD {
+.ubbEditorMaskDIV TD {
 	BACKGROUND: transparent
 }
-.jtbcEditorColorTable {
+.ubbEditorColorTable {
 	MARGIN: 0px; BACKGROUND: #EFEFDE; BORDER: #999999 1px solid
 }
-.jtbcEditorColorTable TD {
+.ubbEditorColorTable TD {
 	FONT-SIZE: 12px; FONT-WEIGHT: bold
 }
-.jtbcEditorColorTable TD IMG {
+.ubbEditorColorTable TD IMG {
 	CURSOR: pointer; BORDER: #999999 1px solid
 }
-.jtbcEditorSmileyTable {
+.ubbEditorSmileyTable {
 	MARGIN: 0px; BACKGROUND: #EFEFDE; BORDER: #999999 1px solid
 }
-.jtbcEditorSmileyTable TD {
+.ubbEditorSmileyTable TD {
 	FONT-SIZE: 12px; FONT-WEIGHT: bold
 }
-.jtbcEditorSmileyTable TD IMG {
+.ubbEditorSmileyTable TD IMG {
 	CURSOR: pointer; MARGIN: 3px; WIDTH: 19px; HEIGHT: 19px
 }
-.jtbcEditorMessageTable {
+.ubbEditorMessageTable {
 	MARGIN: 0px; BACKGROUND: #EFEFDE; BORDER: #999999 1px solid
 }
-.jtbcEditorMessageTable TD {
+.ubbEditorMessageTable TD {
 	FONT-SIZE: 12px; FONT-WEIGHT: bold
 }
-.jtbcEditorMessageTable TD.jtbcEditorTD1 {
+.ubbEditorMessageTable TD.ubbEditorTD1 {
 	PADDING-TOP: 2px; PADDING-BOTTOM: 2px; TEXT-ALIGN: right
 }
-.jtbcEditorMessageTable TD SPAN {
+.ubbEditorMessageTable TD SPAN {
 	PADDING-LEFT: 30px; PADDING-RIGHT: 30px; COLOR: #333333; FONT-WEIGHT : normal
 }
-.jtbcEditorMessageTable TD INPUT {
+.ubbEditorMessageTable TD INPUT {
 	MARGIN: 0px; PADDING: 0px; VERTICAL-ALIGN: middle
 }
-.jtbcEditorMessageTable TD INPUT.jtbcEditorMessageButton {
+.ubbEditorMessageTable TD INPUT.ubbEditorMessageButton {
 	HEIGHT: 22px; BACKGROUND: #DEDEDE; BORDER: #999999 1px solid
 }
-.jtbcEditorLinkTable {
+.ubbEditorLinkTable {
 	MARGIN: 0px; BACKGROUND: #EFEFDE; BORDER: #999999 1px solid
 }
-.jtbcEditorLinkTable TD {
+.ubbEditorLinkTable TD {
 	FONT-SIZE: 12px; FONT-WEIGHT: bold
 }
-.jtbcEditorLinkTable TD.jtbcEditorTD1 {
+.ubbEditorLinkTable TD.ubbEditorTD1 {
 	PADDING-TOP: 2px; PADDING-BOTTOM: 2px; TEXT-ALIGN: right
 }
-.jtbcEditorLinkTable TD INPUT {
+.ubbEditorLinkTable TD INPUT {
 	MARGIN: 0px; PADDING: 0px; VERTICAL-ALIGN: middle
 }
-.jtbcEditorLinkTable TD INPUT.jtbcEditorLinkText {
+.ubbEditorLinkTable TD INPUT.ubbEditorLinkText {
 	WIDTH: 240px; HEIGHT: 16px; PADDING: 2px; BORDER: #999999 1px solid
 }
-.jtbcEditorLinkTable TD INPUT.jtbcEditorLinkButton {
+.ubbEditorLinkTable TD INPUT.ubbEditorLinkButton {
 	HEIGHT: 22px; BACKGROUND: #DEDEDE; BORDER: #999999 1px solid
 }
-.jtbcEditorImageTable {
+.ubbEditorImageTable {
 	MARGIN: 0px; BACKGROUND: #EFEFDE; BORDER: #999999 1px solid
 }
-.jtbcEditorImageTable TD {
+.ubbEditorImageTable TD {
 	FONT-SIZE: 12px; FONT-WEIGHT: bold
 }
-.jtbcEditorImageTable TD.jtbcEditorTD1 {
+.ubbEditorImageTable TD.ubbEditorTD1 {
 	PADDING-TOP: 2px; PADDING-BOTTOM: 2px; TEXT-ALIGN: right
 }
-.jtbcEditorImageTable TD INPUT {
+.ubbEditorImageTable TD INPUT {
 	MARGIN: 0px; PADDING: 0px; VERTICAL-ALIGN: middle
 }
-.jtbcEditorImageTable TD INPUT.jtbcEditorImageText {
+.ubbEditorImageTable TD INPUT.ubbEditorImageText {
 	WIDTH: 240px; HEIGHT: 16px; PADDING: 2px; BORDER: #999999 1px solid
 }
-.jtbcEditorImageTable TD INPUT.jtbcEditorImageButton {
+.ubbEditorImageTable TD INPUT.ubbEditorImageButton {
 	HEIGHT: 22px; BACKGROUND: #DEDEDE; BORDER: #999999 1px solid
 }

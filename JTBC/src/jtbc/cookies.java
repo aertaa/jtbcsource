@@ -6,67 +6,71 @@
 /*    */ 
 /*    */ public class cookies
 /*    */ {
+/*  7 */   private static String cookiesPath = "/";
+/*    */ 
 /*    */   public static String getAttribute(conf paramconf, String paramString)
 /*    */   {
-/*  9 */     String str1 = "";
-/* 10 */     conf localconf = paramconf;
-/* 11 */     String str2 = paramString;
-/* 12 */     Cookie[] arrayOfCookie = localconf.request.getCookies();
-/* 13 */     if (arrayOfCookie != null)
+/* 11 */     String str1 = "";
+/* 12 */     conf localconf = paramconf;
+/* 13 */     String str2 = paramString;
+/* 14 */     Cookie[] arrayOfCookie = localconf.request.getCookies();
+/* 15 */     if (arrayOfCookie != null)
 /*    */     {
-/* 15 */       for (int i = 0; i < arrayOfCookie.length; ++i)
+/* 17 */       for (int i = 0; i < arrayOfCookie.length; ++i)
 /*    */       {
-/* 17 */         Cookie localCookie = arrayOfCookie[i];
-/* 18 */         if (!(str2.equals(localCookie.getName())))
+/* 19 */         Cookie localCookie = arrayOfCookie[i];
+/* 20 */         if (!(str2.equals(localCookie.getName())))
 /*    */           continue;
 /*    */         try
 /*    */         {
-/* 22 */           str1 = new String(encode.base64decode(localCookie.getValue()), localconf.charset);
+/* 24 */           str1 = new String(encode.base64decode(localCookie.getValue()), localconf.charset);
 /*    */         }
 /*    */         catch (Exception localException) {
 /*    */         }
 /*    */       }
 /*    */     }
-/* 28 */     return str1;
+/* 30 */     return str1;
 /*    */   }
 /*    */ 
 /*    */   public static void removeAttribute(conf paramconf, String paramString)
 /*    */   {
-/* 33 */     conf localconf = paramconf;
-/* 34 */     String str = paramString;
-/* 35 */     Cookie[] arrayOfCookie = localconf.request.getCookies();
-/* 36 */     if (arrayOfCookie == null)
+/* 35 */     conf localconf = paramconf;
+/* 36 */     String str = paramString;
+/* 37 */     Cookie[] arrayOfCookie = localconf.request.getCookies();
+/* 38 */     if (arrayOfCookie == null)
 /*    */       return;
-/* 38 */     for (int i = 0; i < arrayOfCookie.length; ++i)
+/* 40 */     for (int i = 0; i < arrayOfCookie.length; ++i)
 /*    */     {
-/* 40 */       Cookie localCookie = arrayOfCookie[i];
-/* 41 */       if (!(str.equals(localCookie.getName())))
+/* 42 */       Cookie localCookie = arrayOfCookie[i];
+/* 43 */       if (!(str.equals(localCookie.getName())))
 /*    */         continue;
-/* 43 */       localCookie.setMaxAge(0);
-/* 44 */       localconf.response.addCookie(localCookie);
+/* 45 */       localCookie.setMaxAge(0);
+/* 46 */       localCookie.setPath(cookiesPath);
+/* 47 */       localconf.response.addCookie(localCookie);
 /*    */     }
 /*    */   }
 /*    */ 
 /*    */   public static void setAttribute(conf paramconf, String paramString1, String paramString2)
 /*    */   {
-/* 52 */     conf localconf = paramconf;
-/* 53 */     String str1 = paramString1;
-/* 54 */     String str2 = paramString2;
-/* 55 */     setAttribute(localconf, str1, str2, Integer.valueOf(-1));
+/* 55 */     conf localconf = paramconf;
+/* 56 */     String str1 = paramString1;
+/* 57 */     String str2 = paramString2;
+/* 58 */     setAttribute(localconf, str1, str2, Integer.valueOf(-1));
 /*    */   }
 /*    */ 
 /*    */   public static void setAttribute(conf paramconf, String paramString1, String paramString2, Integer paramInteger)
 /*    */   {
-/* 60 */     String str1 = "";
-/* 61 */     conf localconf = paramconf;
-/* 62 */     String str2 = paramString1;
-/* 63 */     String str3 = paramString2;
-/* 64 */     Integer localInteger = paramInteger;
+/* 63 */     String str1 = "";
+/* 64 */     conf localconf = paramconf;
+/* 65 */     String str2 = paramString1;
+/* 66 */     String str3 = paramString2;
+/* 67 */     Integer localInteger = paramInteger;
 /*    */     try
 /*    */     {
-/* 67 */       Cookie localCookie = new Cookie(str2, encode.base64encode(str3.getBytes(localconf.charset)));
-/* 68 */       localCookie.setMaxAge(localInteger.intValue());
-/* 69 */       localconf.response.addCookie(localCookie);
+/* 70 */       Cookie localCookie = new Cookie(str2, encode.base64encode(str3.getBytes(localconf.charset)));
+/* 71 */       localCookie.setMaxAge(localInteger.intValue());
+/* 72 */       localCookie.setPath(cookiesPath);
+/* 73 */       localconf.response.addCookie(localCookie);
 /*    */     }
 /*    */     catch (Exception localException)
 /*    */     {

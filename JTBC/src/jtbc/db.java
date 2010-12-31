@@ -26,9 +26,7 @@
 /*    */       {
 /* 16 */         localObject = new sqlite();
 /* 17 */         str3 = cls.getLRStr(str2, "sqlite:", "rightr");
-/* 18 */         str4 =localconf.application.getRealPath(str3).toString(); 
-				//;
-				//System.out.println(str4);
+/* 18 */         str4 = localconf.application.getRealPath(str3).toString();
 /* 19 */         str2 = str2.replace(str3, str4);
 /*    */       }
 /* 21 */       else if (cls.getNum(str1, Integer.valueOf(0)).intValue() == 11)

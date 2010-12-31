@@ -1,4 +1,4 @@
-jtbcEditorLang = {
+ubbEditorLang = {
   tColorPicker: '拾色器：',
   tLinkURL: '链接地址：',
   tImageURL: '图片地址：',

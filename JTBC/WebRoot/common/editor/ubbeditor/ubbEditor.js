@@ -1,4 +1,4 @@
-function jtbcEditor(_id)
+function ubbEditor(_id)
 {
   this.tid = _id;
   this.tName = '';
@@ -12,13 +12,17 @@ function jtbcEditor(_id)
   this.tRange = null;
   this.tRangeText = null;
   this.tInputObject = null;
-  this.tLang = 'zh-cn';
+  this.tLang = 'en';
   this.tTheme = 'default';
   this.tToolbar = 'default';
   this.tToolbarSets = Array;
   this.tToolbarSets['default'] = ['Source','separator','Bold','Italic','Underline','RemoveFormat','separator','Link','Unlink','Image','Smiley','separator','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','separator','OrderedList','UnorderedList','TextColor','BGColor'];
-  this.tVersion = '1.0.1.0';
-  this.tAuthor = 'jetiben';
+  this.tToolbarSets['simple'] = ['Bold','Italic','Underline','RemoveFormat','separator','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','separator','Link','Unlink','TextColor','BGColor'];
+  this.tToolbarSets['mini'] = ['Bold','Italic','Underline','RemoveFormat','separator','Link','Unlink','TextColor','BGColor'];
+  this.tToolbarSets['mico'] = ['Bold','Italic','Underline','RemoveFormat'];
+  this.tVersion = '1.0.0.0';
+  this.tAuthor = 'Jetiben';
+  this.tWebSite = 'http://www.ubbeditor.com/';
   this.tEI = function(_id)
   {
     return document.getElementById(_id);
@@ -76,6 +80,22 @@ function jtbcEditor(_id)
         tobj.attachEvent('on' + teventName, teventHandler);
       };
     };
+  };
+  this.tRGB2Hex = function(_strers)
+  {
+    var tstrers = _strers;
+    var tRGB2HexI = 0;
+    var tRGB2HexX = 255;
+    var tRGB2HexValue = '';
+    var tRegExp = /([0-9]+)[, ]+([0-9]+)[, ]+([0-9]+)/;
+    var tArray = tRegExp.exec(tstrers);
+    if (!tArray) tRGB2HexValue = tstrers;
+    else
+    {
+      for(ti = 1; ti < tArray.length; ti ++) tRGB2HexValue += ('0' + parseInt(tArray[ti]).toString(16)).slice(-2);
+      tRGB2HexValue = '#' + tRGB2HexValue;
+    };
+    return tRGB2HexValue;
   };
   this.tReplace = function(_strers, _reary, _ign)
   {
@@ -143,9 +163,9 @@ function jtbcEditor(_id)
     var tstrers = _strers;
     if (tstrers)
     {
-	    tstrers = tstrers.replace(/<br.*?>/gi, '<br />');
-	    tstrers = tstrers.replace(/(<hr\s+[^>]*[^\/])(>)/gi, '$1 />');
-	    tstrers = tstrers.replace(/(<img\s+[^>]*[^\/])(>)/gi, '$1 />');
+	    tstrers = tstrers.replace(/<br.*?>/ig, '<br />');
+	    tstrers = tstrers.replace(/(<hr\s+[^>]*[^\/])(>)/ig, '$1 />');
+	    tstrers = tstrers.replace(/(<img\s+[^>]*[^\/])(>)/ig, '$1 />');
     };
     return tstrers;
   };
@@ -157,36 +177,40 @@ function jtbcEditor(_id)
       var tthis = this;
       var tReplaceAry = [
         [/<br \/>/ig, '[br]', false],
-        [/<p>([^<]*?)<\/p>/igm, '$1[br]', true],
-        [/<b>([^<]*?)<\/b>/igm, '[b]$1[/b]', true],
-        [/<strong>([^<]*?)<\/strong>/igm, '[b]$1[/b]', true],
-        [/<i>([^<]*?)<\/i>/igm, '[i]$1[/i]', true],
-        [/<em>([^<]*?)<\/em>/igm, '[i]$1[/i]', true],
-        [/<u>([^<]*?)<\/u>/igm, '[u]$1[/u]', true],
-        [/<ol>([^<]*?)<\/ol>/igm, '[ol]$1[/ol]', true],
-        [/<ul>([^<]*?)<\/ul>/igm, '[ul]$1[/ul]', true],
-        [/<li>([^<]*?)<\/li>/igm, '[li]$1[/li]', true],
+        [/<p>(.*?)<\/p>/igm, '[p]$1[/p]', true],
+        [/<b>(.*?)<\/b>/igm, '[b]$1[/b]', true],
+        [/<strong>(.*?)<\/strong>/igm, '[b]$1[/b]', true],
+        [/<i>(.*?)<\/i>/igm, '[i]$1[/i]', true],
+        [/<em>(.*?)<\/em>/igm, '[i]$1[/i]', true],
+        [/<u>(.*?)<\/u>/igm, '[u]$1[/u]', true],
+        [/<ol>([\s\S]*)<\/ol>/igm, '[ol]$1[/ol]', true],
+        [/<ul>([\s\S]*)<\/ul>/igm, '[ul]$1[/ul]', true],
+        [/<li>(.*?)<\/li>/igm, '[li]$1[/li]', true],
         [/<span\s[^>]*?>([^<]*?)<\/span>/igm, function($0, $1) {
           var tString = $1;
           var tObj1 = tthis.tEH($0, 'span');
           if (tObj1.style.fontWeight.toLowerCase() == 'bold') tString = '[b]' + tString + '[/b]';
           if (tObj1.style.fontStyle.toLowerCase() == 'italic') tString = '[i]' + tString + '[/i]';
           if (tObj1.style.textDecoration.toLowerCase() == 'underline') tString = '[u]' + tString + '[/u]';
-          if (tObj1.style.color) tString = '[color=' + tObj1.style.color + ']' + tString + '[/color]';
-          if (tObj1.style.backgroundColor) tString = '[hilitecolor=' + tObj1.style.backgroundColor + ']' + tString + '[/hilitecolor]';
+          if (tObj1.style.color) tString = '[color=' + tthis.tRGB2Hex(tObj1.style.color) + ']' + tString + '[/color]';
+          if (tObj1.style.backgroundColor) tString = '[hilitecolor=' + tthis.tRGB2Hex(tObj1.style.backgroundColor) + ']' + tString + '[/hilitecolor]';
           return tString;
         }, true],
         [/<font\s[^>]*?>([^<]*?)<\/font>/igm, function($0, $1) {
           var tString = $1;
           var tObj1 = tthis.tEH($0, 'font');
-          if (tObj1.getAttribute('color')) tString = '[color=' + tObj1.getAttribute('color') + ']' + tString + '[/color]';
-          if (tObj1.style.color) tString = '[color=' + tObj1.style.color + ']' + tString + '[/color]';
-          if (tObj1.style.backgroundColor) tString = '[hilitecolor=' + tObj1.style.backgroundColor + ']' + tString + '[/hilitecolor]';
+          if (tObj1.getAttribute('color')) tString = '[color=' + tthis.tRGB2Hex(tObj1.getAttribute('color')) + ']' + tString + '[/color]';
+          if (tObj1.style.color) tString = '[color=' + tthis.tRGB2Hex(tObj1.style.color) + ']' + tString + '[/color]';
+          if (tObj1.style.backgroundColor) tString = '[hilitecolor=' + tthis.tRGB2Hex(tObj1.style.backgroundColor) + ']' + tString + '[/hilitecolor]';
           return tString;
         }, true],
         [/<p\s[^>]*?>([^<]*?)<\/p>/igm, function($0, $1) {
           var tString = $1;
           var tObj1 = tthis.tEH($0, 'p');
+          if (tObj1.style.fontWeight.toLowerCase() == 'bold') tString = '[p][b]' + tString + '[/b][/p]';
+          if (tObj1.getAttribute('color')) tString = '[p][color=' + tthis.tRGB2Hex(tObj1.getAttribute('color')) + ']' + tString + '[/color][/p]';
+          if (tObj1.style.color) tString = '[p][color=' + tthis.tRGB2Hex(tObj1.style.color) + ']' + tString + '[/color][/p]';
+          if (tObj1.style.backgroundColor) tString = '[p][hilitecolor=' + tthis.tRGB2Hex(tObj1.style.backgroundColor) + ']' + tString + '[/hilitecolor][/p]';
           if (tObj1.getAttribute('align')) tString = '[align=' + tObj1.getAttribute('align') + ']' + tString + '[/align]';
           if (tObj1.style.textAlign) tString = '[align=' + tObj1.style.textAlign + ']' + tString + '[/align]';
           return tString;
@@ -210,7 +234,10 @@ function jtbcEditor(_id)
           var tObj1 = tthis.tEH($0, 'img');
           if (tObj1.getAttribute('src')) tString = '[img]' + tObj1.getAttribute('src') + '[/img]';
           return tString;
-        }, true]
+        }, true],
+        [/\]\[br\]\[/igm, '] [', true],
+        [/\[br\]\[\/p\]/igm, '[/p]', true],
+        [/\[\/p\]\[p\]/igm, '[/p]\r\n[p]', true]
       ];
       tstrers = this.tReplace(tstrers, tReplaceAry);
       tstrers = tstrers.replace(/<[^>]*>/igm, '');
@@ -225,25 +252,23 @@ function jtbcEditor(_id)
     {
       var tthis = this;
       var tReplaceAry = [
-        [/\[br\]/ig, '<br />', false],
-        [/\[p\]([^\[]*?)\[\/p\]/igm, '$1<br />', true],
-        [/\[b\]([^\[]*?)\[\/b\]/igm, '<b>$1</b>', true],
-        [/\[i\]([^\[]*?)\[\/i\]/igm, '<i>$1</i>', true],
-        [/\[u\]([^\[]*?)\[\/u\]/igm, '<u>$1</u>', true],
-        [/\[ol\]([^\[]*?)\[\/ol\]/igm, '<ol>$1</ol>', true],
-        [/\[ul\]([^\[]*?)\[\/ul\]/igm, '<ul>$1</ul>', true],
-        [/\[li\]([^\[]*?)\[\/li\]/igm, '<li>$1</li>', true],
-        [/\[code\]([^\[]*?)\[\/code\]/igm, '<div class="ubb_code" style="BORDER: #dcdcdc 1px dotted; PADDING: 5px; LINE-HEIGHT: 150%; FONT-STYLE: italic">$1</div>', true],
-        [/\[quote\]([^\[]*?)\[\/quote\]/igm, '<div class="ubb_quote" style="BORDER: #dcdcdc 1px dotted; PADDING: 5px; LINE-HEIGHT: 150%">$1</div>', true],
-        [/\[color=([^\]]*)\]([^\[]*?)\[\/color\]/igm, '<font style="color: $1">$2</font>', true],
-        [/\[hilitecolor=([^\]]*)\]([^\[]*?)\[\/hilitecolor\]/igm, '<font style="background-color: $1">$2</font>', true],
-        [/\[align=([^\]]*)\]([^\[]*?)\[\/align\]/igm, '<p align="$1">$2</p>', true],
-        [/\[url=([^\]]*)\]([^\[]*?)\[\/url\]/igm, '<a href="$1">$2</a>', true],
+        [/\[br\]/igm, '<br />', false],
+        [/\[p\](.*?)\[\/p\]/igm, '<p>$1</p>', true],
+        [/\[b\](.*?)\[\/b\]/igm, '<b>$1</b>', true],
+        [/\[i\](.*?)\[\/i\]/igm, '<i>$1</i>', true],
+        [/\[u\](.*?)\[\/u\]/igm, '<u>$1</u>', true],
+        [/\[ol\]([\s\S]*)\[\/ol\]/igm, '<ol>$1</ol>', true],
+        [/\[ul\]([\s\S]*)\[\/ul\]/igm, '<ul>$1</ul>', true],
+        [/\[li\](.*?)\[\/li\]/igm, '<li>$1</li>', true],
+        [/\[code\]([\s\S]*)\[\/code\]/igm, '<div class="ubb_code" style="BORDER: #dcdcdc 1px dotted; PADDING: 5px; LINE-HEIGHT: 150%; FONT-STYLE: italic">$1</div>', true],
+        [/\[quote\]([\s\S]*)\[\/quote\]/igm, '<div class="ubb_quote" style="BORDER: #dcdcdc 1px dotted; PADDING: 5px; LINE-HEIGHT: 150%">$1</div>', true],
+        [/\[color=([^\]]*)\](.*?)\[\/color\]/igm, '<font style="color: $1">$2</font>', true],
+        [/\[hilitecolor=([^\]]*)\](.*?)\[\/hilitecolor\]/igm, '<font style="background-color: $1">$2</font>', true],
+        [/\[align=([^\]]*)\](.*?)\[\/align\]/igm, '<p align="$1">$2</p>', true],
+        [/\[url=([^\]]*)\](.*?)\[\/url\]/igm, '<a href="$1">$2</a>', true],
         [/\[img\]([^\[]*?)\[\/img\]/igm, '<img src="$1" />', true]
       ];
       tstrers = this.tHTMLEncode(tstrers);
-
-
       tstrers = this.tReplace(tstrers, tReplaceAry);
     };
     return tstrers;
@@ -276,7 +301,9 @@ function jtbcEditor(_id)
       try
       {
         this.tGetSelection();
-        this.tRange.pasteHTML(tValue);
+        var tSelectionType = this.tSelection.type.toLowerCase();
+        if (tSelectionType != 'control') this.tRange.pasteHTML(tValue);
+        else this.tRange.item(0).outerHTML = tValue;
       }
       catch(e)
       {
@@ -373,7 +400,7 @@ function jtbcEditor(_id)
     else
     {
       if (tCommand == 'Source') this.tShowNormal();
-      else this.tLoadMessage(jtbcEditorLang.tError1);
+      else this.tLoadMessage(ubbEditorLang.tError1);
     };
   };
   this.texecCommand = function(_Command, _Value)
@@ -440,10 +467,10 @@ function jtbcEditor(_id)
       tHTML = this.tHTMLClear(tHTML);
       tHTML = this.tXHTML2UBB(tHTML);
       if (this.tEditUBBMode == 0) tHTML = this.tUBB2XHTML(tHTML);
-      tSourceImageObj = this.tEI(this.tid + '-jtbcEditorToolbar-Source');
+      tSourceImageObj = this.tEI(this.tid + '-ubbEditorToolbar-Source');
       tSourceImageObj.onmouseover = function() {};
       tSourceImageObj.onmouseout = function() {};
-      tSourceImageObj.className = 'jtbcEditorSelected';
+      tSourceImageObj.className = 'ubbEditorSelected';
       this.tEI(this.tid + '-textarea').style.display = '';
       this.tEI(this.tid + '-iframe').style.display = 'none';
       this.tEI(this.tid + '-textarea').value = tHTML;
@@ -458,8 +485,8 @@ function jtbcEditor(_id)
       this.tEditState = 1;
       if (this.tEditUBBMode == 1) tnValue = this.tUBB2XHTML(tnValue);
       else tnValue = this.tHTMLClear(tnValue);
-      tSourceImageObj = this.tEI(this.tid + '-jtbcEditorToolbar-Source');
-      tSourceImageObj.onmouseover = function() {this.className = 'jtbcEditorSelected'};
+      tSourceImageObj = this.tEI(this.tid + '-ubbEditorToolbar-Source');
+      tSourceImageObj.onmouseover = function() {this.className = 'ubbEditorSelected'};
       tSourceImageObj.onmouseout = function() {this.className = ''};
       tSourceImageObj.className = '';
       this.tEI(this.tid + '-textarea').style.display = 'none';
@@ -479,7 +506,7 @@ function jtbcEditor(_id)
       {
         var tnKey = tArray1[tKey1];
         if (tnKey == '-' || tnKey == 'separator') tHTMLString1 += '<img src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/icon/toolbar.' + tnKey + '.gif" />';
-        else tHTMLString1 += '<img id="' + this.tid + '-jtbcEditorToolbar-' + tnKey + '" src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/icon/' + tnKey + '.gif" onmouseover="this.className = \'jtbcEditorSelected\';" onmouseout="this.className = \'\';" onclick="' + this.tName + '.tsetCommand(\'' + tnKey + '\');" />';
+        else tHTMLString1 += '<img id="' + this.tid + '-ubbEditorToolbar-' + tnKey + '" src="' + this.tbaseURL + 'common/theme/' + this.tTheme + '/images/icon/' + tnKey + '.gif" onmouseover="this.className = \'ubbEditorSelected\';" onmouseout="this.className = \'\';" onclick="' + this.tName + '.tsetCommand(\'' + tnKey + '\');" />';
       };
       tObj1.innerHTML = tHTMLString1;
     };
@@ -490,24 +517,24 @@ function jtbcEditor(_id)
     if (tObj1)
     {
       var tDiv1 = document.createElement('div');
-      tDiv1.setAttribute('id', this.tid + '-jtbcEditorMask');
+      tDiv1.setAttribute('id', this.tid + '-ubbEditorMask');
       tDiv1.style.position = 'absolute';
-      tDiv1.style.top = '0';
-      tDiv1.style.left = '0';
+      tDiv1.style.top = '-1px';
+      tDiv1.style.left = '-1px';
       tDiv1.style.background = '#FFFFFF';
-      tDiv1.style.filter = 'Alpha(Opacity=50)';
-      tDiv1.style.opacity = '0.5';
+      tDiv1.style.filter = 'Alpha(Opacity=60)';
+      tDiv1.style.opacity = '0.6';
       tDiv1.style.width = tObj1.offsetWidth + 'px';
       tDiv1.style.height = tObj1.offsetHeight + 'px';
       tDiv1.style.zIndex = '100';
       tObj1.appendChild(tDiv1);
       var tDiv2 = document.createElement('div');
-      tDiv2.setAttribute('id', this.tid + '-jtbcEditorMaskDIV');
+      tDiv2.setAttribute('id', this.tid + '-ubbEditorMaskDIV');
       tDiv2.style.position = 'absolute';
       tDiv2.style.top = '50%';
       tDiv2.style.left = '50%';
       tDiv2.style.zIndex = '101';
-      tDiv2.className = 'jtbcEditorMaskDIV';
+      tDiv2.className = 'ubbEditorMaskDIV';
       tObj1.appendChild(tDiv2);
     };
   };
@@ -516,11 +543,11 @@ function jtbcEditor(_id)
     var tstrHTML = _strHTML;
     if (tstrHTML)
     {
-      var tObj1 = this.tEI(this.tid + '-jtbcEditorMaskDIV');
+      var tObj1 = this.tEI(this.tid + '-ubbEditorMaskDIV');
       if (!tObj1)
       {
         this.tLoadMask();
-        tObj1 = this.tEI(this.tid + '-jtbcEditorMaskDIV');
+        tObj1 = this.tEI(this.tid + '-ubbEditorMaskDIV');
       };
       if (tObj1)
       {
@@ -528,7 +555,7 @@ function jtbcEditor(_id)
         tObj1.innerHTML = tstrHTML;
         tObj1.style.display = 'block';
         tObj1.style.marginLeft = (0 - Math.floor(tObj1.offsetWidth / 2)) + 'px';
-        tObj1.style.marginTop = (0 - Math.floor(tObj1.offsetHeight / 2)) + 'px';
+        tObj1.style.marginTop = (0 - Math.floor(tObj1.offsetHeight / 2) + 14) + 'px';
       };
     };
   };
@@ -537,8 +564,8 @@ function jtbcEditor(_id)
     var tObj1 = this.tEI(this.tid + '-div');
     if (tObj1)
     {
-      var tobj21 = this.tEI(this.tid + '-jtbcEditorMask');
-      var tobj22 = this.tEI(this.tid + '-jtbcEditorMaskDIV');
+      var tobj21 = this.tEI(this.tid + '-ubbEditorMask');
+      var tobj22 = this.tEI(this.tid + '-ubbEditorMaskDIV');
       if (tobj21 && tobj22)
       {
         tObj1.removeChild(tobj21);
@@ -549,9 +576,9 @@ function jtbcEditor(_id)
   this.tLoadMessage = function(_strers)
   {
     var tstrers = _strers;
-    var tMessageTableHTML = '<table cellpadding="0" cellspacing="5" class="jtbcEditorMessageTable">';
+    var tMessageTableHTML = '<table cellpadding="0" cellspacing="5" class="ubbEditorMessageTable">';
     tMessageTableHTML += '  <tr>';
-    tMessageTableHTML += '    <td>' + jtbcEditorLang.tHint + '</td>';
+    tMessageTableHTML += '    <td>' + ubbEditorLang.tHint + '</td>';
     tMessageTableHTML += '  </tr>';
     tMessageTableHTML += '  <tr>';
     tMessageTableHTML += '    <td height="20"></td>';
@@ -563,37 +590,37 @@ function jtbcEditor(_id)
     tMessageTableHTML += '    <td height="20"></td>';
     tMessageTableHTML += '  </tr>';
     tMessageTableHTML += '  <tr>';
-    tMessageTableHTML += '    <td class="jtbcEditorTD1"><input type="button" value="' + jtbcEditorLang.tOK + '" class="jtbcEditorMessageButton" onclick="' + this.tName + '.tLoadMaskClose();" /></td>';
+    tMessageTableHTML += '    <td class="ubbEditorTD1"><input type="button" value="' + ubbEditorLang.tOK + '" class="ubbEditorMessageButton" onclick="' + this.tName + '.tLoadMaskClose();" /></td>';
     tMessageTableHTML += '  </tr>';
     tMessageTableHTML += '</table>';
     this.tLoadMaskShow(tMessageTableHTML);
   };
   this.tLoadLinkTable = function()
   {
-    var tLinkTableHTML = '<table cellpadding="0" cellspacing="5" class="jtbcEditorLinkTable">';
+    var tLinkTableHTML = '<table cellpadding="0" cellspacing="5" class="ubbEditorLinkTable">';
     tLinkTableHTML += '  <tr>';
-    tLinkTableHTML += '    <td>' + jtbcEditorLang.tLinkURL + '</td>';
+    tLinkTableHTML += '    <td>' + ubbEditorLang.tLinkURL + '</td>';
     tLinkTableHTML += '  </tr>';
     tLinkTableHTML += '  <tr>';
-    tLinkTableHTML += '    <td><input id="' + this.tid + '-jtbcEditorLinkText" type="text" value="http://" class="jtbcEditorLinkText" ondblclick="this.select();" /></td>';
+    tLinkTableHTML += '    <td><input id="' + this.tid + '-ubbEditorLinkText" type="text" value="http://" class="ubbEditorLinkText" ondblclick="this.select();" /></td>';
     tLinkTableHTML += '  </tr>';
     tLinkTableHTML += '  <tr>';
-    tLinkTableHTML += '    <td class="jtbcEditorTD1"><input type="button" value="' + jtbcEditorLang.tOK + '" class="jtbcEditorLinkButton" onclick="' + this.tName + '.tsetCommand(\'LinkS\', ' + this.tName + '.tEI(\'' + this.tid + '-jtbcEditorLinkText\').value);" />&nbsp;<input type="button" value="' + jtbcEditorLang.tCancel + '" class="jtbcEditorLinkButton" onclick="' + this.tName + '.tLoadMaskClose();" /></td>';
+    tLinkTableHTML += '    <td class="ubbEditorTD1"><input type="button" value="' + ubbEditorLang.tOK + '" class="ubbEditorLinkButton" onclick="' + this.tName + '.tsetCommand(\'LinkS\', ' + this.tName + '.tEI(\'' + this.tid + '-ubbEditorLinkText\').value);" />&nbsp;<input type="button" value="' + ubbEditorLang.tCancel + '" class="ubbEditorLinkButton" onclick="' + this.tName + '.tLoadMaskClose();" /></td>';
     tLinkTableHTML += '  </tr>';
     tLinkTableHTML += '</table>';
     this.tLoadMaskShow(tLinkTableHTML);
   },
   this.tLoadImageTable = function()
   {
-    var tLinkTableHTML = '<table cellpadding="0" cellspacing="5" class="jtbcEditorImageTable">';
+    var tLinkTableHTML = '<table cellpadding="0" cellspacing="5" class="ubbEditorImageTable">';
     tLinkTableHTML += '  <tr>';
-    tLinkTableHTML += '    <td>' + jtbcEditorLang.tImageURL + '</td>';
+    tLinkTableHTML += '    <td>' + ubbEditorLang.tImageURL + '</td>';
     tLinkTableHTML += '  </tr>';
     tLinkTableHTML += '  <tr>';
-    tLinkTableHTML += '    <td><input id="' + this.tid + '-jtbcEditorImageText" type="text" value="http://" class="jtbcEditorImageText" ondblclick="this.select();" /></td>';
+    tLinkTableHTML += '    <td><input id="' + this.tid + '-ubbEditorImageText" type="text" value="http://" class="ubbEditorImageText" ondblclick="this.select();" /></td>';
     tLinkTableHTML += '  </tr>';
     tLinkTableHTML += '  <tr>';
-    tLinkTableHTML += '    <td class="jtbcEditorTD1"><input type="button" value="' + jtbcEditorLang.tOK + '" class="jtbcEditorImageButton" onclick="' + this.tName + '.tsetCommand(\'ImageS\', ' + this.tName + '.tEI(\'' + this.tid + '-jtbcEditorImageText\').value);" />&nbsp;<input type="button" value="' + jtbcEditorLang.tCancel + '" class="jtbcEditorImageButton" onclick="' + this.tName + '.tLoadMaskClose();" /></td>';
+    tLinkTableHTML += '    <td class="ubbEditorTD1"><input type="button" value="' + ubbEditorLang.tOK + '" class="ubbEditorImageButton" onclick="' + this.tName + '.tsetCommand(\'ImageS\', ' + this.tName + '.tEI(\'' + this.tid + '-ubbEditorImageText\').value);" />&nbsp;<input type="button" value="' + ubbEditorLang.tCancel + '" class="ubbEditorImageButton" onclick="' + this.tName + '.tLoadMaskClose();" /></td>';
     tLinkTableHTML += '  </tr>';
     tLinkTableHTML += '</table>';
     this.tLoadMaskShow(tLinkTableHTML);
@@ -602,9 +629,9 @@ function jtbcEditor(_id)
   {
     var tni = 0;
     var tRowNum = 6;
-    var tSmileyTableHTML = '<table cellpadding="0" cellspacing="5" class="jtbcEditorSmileyTable">';
+    var tSmileyTableHTML = '<table cellpadding="0" cellspacing="5" class="ubbEditorSmileyTable">';
     tSmileyTableHTML += '  <tr>';
-    tSmileyTableHTML += '    <td colspan="' + tRowNum + '">' + jtbcEditorLang.tSmileyImage + '</td>';
+    tSmileyTableHTML += '    <td colspan="' + tRowNum + '">' + ubbEditorLang.tSmileyImage + '</td>';
     tSmileyTableHTML += '  </tr>';
     tSmileyTableHTML += '  <tr>';
     for (var ti = 0; ti < 24; ti ++)
@@ -627,9 +654,9 @@ function jtbcEditor(_id)
     var tRowNum = 8;
     var tColorHexAry = new Array('00','88','CC','FF');
     var tColorHexAryLength = tColorHexAry.length;
-    var tColorTableHTML = '<table cellpadding="0" cellspacing="5" class="jtbcEditorColorTable">';
+    var tColorTableHTML = '<table cellpadding="0" cellspacing="5" class="ubbEditorColorTable">';
     tColorTableHTML += '  <tr>';
-    tColorTableHTML += '    <td colspan="' + tRowNum + '">' + jtbcEditorLang.tColorPicker + '</td>';
+    tColorTableHTML += '    <td colspan="' + tRowNum + '">' + ubbEditorLang.tColorPicker + '</td>';
     tColorTableHTML += '  </tr>';
     tColorTableHTML += '  <tr>';
     for (var ti = 0; ti < tColorHexAryLength; ti ++)
@@ -658,9 +685,9 @@ function jtbcEditor(_id)
     var tRowNum = 8;
     var tColorHexAry = new Array('00','88','CC','FF');
     var tColorHexAryLength = tColorHexAry.length;
-    var tColorTableHTML = '<table cellpadding="0" cellspacing="5" class="jtbcEditorColorTable">';
+    var tColorTableHTML = '<table cellpadding="0" cellspacing="5" class="ubbEditorColorTable">';
     tColorTableHTML += '  <tr>';
-    tColorTableHTML += '    <td colspan="' + tRowNum + '">' + jtbcEditorLang.tColorPicker + '</td>';
+    tColorTableHTML += '    <td colspan="' + tRowNum + '">' + ubbEditorLang.tColorPicker + '</td>';
     tColorTableHTML += '  </tr>';
     tColorTableHTML += '  <tr>';
     for (var ti = 0; ti < tColorHexAryLength; ti ++)
@@ -700,7 +727,7 @@ function jtbcEditor(_id)
       tDiv1.setAttribute('id', this.tid + '-div');
       tDiv1.style.width = tObj1Width + 'px';
       tDiv1.style.height = tObj1Height + 'px';
-      tDiv1.className = 'jtbcEditorDiv';
+      tDiv1.className = 'ubbEditorDiv';
       tObj2.appendChild(tDiv1);
       tObj2.replaceChild(tDiv1, tObj1);
       var tScript1 = document.createElement('script');
@@ -715,7 +742,7 @@ function jtbcEditor(_id)
       var tDiv2 = document.createElement('div');
       tDiv2.setAttribute('id', this.tid + '-divPanel');
       tDiv2.style.height = this.tPanelHeight + 'px';
-      tDiv2.className = 'jtbcEditorDivPanel';
+      tDiv2.className = 'ubbEditorDivPanel';
       tDiv1.appendChild(tDiv2);
       this.tLoadToolbar(tDiv2);
       var tDiv3 = document.createElement('div');
@@ -729,7 +756,7 @@ function jtbcEditor(_id)
       tTextarea1.style.height = (tObj1Height - this.tPanelHeight - 5) + 'px';
       tTextarea1.style.maxHeight = (tObj1Height - this.tPanelHeight - 5) + 'px';
       tTextarea1.style.display = 'none';
-      tTextarea1.className = 'jtbcEditorTextarea';
+      tTextarea1.className = 'ubbEditorTextarea';
       tDiv1.appendChild(tTextarea1);
       var tIframe1 = document.createElement('iframe');
       tIframe1.setAttribute('id', this.tid + '-iframe');
@@ -739,7 +766,7 @@ function jtbcEditor(_id)
       tIframe1.setAttribute('allowTransparency', 'true');
       tIframe1.style.width = '100%';
       tIframe1.style.height = (tObj1Height - this.tPanelHeight - 5) + 'px';
-      tIframe1.className = 'jtbcEditorIframe';
+      tIframe1.className = 'ubbEditorIframe';
       tDiv1.appendChild(tIframe1);
       var tObj3 = this.tFW(this.tid + '-iframe');
       if (this.tEditUBBMode == 1) this.tValue = this.tUBB2XHTML(this.tValue);
@@ -752,8 +779,16 @@ function jtbcEditor(_id)
       if (this.tValue)
       {
         this.tInstance.focus();
-        this.tinsertHTML(this.tValue);
-      }
+        var tnValueContent = '';
+        var tnValue = this.tValue;
+        if (tnValue.indexOf('<p>') != -1) tnValueContent = tnValue;
+        else
+        {
+          var tnValueAry = tnValue.split('<br />');
+          for (ti = 0; ti < tnValueAry.length; ti ++) tnValueContent = tnValueContent + '<p>' + tnValueAry[ti] + '</p>\r\n';
+        };
+        this.tinsertHTML(tnValueContent);
+      };
       var tObj3Object = new Object();
       tObj3Object.tObject = this;
       tObj3Object.tInstance = this.tInstance;

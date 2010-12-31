@@ -47,7 +47,7 @@
                         </tr>
                         <tr>
                           <td class="txt" valign="top">{$=itake("manage_topic.txt-content", "lng")}</td>
-                          <td><textarea id="content" name="content" style="WIDTH: 550px; HEIGHT: 220px" class="textarea" onclick="nEditor = new jtbcEditor('content'); nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/jtbceditor/');">{$=htmlencode(repathdecode(getRsValue("rs", "content")))}</textarea></td>
+                          <td><textarea id="content" name="content" style="WIDTH: 550px; HEIGHT: 220px" class="textarea" onclick="nEditor = new ubbEditor('content'); nEditor.tLang = 'zh-cn'; nEditor.tInit('nEditor', '{$=getActualRoute("common")}/editor/ubbeditor/');">{$=htmlencode(repathdecode(getRsValue("rs", "content")))}</textarea></td>
                         </tr>
                         <tr>
                           <td class="txt">{$=itake("manage_topic.txt-content_files", "lng")}</td>
@@ -79,7 +79,7 @@
                         </tr>
                         <tr>
                           <td class="txt">{$=itake("global.lng_config.time", "lng")}</td>
-                          <td class="txt"><input type="text" name="time" size="20" class="text" value="{$=formatDate("{$time}")}" /></td>
+                          <td class="txt"><input type="text" name="time" size="20" class="text" value="{$=formatDate("{$time}", "100")}" /></td>
                         </tr>
                         <tr>
                           <td class="txt">{$=itake("global.lng_common.count", "lng")}</td>
@@ -132,34 +132,18 @@
                     <td class="txt"><input type="checkbox" name="id" class="checkbox" value="{$id}" /></td>
                     <td class="txt"><span id="list-keywords-{$id}" class="hand text-state-{$hidden}" onclick="manage_topics.tLoad('?type=edit&id={$id}');" title="ID: {$id}">{$topic}</span></td>
                     <td class="txt"><span class="hand" onclick="manage_topics.tLoad('?type=list&field=auid&keyword={$auid}');">{$author}</span></td>
-                    <td class="txt">{$=formatDate("{$time}")}</td>
+                    <td class="txt">{$=formatDate("{$time}", "100")}</td>
                     <td class="nimg"><span class="hand" title="{$=itake("global.lng_config.edit", "lng")}" onclick="manage_topics.tLoad('?type=edit&id={$id}');"><img src="{$=$admin.theme}edit.1.png" class="absmiddle" /></span></td>
                     <td class="nimg"><span class="hand" title="{$=itake("global.lng_config.delete", "lng")}" onclick="manage.windows.dialog.tConfirm('{$=itake("global.lng_common.deleteconfirm", "lng")}[' + cls.tgetMBcString($('list-keywords-{$id}').innerHTML, 30) + ']{$=itake("global.lng_common.questionmark", "lng")}', 'manage_topics.tDelete({$id});');"><img src="{$=$admin.theme}delete.1.png" class="absmiddle" /></span></td>
                     <td></td>
                   </tr>{@}
-                </table>
-                <table cellspacing="0" cellpadding="0" class="tabler">
                   <tr>
-                    <td height="5"></td>
-                  </tr>
-                </table>
-                <table cellspacing="0" cellpadding="0" class="tabler">
-                  <tr>
-                    <td id="cutepage" class="cutepage"><div class="dfn"><dfn><textarea>cls.pagi.tpagi({$pagi.pagenum}, {$pagi.pagenums}, 'manage_topics.tLoad(cls.treparameter(manage_topics.ttempArg, \'page\', [$page]));', 'cutepage');</textarea></dfn></div></td>
-                    <td class="tdr"></td>
-                  </tr>
-                  <tr>
-                    <td height="5"></td>
+                    <td colspan="7" id="cutepage" class="cutepage"><div class="dfn"><dfn><textarea>cls.pagi.tpagi({$pagi.pagenum}, {$pagi.pagenums}, 'manage_topics.tLoad(cls.treparameter(manage_topics.ttempArg, \'page\', [$page]));', 'cutepage');</textarea></dfn></div></td>
                     <td></td>
                   </tr>
                   <tr>
-                    <td class="selected-switch">{$=itake("global.lng_common.selected-switch", "lng")} <select name="swtype" id="swtype" class="select">{$=getSwitchOptions("select,htop,top,hidden,delete")}</select> <input type="button" class="button" value="{$=itake("global.lng_common.switch", "lng")}" onclick="manage.windows.dialog.tConfirm('{$=itake("global.lng_common.selected-switch-attentions", "lng")}', 'manage_topics.tSwitch($(\'swtype\').value, cls.tgetCheckboxsValue(\'id\'));');" /></td>
+                    <td colspan="7" class="selected-switch">{$=itake("global.lng_common.selected-switch", "lng")} <select name="swtype" id="swtype" class="select">{$=getSwitchOptions("select,htop,top,hidden,delete")}</select> <input type="button" class="button" value="{$=itake("global.lng_common.switch", "lng")}" onclick="manage.windows.dialog.tConfirm('{$=itake("global.lng_common.selected-switch-attentions", "lng")}', 'manage_topics.tSwitch($(\'swtype\').value, cls.tgetCheckboxsValue(\'id\'));');" /></td>
                     <td></td>
-                  </tr>
-                </table>
-                <table cellspacing="0" cellpadding="0" class="tabler">
-                  <tr>
-                    <td height="5"></td>
                   </tr>
                 </table>]]></tpl_default>
     </item>

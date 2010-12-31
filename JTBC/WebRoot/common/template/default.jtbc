@@ -17,10 +17,10 @@
         <div class="box1s">{$=ireplace("global.passport/account:api.jslogin-1", "tpl")}</div>
       </div>
       <div class="box1">
-        <h3>{$=itake("global.articles:default.class", "lng")}</h3>{$=isort("genre=articles;tpl=s1")}
-      </div>
-      <div class="box1">
-        <h3>{$=itake("global.articles:default.list1", "lng")}</h3>{$=itransfer("genre=articles;tpl=1;type=commendatory;topx=10")}
+        <h3>{$=itake("global.search:default.channel_title", "lng")}</h3>
+        <form method="get" action="{$=getActualRoute("search")}">
+        <div class="box1s"><input type="text" name="keyword" class="text" size="20" />&nbsp; &nbsp;<input type="submit" value="{$=itake("global.search:default.search", "lng")}" class="button" /></div>
+        </form>
       </div>
     </div>
     <div class="middleMain">

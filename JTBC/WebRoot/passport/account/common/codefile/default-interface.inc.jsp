@@ -94,7 +94,6 @@ class module extends jpage
         tsqlstr += cls.cfnames(tfpre, "phone") + ",";
         tsqlstr += cls.cfnames(tfpre, "address") + ",";
         tsqlstr += cls.cfnames(tfpre, "zipcode") + ",";
-        tsqlstr += cls.cfnames(tfpre, "group") + ",";
         tsqlstr += cls.cfnames(tfpre, "time");
         tsqlstr += ") values (";
         tsqlstr += "'" + cls.getLeft(encode.addslashes(conf.getRequestUsParameter("username")), 50) + "',";
@@ -106,7 +105,6 @@ class module extends jpage
         tsqlstr += "'" + cls.getLeft(encode.addslashes(conf.getRequestUsParameter("phone")), 50) + "',";
         tsqlstr += "'" + cls.getLeft(encode.addslashes(conf.getRequestUsParameter("address")), 255) + "',";
         tsqlstr += "'" + cls.getLeft(encode.addslashes(conf.getRequestUsParameter("zipcode")), 50) + "',";
-        tsqlstr += cls.getNum(conf.getRequestUsParameter("group"), 0) + ",";
         tsqlstr += "'" + cls.getDate() + "'";
         tsqlstr += ")";
         int tstateNum = tDbc.Executes(tsqlstr);

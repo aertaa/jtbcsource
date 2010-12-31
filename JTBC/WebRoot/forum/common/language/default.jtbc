@@ -39,6 +39,10 @@
       <chinese><![CDATA[暂无回复]]></chinese>
     </item>
     <item>
+      <name><![CDATA[statistics-error-1]]></name>
+      <chinese><![CDATA[此版块的帖子统计信息不可用]]></chinese>
+    </item>
+    <item>
       <name><![CDATA[popedom-error-1]]></name>
       <chinese><![CDATA[此版块需要更高的权限]]></chinese>
     </item>

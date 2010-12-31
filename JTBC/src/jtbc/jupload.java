@@ -102,9 +102,9 @@
 /* 102 */       if (!(str6.equals(str1)))
 /*    */         continue;
 /* 104 */       this.fileName = cls.getLRStr(str7, "\\", "right");
-/* 105 */       int i1 = 0,i2,i3;
+/* 105 */       int i1 = 0;
 /* 106 */       i1 = getBufferIndexOf(arrayOfByte, "name=\"" + str6 + "\";");
-/* 107 */       for (i2 = i1; i2 < k; ++i2)
+/* 107 */       for (int i2 = i1; i2 < k; ++i2)
 /*    */       {
 /* 109 */         if ((arrayOfByte[i2] != 13) || 
 /* 111 */           (i2 + 3 >= k) || 
@@ -114,7 +114,7 @@
 /* 116 */         break;
 /*    */       }
 /*    */ 
-/* 121 */       i2 = 0;
+/* 121 */       int i2 = 0,i3;
 /* 122 */       i2 = getBufferIndexOf(arrayOfByte, "name=\"" + str6 + "\";");
 /* 123 */       for (i3 = i2; i3 < k; ++i3)
 /*    */       {

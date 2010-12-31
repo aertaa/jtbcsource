@@ -28,22 +28,32 @@ wfront = {
     var tobj = _obj;
     var twidth = _width;
     var theight = _height;
-    var tnewwidth = 0;
-    var tnewheight = 0;
     var tImage = new Image();
     tImage.src = tobj.getAttribute('srcs');
-    if (tImage.width > twidth && tImage.height > theight)
+    if (tImage.width > 0) wfront.tloadImgSrcst(tobj, twidth, theight, tImage.width, tImage.height);
+    else tImage.onload = function() {wfront.tloadImgSrcst(tobj, twidth, theight, tImage.width, tImage.height);};
+  },
+  tloadImgSrcst: function(_obj, _width, _height, _nwidth, _nheight)
+  {
+    var tobj = _obj;
+    var twidth = _width;
+    var theight = _height;
+    var tnwidth = _nwidth;
+    var tnheight = _nheight;
+    var tnewwidth = 0;
+    var tnewheight = 0;
+    if (tnwidth > twidth && tnheight > theight)
     {
-      if ((tImage.width / twidth) > (tImage.height / theight)) tnewwidth = twidth;
+      if ((tnwidth / twidth) > (tnheight / theight)) tnewwidth = twidth;
       else tnewheight = theight;
     }
     else
     {
-      if (tImage.width > twidth && tImage.height <= theight) tnewwidth = twidth;
-      if (tImage.width <= twidth && tImage.height > theight) tnewheight = theight;
+      if (tnwidth > twidth && tnheight <= theight) tnewwidth = twidth;
+      if (tnwidth <= twidth && tnheight > theight) tnewheight = theight;
     };
     tobj.onload = function() {};
-    tobj.src = tImage.src;
+    tobj.src = tobj.getAttribute('srcs');
     if (tnewwidth != 0) tobj.width = tnewwidth;
     if (tnewheight != 0) tobj.height = tnewheight;
   }

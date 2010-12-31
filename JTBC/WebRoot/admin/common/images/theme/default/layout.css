@@ -130,6 +130,9 @@ IMG.absmiddle {
 #MenuContentUL LI.out {
 	BACKGROUND: #58AC58;
 }
+#MenuContentUL LI SPAN {
+	DISPLAY: block; WIDTH: 100%
+}
 #MenuStart {
 	WIDTH: 95px; HEIGHT: 25px; PADDING-LEFT: 5px; BACKGROUND: url(bg.2.png)
 }
@@ -353,7 +356,7 @@ IMG.absmiddle {
 	PADDING-TOP: 50px; BACKGROUND: #FFFFFF
 }
 .windowsContent-rightPanel .tabler {
-	WIDTH: 100%; BORDER: 0px
+	WIDTH: 100%; TABLE-LAYOUT: fixed; BORDER: 0px
 }
 .windowsContent-rightPanel .tabler .tdl {
 	WIDTH: 10px
@@ -374,10 +377,10 @@ IMG.absmiddle {
 	TEXT-ALIGN: right; PADDING-TOP: 3px; PADDING-BOTTOM: 3px
 }
 .windowsContent-rightPanel .tabler .cutepage {
-	TEXT-ALIGN: right
+	TEXT-ALIGN: right; PADDING-TOP: 5px; PADDING-BOTTOM: 5px
 }
 .windowsContent-rightPanel .tabler .cutepage A {
-	MARGIN-LEFT: 3px; PADDING-TOP: 2px; PADDING-BOTTOM: 2px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; BORDER: #AFAFAF 1px solid
+	MARGIN-LEFT: 3px; PADDING-TOP: 2px; PADDING-BOTTOM: 2px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; BORDER: #AFAFAF 1px solid; VERTICAL-ALIGN: middle
 }
 .windowsContent-rightPanel .tabler .cutepage A.selected {
 	COLOR: #F00000
@@ -386,7 +389,7 @@ IMG.absmiddle {
 	WIDTH: 20px; PADDING-TOP: 2px; PADDING-BOTTOM: 2px; MARGIN-LEFT: 3px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; BORDER: #AFAFAF 1px solid
 }
 .windowsContent-rightPanel .tabler .selected-switch {
-	HEIGHT: 25px; TEXT-ALIGN: right; COLOR: #333333
+	HEIGHT: 25px; TEXT-ALIGN: right; COLOR: #333333; PADDING-BOTTOM: 10px
 }
 .windowsContent-rightPanel .tabler TR.selected {
 	BACKGROUND: #E9E9E9

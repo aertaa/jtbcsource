@@ -31,6 +31,10 @@
       <chinese><![CDATA[编辑会员]]></chinese>
     </item>
     <item>
+      <name><![CDATA[nav_group]]></name>
+      <chinese><![CDATA[分组]]></chinese>
+    </item>
+    <item>
       <name><![CDATA[req_username]]></name>
       <chinese><![CDATA[用户名不能为空]]></chinese>
     </item>

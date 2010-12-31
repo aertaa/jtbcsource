@@ -5,10 +5,7 @@
 /*     */ import java.sql.ResultSet;
 /*     */ import java.sql.ResultSetMetaData;
 /*     */ import java.sql.Statement;
-		import java.text.SimpleDateFormat;
-		import java.util.Date;
-
-import jtbc.cls;
+/*     */ import jtbc.cls;
 /*     */ 
 /*     */ public class sqlite
 /*     */   implements dbc
@@ -84,11 +81,7 @@ import jtbc.cls;
 /*     */   {
 /*  72 */     this.rState = 0;
 /*  73 */     String str = paramString;
-			//Date date = new Date();
-			// format对象是用来以指定的时间格式格式化时间的
-			//SimpleDateFormat from = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			//System.out.println(from.format(date)+" SqlStr:"+str);
-				Object[] arrayOfObject = null;
+/*  74 */     Object[] arrayOfObject = null;
 /*  75 */     if (str != null)
 /*     */     {
 /*     */       try

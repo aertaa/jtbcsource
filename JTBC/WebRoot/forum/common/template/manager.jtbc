@@ -63,7 +63,7 @@
         <td>{$-last_username}<br /><span class="ash">{$=formatDate("{$-last_time}")}</span></td>
       </tr>{@}
       <tr>
-        <td colspan="7"><div id="cutepage" class="cutepage">{$=pagi("{$pagi.pagenum}", "{$pagi.pagenums}", "manager.jsp?type=list&class={$id}&page=[~page]", "cutepage")}</div></td>
+        <td colspan="7"><div id="cutepage" class="cutepage">{$=pagi("{$pagi.pagenum}", "{$pagi.pagenums}", "manager.jsp?type=list&class={$id}&att={$-att}&page=[~page]", "cutepage")}</div></td>
       </tr>
       <tr>
         <td colspan="7" align="right">{$=itake("global.lng_common.selected-switch", "lng")} <select name="swtype" id="swtype" class="select">{$=getSwitchOptions("{$-controlstring}")}</select> <select name="swcolor" id="swcolor" class="select">{$=xmlSelect("sel_color.all", "0", "select")}</select> <select name="swstrong" id="swstrong" class="select">{$=xmlSelect("sel_strong.all", "0", "select")}</select> <input type="button" class="button" value="{$=itake("global.lng_common.switch", "lng")}" onclick="if (confirm('{$=itake("global.lng_common.selected-switch-attentions", "lng")}')) managers.tSwitch($('swtype').value, $('swcolor').value, $('swstrong').value, '{$id}', cls.tgetCheckboxsValue('id'));" /></td>

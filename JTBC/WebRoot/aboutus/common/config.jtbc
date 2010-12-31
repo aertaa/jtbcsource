@@ -40,7 +40,7 @@
     </item>
     <item>
       <name><![CDATA[nindex]]></name>
-      <chinese><![CDATA[default.aspx]]></chinese>
+      <chinese><![CDATA[default.jsp]]></chinese>
     </item>
     <item>
       <name><![CDATA[ncontentcutepage]]></name>

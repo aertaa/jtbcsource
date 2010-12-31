@@ -100,6 +100,12 @@ A:hover {
 #bottomContent P {
 	MARGIN: 0px; COLOR: #666666; LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: center
 }
+#bottomContent P A {
+	COLOR: #666666; TEXT-DECORATION: none
+}
+#bottomContent P A:hover {
+	COLOR: #333333; TEXT-DECORATION: none
+}
 .ash {
 	COLOR: #666666
 }
@@ -116,7 +122,7 @@ A:hover {
 	MARGIN-TOP: 5px
 }
 .box1 DIV.box1s {
-	MARGIN: 10px; TEXT-ALIGN: center
+	MARGIN: 10px
 }
 .box2 {
 	WIDTH: 100%

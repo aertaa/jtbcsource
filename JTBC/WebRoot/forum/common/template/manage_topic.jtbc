@@ -12,7 +12,7 @@
 <script type="text/javascript">var nEditor;</script>
 <script type="text/javascript" src="{$=$images}/js/manages.js"></script>
 <script type="text/javascript" src="{$=$images}/js/manage_topics.js"></script>
-<script type="text/javascript" src="{$=getActualRoute("common")}/editor/jtbceditor/jtbcEditor.js"></script>
+<script type="text/javascript" src="{$=getActualRoute("common")}/editor/ubbeditor/ubbEditor.js"></script>
 <table onmouseover="manage.windows.tResizePanel();" cellspacing="0" cellpadding="0" class="windowsContent">
   <tr>
     <td height="100%" valign="top">

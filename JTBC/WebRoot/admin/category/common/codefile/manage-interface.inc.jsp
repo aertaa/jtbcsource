@@ -295,6 +295,15 @@ class module extends jpage
     return tmpstr;
   }
 
+  private String Module_Add()
+  {
+    String tmpstr = "";
+    tmpstr = conf.jt.itake("manage-interface.add", "tpl");
+    tmpstr = conf.jt.creplace(tmpstr);
+    tmpstr = conf.ajaxPreContent + tmpstr;
+    return tmpstr;
+  }
+
   private String Module_Edit()
   {
     String tmpstr = "";
@@ -381,6 +390,7 @@ class module extends jpage
       String tType = cls.getString(conf.getRequestUsParameter("type"));
 
       if (tType.equals("action")) tmpstr = Module_Action();
+      else if (tType.equals("add")) tmpstr = Module_Add();
       else if (tType.equals("edit")) tmpstr = Module_Edit();
       else if (tType.equals("list")) tmpstr = Module_List();
       else tmpstr = Module_List();

@@ -12,7 +12,7 @@
     </item>
     <item>
       <name><![CDATA[web_title]]></name>
-      <chinese><![CDATA[JTBC]]></chinese>
+      <chinese><![CDATA[JTBC(2.0)]]></chinese>
     </item>
     <item>
       <name><![CDATA[keywords]]></name>
@@ -21,10 +21,6 @@
     <item>
       <name><![CDATA[description]]></name>
       <chinese><![CDATA[JTBC网站内容管理系统]]></chinese>
-    </item>
-    <item>
-      <name><![CDATA[copyright]]></name>
-      <chinese><![CDATA[&copy; 2004-{$=formatDate($now, "-1")} <a href="http://www.jetiben.com/" target="_blank">Jetiben.Com</a> All Rights Reserved.]]></chinese>
     </item>
   </item_list>
 </xml>
