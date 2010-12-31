@@ -1,5 +1,5 @@
 <%@ page import = "jtbc.*" %>
-<%@ page import = "jtbc.dbc.*" %>
+<%@ page import = "sprg.dbc.*" %>
 <%@ page import = "java.util.regex.Pattern" %>
 <%
 class module extends jpage

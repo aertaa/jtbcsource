@@ -1,5 +1,5 @@
 <%@ page import = "jtbc.*" %>
-<%@ page import = "jtbc.dbc.*" %>
+<%@ page import = "sprg.dbc.*" %>
 <%@ page import = "java.io.*" %>
 <%@ page import = "java.util.*" %>
 <%@ page import = "java.util.regex.*" %>
