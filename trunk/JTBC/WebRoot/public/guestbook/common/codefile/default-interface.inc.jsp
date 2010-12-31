@@ -1,5 +1,5 @@
 <%@ page import = "jtbc.*" %>
-<%@ page import = "sprg.dbc.*" %>
+<%@ page import = "jtbc.dbc.*" %>
 <%
 class module extends jpage
 {
