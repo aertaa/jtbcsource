@@ -14,7 +14,12 @@
 /*  14 */     str = str.replace("\\", "\\\\");
 /*  15 */     return str;
 /*     */   }
-/*     */ 
+/*     */ 	
+			/**
+			 * 将字节数组进行base64encode编码
+			 * @param paramArrayOfByte 字节数组
+			 * @return	编码字符串值
+			 */
 /*     */   public static String base64encode(byte[] paramArrayOfByte)
 /*     */   {
 /*  20 */     String str = "";
@@ -52,7 +57,11 @@
 /*  52 */     str = localStringBuffer.toString();
 /*  53 */     return str;
 /*     */   }
-/*     */ 
+/*     */ 	/**
+			 * 将字符串进行base64decode反编译为字节数组
+			 * @param paramString 字符串
+			 * @return	字节数组
+			 */
 /*     */   public static byte[] base64decode(String paramString) throws UnsupportedEncodingException
 /*     */   {
 /*  58 */     byte[] arrayOfByte1 = null;
@@ -104,14 +113,16 @@
 /* 104 */     arrayOfByte1 = localStringBuffer.toString().getBytes("ISO-8859-1");
 /* 105 */     return arrayOfByte1;
 /*     */   }
-/*     */ 
+/*     */ 	
+			//将字符串中'/'转换为'_'
 /*     */   public static String cachenameencode(String paramString)
 /*     */   {
 /* 110 */     String str = paramString;
 /* 111 */     str = str.replace("/", "_");
 /* 112 */     return str;
 /*     */   }
-/*     */ 
+/*     */ 	
+			//将字符串中'$CDATA#'转换为'<![CDATA[','#CDATA$'转换为']]>'
 /*     */   public static String cdatadecode(String paramString)
 /*     */   {
 /* 117 */     String str = paramString;
@@ -122,7 +133,8 @@
 /*     */     }
 /* 123 */     return str;
 /*     */   }
-/*     */ 
+/*     */ 	
+			//将字符串中'\n'转换为'\r\n'
 /*     */   public static String encodeNewline(String paramString)
 /*     */   {
 /* 128 */     String str = paramString;
@@ -130,7 +142,8 @@
 /* 130 */     str = str.replace(String.valueOf('\n'), String.valueOf('\r') + String.valueOf('\n'));
 /* 131 */     return str;
 /*     */   }
-/*     */ 
+/*     */ 	
+			//将字符串中'\''转换为'&#39;','  '转换为'&nbsp;&nbsp;','\r\n''转换为'<br />'
 /*     */   public static String encodeArticle(String paramString)
 /*     */   {
 /* 136 */     String str = paramString;
@@ -140,7 +153,8 @@
 /* 140 */     str = str.replace(String.valueOf('\r') + String.valueOf('\n'), "<br />");
 /* 141 */     return str;
 /*     */   }
-/*     */ 
+
+/*     */ 	//将字符串每个字符都转成数字,如非数字则替换成0
 /*     */   public static String encodeChar2String(String paramString)
 /*     */   {
 /* 146 */     String str1 = paramString;
@@ -156,7 +170,8 @@
 /*     */     }
 /* 157 */     return str2;
 /*     */   }
-/*     */ 
+/*     */ 	
+			//将HTML代码转换：'&'转换为'&amp;','>'转换为'&gt;','<'转换为'&gt;','\"'转换为'&quot;'
 /*     */   public static String encodeHtml(String paramString)
 /*     */   {
 /* 162 */     String str = paramString;
@@ -167,6 +182,7 @@
 /* 167 */     return str;
 /*     */   }
 /*     */ 
+			//将字符串'$'转换为'&#36;','@'转换为'&#64;'
 /*     */   public static String encodeText(String paramString)
 /*     */   {
 /* 172 */     String str = paramString;
@@ -174,7 +190,8 @@
 /* 174 */     str = str.replace("@", "&#64;");
 /* 175 */     return str;
 /*     */   }
-/*     */ 
+/*     */ 	
+			//将字符串同时对前2个方法进行转换（encodeHtml、encodeText）
 /*     */   public static String htmlencode(String paramString)
 /*     */   {
 /* 180 */     String str1 = "";
@@ -182,7 +199,8 @@
 /* 182 */     str1 = htmlencode(str2, "0");
 /* 183 */     return str1;
 /*     */   }
-/*     */ 
+/*     */ 	
+			//此方法功能同上，另加上一个第二个字符串的判断是否为1，如是则对第一字符串中'|'转换为'&#5;','='转换为'&#61;'
 /*     */   public static String htmlencode(String paramString1, String paramString2)
 /*     */   {
 /* 188 */     String str1 = paramString2;
@@ -197,7 +215,8 @@
 /*     */     }
 /* 198 */     return str2;
 /*     */   }
-/*     */ 
+/*     */ 	
+			//把字符串中","隔开的每个值两边再加上"|:|",最后还以字符串形式返回
 /*     */   public static String keywordencode(String paramString)
 /*     */   {
 /* 203 */     String str1 = "";
@@ -210,7 +229,8 @@
 /*     */     }
 /* 211 */     return str1;
 /*     */   }
-/*     */ 
+/*     */ 	
+			//把字符串中"|:|"去除,最后还以字符串形式返回,与上述方法功能相反
 /*     */   public static String keyworddecode(String paramString)
 /*     */   {
 /* 216 */     String str1 = "";
@@ -224,6 +244,7 @@
 /* 224 */     return str1;
 /*     */   }
 /*     */ 
+			//将字符串进行md5编码
 /*     */   public static String md5(byte[] paramArrayOfByte)
 /*     */   {
 /* 229 */     String str = "";
@@ -248,6 +269,7 @@
 /* 248 */     return str;
 /*     */   }
 /*     */ 
+			//将字符串'\\'转换为'\\\\','‘'转换为'\\‘','\'转换为'\\\',并作encodeText方法转换
 /*     */   public static String scriptencode(String paramString)
 /*     */   {
 /* 253 */     String str = paramString;
@@ -317,6 +339,7 @@
 /* 317 */     return str1;
 /*     */   }
 /*     */ 
+			//将字符串中的UBB代码转换成HTML代码
 /*     */   public static String ubb2html(String paramString)
 /*     */   {
 /* 322 */     String str1 = paramString;

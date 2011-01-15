@@ -1,85 +1,116 @@
-/*    */ package jtbc;
-/*    */ 
-/*    */ import java.util.regex.Matcher;
-/*    */ import java.util.regex.Pattern;
-/*    */ 
-/*    */ public class validator
-/*    */ {
-/*    */   public static Boolean isChinese(String paramString)
-/*    */   {
-/*  9 */     Boolean localBoolean = Boolean.valueOf(false);
-/* 10 */     String str = paramString;
-/* 11 */     if (!(cls.isEmpty(str).booleanValue()))
-/*    */     {
-/* 13 */       Pattern localPattern = Pattern.compile("^[\\u0391-\\uFFE5]+$");
-/* 14 */       Matcher localMatcher = localPattern.matcher(str);
-/* 15 */       localBoolean = Boolean.valueOf(localMatcher.matches());
-/*    */     }
-/* 17 */     return localBoolean;
-/*    */   }
-/*    */ 
-/*    */   public static Boolean isEmail(String paramString)
-/*    */   {
-/* 22 */     Boolean localBoolean = Boolean.valueOf(false);
-/* 23 */     String str = paramString;
-/* 24 */     if (!(cls.isEmpty(str).booleanValue()))
-/*    */     {
-/* 26 */       Pattern localPattern = Pattern.compile("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
-/* 27 */       Matcher localMatcher = localPattern.matcher(str);
-/* 28 */       localBoolean = Boolean.valueOf(localMatcher.matches());
-/*    */     }
-/* 30 */     return localBoolean;
-/*    */   }
-/*    */ 
-/*    */   public static Boolean isMobile(String paramString)
-/*    */   {
-/* 35 */     Boolean localBoolean = Boolean.valueOf(false);
-/* 36 */     String str = paramString;
-/* 37 */     if (!(cls.isEmpty(str).booleanValue()))
-/*    */     {
-/* 39 */       Pattern localPattern = Pattern.compile("^1\\d{10}$");
-/* 40 */       Matcher localMatcher = localPattern.matcher(str);
-/* 41 */       localBoolean = Boolean.valueOf(localMatcher.matches());
-/*    */     }
-/* 43 */     return localBoolean;
-/*    */   }
-/*    */ 
-/*    */   public static Boolean isNatural(String paramString)
-/*    */   {
-/* 48 */     Boolean localBoolean = Boolean.valueOf(false);
-/* 49 */     String str = paramString;
-/* 50 */     if (!(cls.isEmpty(str).booleanValue()))
-/*    */     {
-/* 52 */       Pattern localPattern = Pattern.compile("^[A-Za-z0-9]+$");
-/* 53 */       Matcher localMatcher = localPattern.matcher(str);
-/* 54 */       localBoolean = Boolean.valueOf(localMatcher.matches());
-/*    */     }
-/* 56 */     return localBoolean;
-/*    */   }
-/*    */ 
-/*    */   public static Boolean isUsername(String paramString)
-/*    */   {
-/* 61 */     Boolean localBoolean = Boolean.valueOf(false);
-/* 62 */     String str = paramString;
-/* 63 */     if (!(cls.isEmpty(str).booleanValue()))
-/*    */     {
-/* 65 */       Pattern localPattern = Pattern.compile("^[\\u4e00-\\u9fa5_a-zA-Z0-9]+$");
-/* 66 */       Matcher localMatcher = localPattern.matcher(str);
-/* 67 */       localBoolean = Boolean.valueOf(localMatcher.matches());
-/*    */     }
-/* 69 */     return localBoolean;
-/*    */   }
-/*    */ 
-/*    */   public static Boolean isZip(String paramString)
-/*    */   {
-/* 74 */     Boolean localBoolean = Boolean.valueOf(false);
-/* 75 */     String str = paramString;
-/* 76 */     if (!(cls.isEmpty(str).booleanValue()))
-/*    */     {
-/* 78 */       Pattern localPattern = Pattern.compile("^[0-9]\\d{5}$");
-/* 79 */       Matcher localMatcher = localPattern.matcher(str);
-/* 80 */       localBoolean = Boolean.valueOf(localMatcher.matches());
-/*    */     }
-/* 82 */     return localBoolean;
-/*    */   }
-/*    */ }
+package jtbc;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * 该类为验证类，包括是否中文、是否email地址、是否手机号码、是否常用字符(即字母和数字)、是否合法用户名(即字符串)、是否邮编
+ * 
+ * @author Administrator
+ * 
+ */
+public class validator {
+	/**
+	 * 是否中文汉字，是返回true，否返回false 空值返回false
+	 * 
+	 * @param paramString
+	 * @return Boolean
+	 */
+	public static Boolean isChinese(String paramString) {
+		Boolean localBoolean = Boolean.valueOf(false);
+		String str = paramString;
+		if (!(cls.isEmpty(str).booleanValue())) {
+			Pattern localPattern = Pattern.compile("^[\\u0391-\\uFFE5]+$");
+			Matcher localMatcher = localPattern.matcher(str);
+			localBoolean = Boolean.valueOf(localMatcher.matches());
+		}
+		return localBoolean;
+	}
+
+	/**
+	 * 是否邮件地址格式，是返回true，否返回false 空值返回false
+	 * 
+	 * @param paramString
+	 * @return Boolean
+	 */
+	public static Boolean isEmail(String paramString) {
+		Boolean localBoolean = Boolean.valueOf(false);
+		String str = paramString;
+		if (!(cls.isEmpty(str).booleanValue())) {
+			Pattern localPattern = Pattern
+					.compile("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
+			Matcher localMatcher = localPattern.matcher(str);
+			localBoolean = Boolean.valueOf(localMatcher.matches());
+		}
+		return localBoolean;
+	}
+
+	/**
+	 * 是否11位手机号码格式，是返回true，否返回false 空值返回false
+	 * 
+	 * @param paramString
+	 * @return Boolean
+	 */
+	public static Boolean isMobile(String paramString) {
+		Boolean localBoolean = Boolean.valueOf(false);
+		String str = paramString;
+		if (!(cls.isEmpty(str).booleanValue())) {
+			Pattern localPattern = Pattern.compile("^1\\d{10}$");
+			Matcher localMatcher = localPattern.matcher(str);
+			localBoolean = Boolean.valueOf(localMatcher.matches());
+		}
+		return localBoolean;
+	}
+
+	/**
+	 * 是否是通常使用的字符(26个大小写字母和10个数字)，是返回true，否返回false 空值返回false
+	 * 
+	 * @param paramString
+	 * @return Boolean
+	 */
+	public static Boolean isNatural(String paramString) {
+		Boolean localBoolean = Boolean.valueOf(false);
+		String str = paramString;
+		if (!(cls.isEmpty(str).booleanValue())) {
+			Pattern localPattern = Pattern.compile("^[A-Za-z0-9]+$");
+			Matcher localMatcher = localPattern.matcher(str);
+			localBoolean = Boolean.valueOf(localMatcher.matches());
+		}
+		return localBoolean;
+	}
+
+	/**
+	 * 用户名有效性验证，可以为中文、字母和数字，是返回true，否返回false 空值返回false
+	 * 
+	 * @param paramString
+	 * @return Boolean
+	 */
+	public static Boolean isUsername(String paramString) {
+		Boolean localBoolean = Boolean.valueOf(false);
+		String str = paramString;
+		if (!(cls.isEmpty(str).booleanValue())) {
+			Pattern localPattern = Pattern
+					.compile("^[\\u4e00-\\u9fa5_a-zA-Z0-9]+$");
+			Matcher localMatcher = localPattern.matcher(str);
+			localBoolean = Boolean.valueOf(localMatcher.matches());
+		}
+		return localBoolean;
+	}
+
+	/**
+	 * 6位数字,可能是邮编号码，是返回true，否返回false 空值返回false
+	 * 
+	 * @param paramString
+	 * @return Boolean
+	 */
+	public static Boolean isZip(String paramString) {
+		Boolean localBoolean = Boolean.valueOf(false);
+		String str = paramString;
+		if (!(cls.isEmpty(str).booleanValue())) {
+			Pattern localPattern = Pattern.compile("^[0-9]\\d{5}$");
+			Matcher localMatcher = localPattern.matcher(str);
+			localBoolean = Boolean.valueOf(localMatcher.matches());
+		}
+		return localBoolean;
+	}
+}
