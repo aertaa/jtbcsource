@@ -1,742 +1,1165 @@
-/*     */ package jtbc;
-/*     */ 
-/*     */ import java.text.DecimalFormat;
-/*     */ import java.text.SimpleDateFormat;
-/*     */ import java.util.Calendar;
-/*     */ import java.util.Date;
-/*     */ import java.util.Random;
-/*     */ import java.util.TimeZone;
-/*     */ import java.util.regex.Matcher;
-/*     */ import java.util.regex.Pattern;
-/*     */ 
-/*     */ public class cls
-/*     */ {
-/*     */   public static String cfnames(String paramString1, String paramString2)
-/*     */   {
-/*  15 */     String str1 = "";
-/*  16 */     String str2 = paramString1;
-/*  17 */     String str3 = paramString2;
-/*  18 */     str1 = concat(str2, str3);
-/*  19 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String concat(String paramString1, String paramString2)
-/*     */   {
-/*  24 */     String str1 = "";
-/*  25 */     String str2 = paramString1;
-/*  26 */     String str3 = paramString2;
-/*  27 */     str2 = getString(str2);
-/*  28 */     str3 = getString(str3);
-/*  29 */     str1 = str2 + str3;
-/*  30 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String cper(Integer paramInteger1, Integer paramInteger2)
-/*     */   {
-/*  35 */     String str1 = "0";
-/*  36 */     Integer localInteger1 = paramInteger1;
-/*  37 */     Integer localInteger2 = paramInteger2;
-/*  38 */     String str2 = toString(localInteger1);
-/*  39 */     String str3 = toString(localInteger2);
-/*  40 */     if ((!(localInteger1.equals(Integer.valueOf(0)))) && (!(localInteger2.equals(Integer.valueOf(0))))) str1 = toString(Double.valueOf(getDouble(str2).doubleValue() / getDouble(str3).doubleValue() * 100.0D));
-/*  41 */     str1 = getLRStr(str1, ".", "left");
-/*  42 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String ctemplate(String paramString1, String paramString2)
-/*     */   {
-/*  47 */     String str1 = "";
-/*  48 */     String str2 = paramString1;
-/*  49 */     String str3 = paramString2;
-/*  50 */     if ((!(isEmpty(str2).booleanValue())) && (str2.indexOf(str3) >= 0))
-/*     */     {
-/*  52 */       String str4 = "<!--fixed-->" + str2 + "<!--fixed-->";
-/*  53 */       String[] arrayOfString = str4.split(Pattern.quote(str3));
-/*  54 */       if (arrayOfString.length == 3) str1 = arrayOfString[1];
-/*     */     }
-/*  56 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String ctemplates(String paramString1, String paramString2, String paramString3)
-/*     */   {
-/*  61 */     String str1 = "";
-/*  62 */     String str2 = paramString1;
-/*  63 */     String str3 = paramString2;
-/*  64 */     String str4 = paramString3;
-/*  65 */     if ((!(isEmpty(str2).booleanValue())) && (str2.indexOf(str3) >= 0))
-/*     */     {
-/*  67 */       String str5 = "<!--fixed-->" + str2 + "<!--fixed-->";
-/*  68 */       String[] arrayOfString = str5.split(Pattern.quote(str3));
-/*  69 */       if (arrayOfString.length == 3) str1 = str2.replace(str3 + arrayOfString[1] + str3, str4);
-/*     */     }
-/*  71 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static Boolean cidary(String paramString)
-/*     */   {
-/*  76 */     Boolean localBoolean = Boolean.valueOf(false);
-/*  77 */     String str = getString(paramString);
-/*  78 */     if (!(isEmpty(str).booleanValue()))
-/*     */     {
-/*  80 */       localBoolean = Boolean.valueOf(true);
-/*  81 */       String[] arrayOfString = str.split(Pattern.quote(","));
-/*  82 */       for (int i = 0; i < arrayOfString.length; ++i)
-/*     */       {
-/*  84 */         if (getNum(arrayOfString[i], Integer.valueOf(-1)).intValue() != -1)
-/*     */           continue;
-/*  86 */         localBoolean = Boolean.valueOf(false);
-/*  87 */         break;
-/*     */       }
-/*     */     }
-/*     */ 
-/*  91 */     return localBoolean;
-/*     */   }
-/*     */ 
-/*     */   public static Boolean cinstr(String paramString1, String paramString2, String paramString3)
-/*     */   {
-/*  96 */     Boolean localBoolean = Boolean.valueOf(false);
-/*  97 */     String str1 = paramString1;
-/*  98 */     String str2 = paramString2;
-/*  99 */     String str3 = paramString3;
-/* 100 */     if (str1.equals(str2)) localBoolean = Boolean.valueOf(true);
-/* 103 */     else if (str1.indexOf(str3 + str2 + str3) >= 0) localBoolean = Boolean.valueOf(true);
-/* 106 */     else if (getLRStr(str1, str3, "left").equals(str2)) localBoolean = Boolean.valueOf(true);
-/* 109 */     else if (getLRStr(str1, str3, "right").equals(str2)) localBoolean = Boolean.valueOf(true);
-/*     */ 
-/* 113 */     return localBoolean;
-/*     */   }
-/*     */ 
-/*     */   public static Boolean cinstrs(String paramString1, String paramString2, String paramString3)
-/*     */   {
-/* 118 */     Boolean localBoolean = Boolean.valueOf(false);
-/* 119 */     String str1 = paramString1;
-/* 120 */     String str2 = paramString2;
-/* 121 */     String str3 = paramString3;
-/* 122 */     if (str1.equals(str2)) { localBoolean = Boolean.valueOf(true);
-/*     */     }
-/*     */     else {
-/* 125 */       localBoolean = Boolean.valueOf(true);
-/* 126 */       String[] arrayOfString = str2.split(Pattern.quote(str3));
-/* 127 */       for (int i = 0; i < arrayOfString.length; ++i)
-/*     */       {
-/* 129 */         if (cinstr(str1, arrayOfString[i], str3).booleanValue()) continue; localBoolean = Boolean.valueOf(false);
-/*     */       }
-/*     */     }
-/* 132 */     return localBoolean;
-/*     */   }
-/*     */ 
-/*     */   public static String formatByte(String paramString)
-/*     */   {
-/* 137 */     String str1 = paramString;
-/* 138 */     String str2 = formatByte(getNum64(str1, Long.valueOf(0L)));
-/* 139 */     return str2;
-/*     */   }
-/*     */ 
-/*     */   public static String formatByte(Long paramLong)
-/*     */   {
-/* 144 */     Long localLong = paramLong;
-/* 145 */     String str = "";
-/* 146 */     if (localLong.longValue() > 1073741824L) str = toString(Double.valueOf(Math.round(localLong.longValue() / 1073741824.0D * 1000.0D) / 1000.0D)) + " GB";
-/* 149 */     else if (localLong.longValue() > 1048576L) str = toString(Double.valueOf(Math.round(localLong.longValue() / 1048576.0D * 1000.0D) / 1000.0D)) + " MB";
-/* 152 */     else if (localLong.longValue() > 1024L) str = toString(Double.valueOf(Math.round(localLong.longValue() / 1024.0D * 1000.0D) / 1000.0D)) + " KB";
-/*     */     else str = toString(localLong) + " B";
-/*     */ 
-/* 156 */     return str;
-/*     */   }
-/*     */ 
-/*     */   public static String formatDate(String paramString)
-/*     */   {
-/* 161 */     String str1 = "";
-/* 162 */     String str2 = paramString;
-/* 163 */     str1 = formatDate(str2, Integer.valueOf(100));
-/* 164 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String formatDate(Date paramDate)
-/*     */   {
-/* 169 */     String str = "";
-/* 170 */     Date localDate = paramDate;
-/* 171 */     str = formatDate(localDate, Integer.valueOf(100));
-/* 172 */     return str;
-/*     */   }
-/*     */ 
-/*     */   public static String formatDate(String paramString, Integer paramInteger)
-/*     */   {
-/* 177 */     Integer localInteger = paramInteger;
-/* 178 */     String str1 = paramString;
-/* 179 */     String str2 = str1;
-/* 180 */     SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-/*     */     try
-/*     */     {
-/* 183 */       Date localDate = localSimpleDateFormat.parse(str1);
-/* 184 */       str2 = formatDate(localDate, localInteger);
-/*     */     } catch (Exception localException) {
-/*     */     }
-/* 187 */     return str2;
-/*     */   }
-/*     */ 
-/*     */   public static String formatDate(Date paramDate, Integer paramInteger)
-/*     */   {
-/* 192 */     String str = "";
-/* 193 */     Integer localInteger = paramInteger;
-/* 194 */     Date localDate = paramDate;
-/*     */     try
-/*     */     {
-/* 197 */       Calendar localCalendar = Calendar.getInstance();
-/* 198 */       localCalendar.setTime(localDate);
-/* 199 */       switch (localInteger.intValue())
-/*     */       {
-/*     */       case -3:
-/* 202 */         str = toString(Integer.valueOf(localCalendar.get(5)));
-/* 203 */         break;
-/*     */       case -2:
-/* 205 */         str = toString(Integer.valueOf(localCalendar.get(2) + 1));
-/* 206 */         break;
-/*     */       case -1:
-/* 208 */         str = toString(Integer.valueOf(localCalendar.get(1)));
-/* 209 */         break;
-/*     */       case 0:
-/* 211 */         str = toString(Integer.valueOf(localCalendar.get(1))) + toString(Integer.valueOf(localCalendar.get(2) + 1)) + toString(Integer.valueOf(localCalendar.get(5))) + toString(Integer.valueOf(localCalendar.get(11))) + toString(Integer.valueOf(localCalendar.get(12))) + toString(Integer.valueOf(localCalendar.get(13)));
-/* 212 */         break;
-/*     */       case 1:
-/* 214 */         str = toString(Integer.valueOf(localCalendar.get(1))) + "-" + toString(Integer.valueOf(localCalendar.get(2) + 1)) + "-" + toString(Integer.valueOf(localCalendar.get(5)));
-/* 215 */         break;
-/*     */       case 2:
-/* 217 */         str = toString(Integer.valueOf(localCalendar.get(1))) + "/" + toString(Integer.valueOf(localCalendar.get(2) + 1)) + "/" + toString(Integer.valueOf(localCalendar.get(5)));
-/* 218 */         break;
-/*     */       case 3:
-/* 220 */         str = toString(Integer.valueOf(localCalendar.get(1))) + "." + toString(Integer.valueOf(localCalendar.get(2) + 1)) + "." + toString(Integer.valueOf(localCalendar.get(5)));
-/* 221 */         break;
-/*     */       case 4:
-/* 223 */         str = toString(Integer.valueOf(localCalendar.get(1))) + "-" + formatTime(Integer.valueOf(localCalendar.get(2) + 1)) + "-" + formatTime(Integer.valueOf(localCalendar.get(5)));
-/* 224 */         break;
-/*     */       case 5:
-/* 226 */         str = toString(Integer.valueOf(localCalendar.get(1))) + "/" + formatTime(Integer.valueOf(localCalendar.get(2) + 1)) + "/" + formatTime(Integer.valueOf(localCalendar.get(5)));
-/* 227 */         break;
-/*     */       case 6:
-/* 229 */         str = toString(Integer.valueOf(localCalendar.get(1))) + "." + formatTime(Integer.valueOf(localCalendar.get(2) + 1)) + "." + formatTime(Integer.valueOf(localCalendar.get(5)));
-/* 230 */         break;
-/*     */       case 7:
-/* 232 */         str = toString(Integer.valueOf(localCalendar.get(1))) + formatTime(Integer.valueOf(localCalendar.get(2) + 1)) + formatTime(Integer.valueOf(localCalendar.get(5)));
-/* 233 */         break;
-/*     */       case 10:
-/* 235 */         str = toString(Integer.valueOf(localCalendar.get(2) + 1)) + toString(Integer.valueOf(localCalendar.get(5))) + toString(Integer.valueOf(localCalendar.get(11))) + toString(Integer.valueOf(localCalendar.get(12)));
-/* 236 */         break;
-/*     */       case 11:
-/* 238 */         str = toString(Integer.valueOf(localCalendar.get(2) + 1)) + "-" + toString(Integer.valueOf(localCalendar.get(5))) + " " + toString(Integer.valueOf(localCalendar.get(11))) + ":" + toString(Integer.valueOf(localCalendar.get(12)));
-/* 239 */         break;
-/*     */       case 12:
-/* 241 */         str = toString(Integer.valueOf(localCalendar.get(2) + 1)) + "/" + toString(Integer.valueOf(localCalendar.get(5))) + " " + toString(Integer.valueOf(localCalendar.get(11))) + ":" + toString(Integer.valueOf(localCalendar.get(12)));
-/* 242 */         break;
-/*     */       case 13:
-/* 244 */         str = toString(Integer.valueOf(localCalendar.get(2) + 1)) + "." + toString(Integer.valueOf(localCalendar.get(5))) + " " + toString(Integer.valueOf(localCalendar.get(11))) + ":" + toString(Integer.valueOf(localCalendar.get(12)));
-/* 245 */         break;
-/*     */       case 14:
-/* 247 */         str = formatTime(Integer.valueOf(localCalendar.get(2) + 1)) + "-" + formatTime(Integer.valueOf(localCalendar.get(5))) + " " + formatTime(Integer.valueOf(localCalendar.get(11))) + ":" + formatTime(Integer.valueOf(localCalendar.get(12)));
-/* 248 */         break;
-/*     */       case 15:
-/* 250 */         str = formatTime(Integer.valueOf(localCalendar.get(2) + 1)) + "/" + formatTime(Integer.valueOf(localCalendar.get(5))) + " " + formatTime(Integer.valueOf(localCalendar.get(11))) + ":" + formatTime(Integer.valueOf(localCalendar.get(12)));
-/* 251 */         break;
-/*     */       case 16:
-/* 253 */         str = formatTime(Integer.valueOf(localCalendar.get(2) + 1)) + "." + formatTime(Integer.valueOf(localCalendar.get(5))) + " " + formatTime(Integer.valueOf(localCalendar.get(11))) + ":" + formatTime(Integer.valueOf(localCalendar.get(12)));
-/* 254 */         break;
-/*     */       case 20:
-/* 256 */         str = toString(Integer.valueOf(localCalendar.get(11))) + toString(Integer.valueOf(localCalendar.get(12))) + toString(Integer.valueOf(localCalendar.get(13)));
-/* 257 */         break;
-/*     */       case 21:
-/* 259 */         str = toString(Integer.valueOf(localCalendar.get(11))) + ":" + toString(Integer.valueOf(localCalendar.get(12))) + ":" + toString(Integer.valueOf(localCalendar.get(13)));
-/* 260 */         break;
-/*     */       case 30:
-/* 262 */         str = toString(Integer.valueOf(localCalendar.get(1))) + formatTime(Integer.valueOf(localCalendar.get(2) + 1)) + formatTime(Integer.valueOf(localCalendar.get(5))) + formatTime(Integer.valueOf(localCalendar.get(11))) + formatTime(Integer.valueOf(localCalendar.get(12))) + formatTime(Integer.valueOf(localCalendar.get(13)));
-/* 263 */         break;
-/*     */       case 100:
-/* 265 */         str = toString(Integer.valueOf(localCalendar.get(1))) + "-" + formatTime(Integer.valueOf(localCalendar.get(2) + 1)) + "-" + formatTime(Integer.valueOf(localCalendar.get(5))) + " " + formatTime(Integer.valueOf(localCalendar.get(11))) + ":" + formatTime(Integer.valueOf(localCalendar.get(12))) + ":" + formatTime(Integer.valueOf(localCalendar.get(13)));
-/*     */       }
-/*     */     }
-/*     */     catch (Exception localException) {
-/*     */     }
-/* 270 */     return str;
-/*     */   }
-/*     */ 
-/*     */   public static String formatDouble(Double paramDouble, String paramString)
-/*     */   {
-/* 275 */     String str1 = "";
-/* 276 */     Double localDouble = paramDouble;
-/* 277 */     String str2 = paramString;
-/* 278 */     DecimalFormat localDecimalFormat = new DecimalFormat(str2);
-/* 279 */     str1 = localDecimalFormat.format(localDouble);
-/* 280 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String formatTime(Integer paramInteger)
-/*     */   {
-/* 285 */     String str = "";
-/* 286 */     Integer localInteger = paramInteger;
-/* 287 */     if (localInteger.intValue() < 10) str = "0";
-/* 288 */     str = str + toString(localInteger);
-/* 289 */     return str;
-/*     */   }
-/*     */ 
-/*     */   public static String formatText(String paramString1, String paramString2, String paramString3)
-/*     */   {
-/* 294 */     String str1 = "";
-/* 295 */     String str2 = paramString1;
-/* 296 */     String str3 = paramString2;
-/* 297 */     String str4 = paramString3;
-/* 298 */     if (!(isEmpty(str2).booleanValue()))
-/*     */     {
-/* 300 */       String[] arrayOfString = str2.split(Pattern.quote(str4));
-/* 301 */       for (int i = 0; i < arrayOfString.length; ++i)
-/*     */       {
-/* 303 */         str1 = str1 + str3;
-/* 304 */         String str5 = getString(arrayOfString[i]);
-/* 305 */         str1 = str1.replace("[text]", str5);
-/* 306 */         str1 = str1.replace("[i]", toString(Integer.valueOf(i)));
-/* 307 */         str1 = str1.replace("[text-htmlencode]", encode.htmlencode(str5));
-/* 308 */         str1 = str1.replace("[text-base64encode]", encode.base64encode(str5.getBytes()));
-/*     */       }
-/*     */     }
-/* 311 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String formatTextLine(String paramString1, String paramString2)
-/*     */   {
-/* 316 */     String str1 = "";
-/* 317 */     String str2 = paramString1;
-/* 318 */     String str3 = paramString2;
-/* 319 */     str2 = str2.replace(String.valueOf('\r') + String.valueOf('\n'), String.valueOf('\n'));
-/* 320 */     str2 = str2.replace(String.valueOf('\n'), String.valueOf('\r') + String.valueOf('\n'));
-/* 321 */     String str4 = String.valueOf('\r') + String.valueOf('\n');
-/* 322 */     if (!(isEmpty(str2).booleanValue()))
-/*     */     {
-/* 324 */       String[] arrayOfString = str2.split(Pattern.quote(str4));
-/* 325 */       for (int i = 0; i < arrayOfString.length; ++i)
-/*     */       {
-/* 327 */         str1 = str1 + str3;
-/* 328 */         String str5 = getString(arrayOfString[i]);
-/* 329 */         str1 = str1.replace("[text]", str5);
-/* 330 */         str1 = str1.replace("[i]", toString(Integer.valueOf(i)));
-/* 331 */         str1 = str1.replace("[text-htmlencode]", encode.htmlencode(str5));
-/* 332 */         str1 = str1.replace("[text-base64encode]", encode.base64encode(str5.getBytes()));
-/*     */       }
-/*     */     }
-/* 335 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String formatUnixStampDate(Long paramLong)
-/*     */   {
-/* 340 */     String str1 = "";
-/* 341 */     Long localLong = paramLong;
-/* 342 */     SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-/*     */     try
-/*     */     {
-/* 345 */       TimeZone localTimeZone = TimeZone.getTimeZone("UTC");
-/* 346 */       Calendar localCalendar = Calendar.getInstance(localTimeZone);
-/* 347 */       localCalendar.setTimeInMillis(localLong.longValue() * 1000L);
-/* 348 */       String str2 = toString(Integer.valueOf(localCalendar.get(1))) + "-" + toString(Integer.valueOf(localCalendar.get(2) + 1)) + "-" + toString(Integer.valueOf(localCalendar.get(5))) + " " + toString(Integer.valueOf(localCalendar.get(11))) + ":" + toString(Integer.valueOf(localCalendar.get(12))) + ":" + toString(Integer.valueOf(localCalendar.get(13)));
-/* 349 */       str1 = formatDate(str2);
-/*     */     } catch (Exception localException) {
-/*     */     }
-/* 352 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static Object getAryValue(Object[][] paramArrayOfObject, String paramString)
-/*     */   {
-/* 357 */     Object localObject = null;
-/* 358 */     Object[][] arrayOfObject = paramArrayOfObject;
-/* 359 */     String str = paramString;
-/* 360 */     for (int i = 0; i < arrayOfObject.length; ++i)
-/*     */     {
-/* 362 */       if (!(str.equals(toString(arrayOfObject[i][0]))))
-/*     */         continue;
-/* 364 */       localObject = arrayOfObject[i][1];
-/* 365 */       break;
-/*     */     }
-/*     */ 
-/* 368 */     return localObject;
-/*     */   }
-/*     */ 
-/*     */   public static String getDate()
-/*     */   {
-/* 373 */     String str1 = "";
-/* 374 */     TimeZone localTimeZone = TimeZone.getTimeZone("GMT+8");
-/* 375 */     Calendar localCalendar = Calendar.getInstance(localTimeZone);
-/* 376 */     String str2 = toString(Integer.valueOf(localCalendar.get(1))) + "-" + toString(Integer.valueOf(localCalendar.get(2) + 1)) + "-" + toString(Integer.valueOf(localCalendar.get(5))) + " " + toString(Integer.valueOf(localCalendar.get(11))) + ":" + toString(Integer.valueOf(localCalendar.get(12))) + ":" + toString(Integer.valueOf(localCalendar.get(13)));
-/* 377 */     str1 = formatDate(str2);
-/* 378 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String getDate(String paramString)
-/*     */   {
-/* 383 */     String str1 = paramString;
-/* 384 */     SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-/*     */     try
-/*     */     {
-/* 387 */       Date localDate = localSimpleDateFormat.parse(str1);
-/* 388 */       Calendar localCalendar = Calendar.getInstance();
-/* 389 */       localCalendar.setTime(localDate);
-/* 390 */       String str2 = toString(Integer.valueOf(localCalendar.get(1))) + "-" + toString(Integer.valueOf(localCalendar.get(2) + 1)) + "-" + toString(Integer.valueOf(localCalendar.get(5))) + " " + toString(Integer.valueOf(localCalendar.get(11))) + ":" + toString(Integer.valueOf(localCalendar.get(12))) + ":" + toString(Integer.valueOf(localCalendar.get(13)));
-/* 391 */       str1 = formatDate(str2);
-/*     */     }
-/*     */     catch (Exception localException)
-/*     */     {
-/* 395 */       str1 = getDate();
-/*     */     }
-/* 397 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static Double getDouble(String paramString)
-/*     */   {
-/* 402 */     Double localDouble = Double.valueOf(0.0D);
-/* 403 */     String str = paramString;
-/* 404 */     localDouble = getDouble(str, Double.valueOf(0.0D));
-/* 405 */     return localDouble;
-/*     */   }
-/*     */ 
-/*     */   public static Double getDouble(String paramString, Double paramDouble)
-/*     */   {
-/* 410 */     String str = paramString;
-/* 411 */     Double localDouble1 = paramDouble;
-/* 412 */     Double localDouble2 = localDouble1;
-/*     */     try
-/*     */     {
-/* 415 */       localDouble2 = Double.valueOf(Double.parseDouble(str));
-/*     */     } catch (Exception localException) {
-/*     */     }
-/* 418 */     return localDouble2;
-/*     */   }
-/*     */ 
-/*     */   public static String getRandomString(int paramInt)
-/*     */   {
-/* 423 */     String str1 = "";
-/* 424 */     int i = paramInt;
-/* 425 */     String str2 = "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
-/* 426 */     String[] arrayOfString = str2.split(Pattern.quote(","));
-/* 427 */     Random localRandom = new Random();
-/* 428 */     for (int j = 0; j < i; ++j)
-/*     */     {
-/* 430 */       int k = localRandom.nextInt(arrayOfString.length);
-/* 431 */       str1 = str1 + arrayOfString[k];
-/*     */     }
-/* 433 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static Long getUnixStamp()
-/*     */   {
-/* 438 */     String str = getDate();
-/* 439 */     Long localLong = getUnixStamp(str);
-/* 440 */     return localLong;
-/*     */   }
-/*     */ 
-/*     */   public static Long getUnixStamp(String paramString)
-/*     */   {
-/* 445 */     Long localLong = Long.valueOf(0L);
-/* 446 */     String str1 = paramString;
-/* 447 */     String str2 = getDate(str1);
-/* 448 */     SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-/*     */     try
-/*     */     {
-/* 451 */       Date localDate1 = localSimpleDateFormat.parse(str2);
-/* 452 */       Date localDate2 = localSimpleDateFormat.parse("1970-1-1 0:00:00");
-/* 453 */       localLong = Long.valueOf((localDate1.getTime() - localDate2.getTime()) / 1000L);
-/*     */     } catch (Exception localException) {
-/*     */     }
-/* 456 */     return localLong;
-/*     */   }
-/*     */ 
-/*     */   public static String getHstr(String paramString1, String paramString2)
-/*     */   {
-/* 461 */     Object localObject = "";
-/* 462 */     String str1 = getString(paramString1);
-/* 463 */     String str2 = getString(paramString2);
-/* 464 */     localObject = str1;
-/* 465 */     if (isEmpty(localObject).booleanValue()) localObject = str2;
-/* 466 */     return ((String)localObject);
-/*     */   }
-/*     */ 
-/*     */   public static String getLeft(String paramString, Integer paramInteger)
-/*     */   {
-/* 471 */     String str1 = "";
-/* 472 */     String str2 = paramString;
-/* 473 */     Integer localInteger = paramInteger;
-/* 474 */     str1 = getLeft(str2, localInteger, "");
-/* 475 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String getLeft(String paramString1, Integer paramInteger, String paramString2)
-/*     */   {
-/* 480 */     String str1 = "";
-/* 481 */     Integer localInteger = paramInteger;
-/* 482 */     String str2 = getString(paramString1);
-/* 483 */     String str3 = getString(paramString2);
-/* 484 */     if (!(isEmpty(str2).booleanValue()))
-/*     */     {
-/* 486 */       if (localInteger.intValue() > str2.length()) localInteger = Integer.valueOf(str2.length());
-/* 487 */       str1 = str2.substring(0, localInteger.intValue());
-/*     */     }
-/* 489 */     if (!(str1.equals(str2))) str1 = str1 + str3;
-/* 490 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String getLeftB(String paramString, Integer paramInteger)
-/*     */   {
-/* 495 */     String str1 = "";
-/* 496 */     String str2 = paramString;
-/* 497 */     Integer localInteger = paramInteger;
-/* 498 */     str1 = getLeftB(str2, localInteger, "");
-/* 499 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String getLeftB(String paramString1, Integer paramInteger, String paramString2)
-/*     */   {
-/* 504 */     String str1 = "";
-/* 505 */     Integer localInteger1 = paramInteger;
-/* 506 */     String str2 = getString(paramString1);
-/* 507 */     String str3 = getString(paramString2);
-/* 508 */     if (!(isEmpty(str2).booleanValue()))
-/*     */     {
-/* 510 */       Integer localInteger2 = Integer.valueOf(0);
-/* 511 */       for (int i = 0; i < str2.length(); ++i)
-/*     */       {
-/* 513 */         String str4 = str2.substring(i, i + 1);
-/* 514 */         if (validator.isChinese(str4).booleanValue())
-/*     */         {
-/* 516 */           localInteger2 = Integer.valueOf(localInteger2.intValue() + 2);
-/*     */         }
-/*     */         else
-/*     */         {
-/* 520 */           localInteger2 = Integer.valueOf(localInteger2.intValue() + 1);
-/*     */         }
-/* 522 */         if (localInteger2.intValue() > localInteger1.intValue()) break; str1 = str1 + str4;
-/*     */       }
-/*     */     }
-/*     */ 
-/* 526 */     if (!(str1.equals(str2))) str1 = str1 + str3;
-/* 527 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static Integer getNum(String paramString)
-/*     */   {
-/* 532 */     String str = paramString;
-/* 533 */     Integer localInteger = getNum(str, Integer.valueOf(0));
-/* 534 */     return localInteger;
-/*     */   }
-/*     */ 
-/*     */   public static Integer getNum(String paramString, Integer paramInteger)
-/*     */   {
-/* 539 */     String str = paramString;
-/* 540 */     Integer localInteger1 = paramInteger;
-/* 541 */     Integer localInteger2 = localInteger1;
-/*     */     try
-/*     */     {
-/* 544 */       localInteger2 = Integer.valueOf(Integer.parseInt(str));
-/*     */     } catch (Exception localException) {
-/*     */     }
-/* 547 */     return localInteger2;
-/*     */   }
-/*     */ 
-/*     */   public static Long getNum64(String paramString)
-/*     */   {
-/* 552 */     String str = paramString;
-/* 553 */     Long localLong = getNum64(str, Long.valueOf(0L));
-/* 554 */     return localLong;
-/*     */   }
-/*     */ 
-/*     */   public static Long getNum64(String paramString, Long paramLong)
-/*     */   {
-/* 559 */     String str = paramString;
-/* 560 */     Long localLong1 = paramLong;
-/* 561 */     Long localLong2 = localLong1;
-/*     */     try
-/*     */     {
-/* 564 */       localLong2 = Long.valueOf(Long.parseLong(str));
-/*     */     } catch (Exception localException) {
-/*     */     }
-/* 567 */     return localLong2;
-/*     */   }
-/*     */ 
-/*     */   public static String getRight(String paramString, Integer paramInteger)
-/*     */   {
-/* 572 */     String str1 = "";
-/* 573 */     Integer localInteger1 = paramInteger;
-/* 574 */     String str2 = getString(paramString);
-/* 575 */     if (!(isEmpty(str2).booleanValue()))
-/*     */     {
-/* 577 */       Integer localInteger2 = Integer.valueOf(str2.length());
-/* 578 */       Integer localInteger3 = Integer.valueOf(localInteger2.intValue() - localInteger1.intValue());
-/* 579 */       if (localInteger3.intValue() < 0) localInteger3 = Integer.valueOf(0);
-/* 580 */       str1 = str2.substring(localInteger3.intValue(), localInteger2.intValue());
-/*     */     }
-/* 582 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String getRepeatedString(String paramString, Integer paramInteger)
-/*     */   {
-/* 587 */     String str1 = paramString;
-/* 588 */     Integer localInteger = paramInteger;
-/* 589 */     String str2 = "";
-/* 590 */     for (int i = 1; i < localInteger.intValue(); ++i) str2 = str2 + str1;
-/* 591 */     return str2;
-/*     */   }
-/*     */ 
-/*     */   public static String getString(String paramString)
-/*     */   {
-/* 596 */     String str = paramString;
-/* 597 */     if (str == null) str = "";
-/* 598 */     return str;
-/*     */   }
-/*     */ 
-/*     */   public static String getSafeString(String paramString)
-/*     */   {
-/* 603 */     String str = paramString;
-/* 604 */     str = getString(str);
-/* 605 */     str = str.replace("'", "");
-/* 606 */     str = str.replace(";", "");
-/* 607 */     str = str.replace("--", "");
-/* 608 */     return str;
-/*     */   }
-/*     */ 
-/*     */   public static String getLRStr(String paramString1, String paramString2, String paramString3)
-/*     */   {
-/* 613 */     Object localObject = "";
-/* 614 */     String str1 = paramString1;
-/* 615 */     String str2 = paramString2;
-/* 616 */     String str3 = paramString3;
-/* 617 */     if ((isEmpty(str2).booleanValue()) || (str1.indexOf(str2) == -1)) localObject = str1;
-/* 620 */     else if (str3.equals("left")) localObject = str1.substring(0, str1.indexOf(str2));
-/* 621 */     else if (str3.equals("leftr")) localObject = str1.substring(0, str1.lastIndexOf(str2));
-/* 622 */     else if (str3.equals("right")) localObject = str1.substring(str1.lastIndexOf(str2) + str2.length(), str1.length());
-/* 623 */     else if (str3.equals("rightr")) localObject = str1.substring(str1.indexOf(str2) + str2.length(), str1.length());
-/*     */     else localObject = str1;
-/*     */ 
-/* 626 */     return ((String)localObject);
-/*     */   }
-/*     */ 
-/*     */   public static String getParameter(String paramString1, String paramString2)
-/*     */   {
-/* 631 */     String str1 = "";
-/* 632 */     String str2 = paramString1;
-/* 633 */     String str3 = paramString2;
-/* 634 */     str1 = getParameter(str2, str3, ";");
-/* 635 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String getParameter(String paramString1, String paramString2, String paramString3)
-/*     */   {
-/* 640 */     String str1 = "";
-/* 641 */     String str2 = paramString1;
-/* 642 */     String str3 = paramString2;
-/* 643 */     String str4 = paramString3;
-/* 644 */     Pattern localPattern = Pattern.compile("((?:^|" + str4 + ")" + str3 + "=(.[^" + str4 + "]*))");
-/* 645 */     Matcher localMatcher = localPattern.matcher(str2);
-/* 646 */     if (localMatcher.find()) str1 = localMatcher.group(2);
-/* 647 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static Boolean isEmpty(Object paramObject)
-/*     */   {
-/* 652 */     Boolean localBoolean = Boolean.valueOf(false);
-/* 653 */     Object localObject = paramObject;
-/* 654 */     String str = toString(localObject);
-/* 655 */     if (str.equals("")) localBoolean = Boolean.valueOf(true);
-/* 656 */     return localBoolean;
-/*     */   }
-/*     */ 
-/*     */   public static Object[] mergeAry(Object[] paramArrayOfObject, Object[][] paramArrayOfObject1)
-/*     */   {
-/* 661 */     Object[] arrayOfObject1 = null;
-/* 662 */     Object[] arrayOfObject2 = paramArrayOfObject;
-/* 663 */     Object[][] arrayOfObject = paramArrayOfObject1;
-/* 664 */     if (arrayOfObject2 == null)
-/*     */     {
-/* 666 */       arrayOfObject1 = new Object[1];
-/* 667 */       arrayOfObject1[0] = arrayOfObject;
-/*     */     }
-/*     */     else
-/*     */     {
-/* 671 */       int i = arrayOfObject2.length;
-/* 672 */       arrayOfObject1 = new Object[i + 1];
-/* 673 */       for (int j = 0; j < i; ++j)
-/*     */       {
-/* 675 */         arrayOfObject1[j] = arrayOfObject2[j];
-/*     */       }
-/* 677 */       arrayOfObject1[(arrayOfObject1.length - 1)] = arrayOfObject;
-/*     */     }
-/* 679 */     return arrayOfObject1;
-/*     */   }
-/*     */ 
-/*     */   public static String[][] mergeAry(String[][] paramArrayOfString1, String[][] paramArrayOfString2)
-/*     */   {
-/* 684 */     Object localObject = (String[][])null;
-/* 685 */     String[][] arrayOfString1 = paramArrayOfString1;
-/* 686 */     String[][] arrayOfString2 = paramArrayOfString2;
-/* 687 */     if (arrayOfString1 == null) localObject = arrayOfString2;
-/* 688 */     if (arrayOfString2 == null) localObject = arrayOfString1;
-/* 689 */     if (localObject == null)
-/*     */     {
-/* 691 */       Integer localInteger1 = Integer.valueOf(arrayOfString1.length);
-/* 692 */       Integer localInteger2 = Integer.valueOf(arrayOfString1[0].length);
-/* 693 */       Integer localInteger3 = Integer.valueOf(arrayOfString2.length);
-/* 694 */       Integer localInteger4 = Integer.valueOf(arrayOfString2[0].length);
-/* 695 */       if (localInteger2.equals(localInteger4))
-/*     */       {
-/*     */         int i,j;
-/* 697 */         localObject = new String[localInteger1.intValue() + localInteger3.intValue()][localInteger2.intValue()];
-/* 698 */         for (i = 0; i < localInteger1.intValue(); ++i)
-/*     */         {
-/* 700 */           for (j = 0; j < localInteger2.intValue(); ++j)
-/*     */           {
-/* 702 */             ((String[][])localObject)[i][j] = arrayOfString1[i][j];
-/*     */           }
-/*     */         }
-/* 705 */         for (i = 0; i < localInteger3.intValue(); ++i)
-/*     */         {
-/* 707 */           for (j = 0; j < localInteger4.intValue(); ++j)
-/*     */           {
-/* 709 */             ((String[][])localObject)[(i + localInteger1.intValue())][j] = arrayOfString2[i][j];
-/*     */           }
-/*     */         }
-/*     */       }
-/*     */     }
-/* 714 */     return ((String[][])localObject);
-/*     */   }
-/*     */ 
-/*     */   public static String replace(String paramString1, String paramString2, String paramString3)
-/*     */   {
-/* 719 */     String str1 = getString(paramString1);
-/* 720 */     String str2 = getString(paramString2);
-/* 721 */     String str3 = getString(paramString3);
-/* 722 */     if (!(isEmpty(str1).booleanValue())) str1 = str1.replace(str2, str3);
-/* 723 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String reparameter(String paramString1, String paramString2, String paramString3)
-/*     */   {
-/* 728 */     String str1 = "";
-/* 729 */     String str2 = paramString1;
-/* 730 */     String str3 = paramString2;
-/* 731 */     String str4 = paramString3;
-/* 732 */     if (isEmpty(str2).booleanValue()) { str1 = str3 + "=" + str4;
-/*     */     }
-/*     */     else {
-/* 735 */       String str5 = "&" + str2;
-/* 736 */       if (str5.indexOf("&" + str3 + "=") == -1) { str1 = str2 + "&" + str3 + "=" + str4;
-/*     */       }
-/*     */       else {
-/* 739 */         String str6 = getLRStr(str5, "&" + str3 + "=", "rightr");
-/* 740 */         str6 = getLRStr(str6, "&", "left");
-/* 741 */         str1 = str5.replace("&" + str3 + "=" + str6, "&" + str3 + "=" + str4);
-/* 742 */         str1 = getLRStr(str1, "&", "rightr");
-/*     */       }
-/*     */     }
-/* 745 */     return str1;
-/*     */   }
-/*     */ 
-/*     */   public static String toString(Object paramObject)
-/*     */   {
-/* 750 */     String str = "";
-/* 751 */     Object localObject = paramObject;
-/* 752 */     if (localObject != null) str = localObject.toString();
-/* 753 */     return str;
-/*     */   }
-/*     */ }
+package jtbc;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import sun.applet.Main;
+
+public class cls {
+
+	/**
+	 * * 将字符串参数1和字符串参数2做连接操作，参数1在前，参2在后
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @return
+	 */
+	public static String cfnames(String paramString1, String paramString2) {
+		String str1 = "";
+		String str2 = paramString1;
+		String str3 = paramString2;
+		str1 = concat(str2, str3);
+		return str1;
+	}
+
+	/**
+	 * 将字符串参数1和字符串参数2做连接操作，参数1在前，参2在后
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @return
+	 */
+	public static String concat(String paramString1, String paramString2) {
+		String str1 = "";
+		String str2 = paramString1;
+		String str3 = paramString2;
+		str2 = getString(str2);
+		str3 = getString(str3);
+		str1 = str2 + str3;
+		return str1;
+	}
+
+	/**
+	 * 返回整形参数1整除参数2的结果
+	 * 
+	 * @param paramInteger1
+	 * @param paramInteger2
+	 * @return
+	 */
+	public static String cper(Integer paramInteger1, Integer paramInteger2) {
+		String str1 = "0";
+		Integer localInteger1 = paramInteger1;
+		Integer localInteger2 = paramInteger2;
+		String str2 = toString(localInteger1);
+		String str3 = toString(localInteger2);
+		if ((!(localInteger1.equals(Integer.valueOf(0))))
+				&& (!(localInteger2.equals(Integer.valueOf(0)))))
+			str1 = toString(Double.valueOf(getDouble(str2).doubleValue()
+					/ getDouble(str3).doubleValue() * 100.0D));
+		str1 = getLRStr(str1, ".", "left");
+		return str1;
+	}
+	/**
+	 * 将paramString1两个paramString2之间的字符串返回
+	 * @param paramString1
+	 * @param paramString2
+	 * @return
+	 */
+	public static String ctemplate(String paramString1, String paramString2) {
+		String str1 = "";
+		String str2 = paramString1;
+		String str3 = paramString2;
+		// 如果str2不为空并且str2中包含有str3
+		if ((!(isEmpty(str2).booleanValue())) && (str2.indexOf(str3) >= 0)) {
+			String str4 = "<!--fixed-->" + str2 + "<!--fixed-->";
+			String[] arrayOfString = str4.split(Pattern.quote(str3));
+			if (arrayOfString.length == 3)
+				str1 = arrayOfString[1];
+		}
+		return str1;
+	}
+
+	/**
+	 * 将paramString1中，两个paramString2及其之间的字符替换成paramString3
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @param paramString3
+	 * @return
+	 */
+	public static String ctemplates(String paramString1, String paramString2,
+			String paramString3) {
+		String str1 = "";
+		String str2 = paramString1;
+		String str3 = paramString2;
+		String str4 = paramString3;
+		if ((!(isEmpty(str2).booleanValue())) && (str2.indexOf(str3) >= 0)) {
+			String str5 = "<!--fixed-->" + str2 + "<!--fixed-->";
+			String[] arrayOfString = str5.split(Pattern.quote(str3));
+			if (arrayOfString.length == 3)
+				str1 = str2.replace(str3 + arrayOfString[1] + str3, str4);
+		}
+		return str1;
+	}
+
+	/**
+	 * 如果参数按逗号分隔后的字符串数组每个元素都能转成Integer对象，则返回true，否则返回false
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static Boolean cidary(String paramString) {
+		// 初始化false
+		Boolean localBoolean = Boolean.valueOf(false);
+		String str = getString(paramString);
+		// 如果不为??
+		if (!(isEmpty(str).booleanValue())) {
+			localBoolean = Boolean.valueOf(true);
+			String[] arrayOfString = str.split(Pattern.quote(","));
+			for (int i = 0; i < arrayOfString.length; ++i) {
+				if (getNum(arrayOfString[i], Integer.valueOf(-1)).intValue() != -1)
+					continue;
+				localBoolean = Boolean.valueOf(false);
+				break;
+			}
+		}
+
+		return localBoolean;
+	}
+
+	/**
+	 * 参数1和参数2满足某种的格式就返回true
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @param paramString3
+	 * @return
+	 */
+	public static Boolean cinstr(String paramString1, String paramString2,
+			String paramString3) {
+		Boolean localBoolean = Boolean.valueOf(false);
+		String str1 = paramString1;
+		String str2 = paramString2;
+		String str3 = paramString3;
+		// 参数1和参??值相等，返回true
+		if (str1.equals(str2))
+			localBoolean = Boolean.valueOf(true);
+		// 参数1中包含有参数3+参数2+参数3，返回true
+		else if (str1.indexOf(str3 + str2 + str3) >= 0)
+			localBoolean = Boolean.valueOf(true);
+		// str1中str3左边和str2相等，返回true
+		else if (getLRStr(str1, str3, "left").equals(str2))
+			localBoolean = Boolean.valueOf(true);
+		// str1中str3右边的和str2想等，返回true
+		else if (getLRStr(str1, str3, "right").equals(str2))
+			localBoolean = Boolean.valueOf(true);
+
+		return localBoolean;
+	}
+
+	/**
+	 * 参数1和参数2按参数3分隔之后形成的数组中的每个元素满足某种的条件，则返回true
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @param paramString3
+	 * @return
+	 */
+	public static Boolean cinstrs(String paramString1, String paramString2,
+			String paramString3) {
+		Boolean localBoolean = Boolean.valueOf(false);
+		String str1 = paramString1;
+		String str2 = paramString2;
+		String str3 = paramString3;
+		// 参数1和参??相等，返回true
+		if (str1.equals(str2)) {
+			localBoolean = Boolean.valueOf(true);
+		} else {
+			localBoolean = Boolean.valueOf(true);
+			// 参数2按参??分隔
+			String[] arrayOfString = str2.split(Pattern.quote(str3));
+			for (int i = 0; i < arrayOfString.length; ++i) {
+				// 如果发现参数1和数组中的某个元素不满足一定的条件，返回false
+				if (cinstr(str1, arrayOfString[i], str3).booleanValue())
+					continue;
+				localBoolean = Boolean.valueOf(false);
+			}
+		}
+		return localBoolean;
+	}
+
+	/**
+	 * 先把传入的String参数1转成Long形的，然后将这个Long形数据标示的字节数转换成KB、MG或??GB对应得字符串
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static String formatByte(String paramString) {
+		String str1 = paramString;
+		String str2 = formatByte(getNum64(str1, Long.valueOf(0L)));
+		return str2;
+	}
+
+	/**
+	 * 对传入的标示多少B的Long形参数转成KB,MB,GB的String对象,如传入2048 返回2KB
+	 * 
+	 * @param paramLong
+	 * @return
+	 */
+	public static String formatByte(Long paramLong) {
+		Long localLong = paramLong;
+		String str = "";
+		if (localLong.longValue() > 1073741824L)
+			str = toString(Double
+					.valueOf(Math
+							.round(localLong.longValue() / 1073741824.0D * 1000.0D) / 1000.0D))
+					+ " GB";
+		else if (localLong.longValue() > 1048576L)
+			str = toString(Double
+					.valueOf(Math
+							.round(localLong.longValue() / 1048576.0D * 1000.0D) / 1000.0D))
+					+ " MB";
+		else if (localLong.longValue() > 1024L)
+			str = toString(Double
+					.valueOf(Math
+							.round(localLong.longValue() / 1024.0D * 1000.0D) / 1000.0D))
+					+ " KB";
+		else
+			str = toString(localLong) + " B";
+
+		return str;
+	}
+
+	/**
+	 * 将一个时间格式的字符串转成2010-12-12 12:12:12这种格式的字符串
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static String formatDate(String paramString) {
+		String str1 = "";
+		String str2 = paramString;
+		str1 = formatDate(str2, Integer.valueOf(100));
+		return str1;
+	}
+
+	/**
+	 * 返回2010-12-12 12:12:12格式的字符串
+	 * 
+	 * @param paramDate
+	 * @return
+	 */
+	public static String formatDate(Date paramDate) {
+		String str = "";
+		Date localDate = paramDate;
+		str = formatDate(localDate, Integer.valueOf(100));
+		return str;
+	}
+
+	/**
+	 * 根据参数2按照一定的格式将参数一表示的时间格式的串转换成另外一个格式
+	 * 
+	 * @param paramString
+	 * @param paramInteger
+	 * @return
+	 */
+	public static String formatDate(String paramString, Integer paramInteger) {
+		Integer localInteger = paramInteger;
+		String str1 = paramString;
+		String str2 = str1;
+		SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		try {
+			Date localDate = localSimpleDateFormat.parse(str1);
+			str2 = formatDate(localDate, localInteger);
+		} catch (Exception localException) {
+		}
+		return str2;
+	}
+
+	/**
+	 * 根据paramInteger，获得格式化后的时间串
+	 * 
+	 * @param paramDate
+	 * @param paramInteger
+	 * @return
+	 */
+	public static String formatDate(Date paramDate, Integer paramInteger) {
+		String str = "";
+		Integer localInteger = paramInteger;
+		Date localDate = paramDate;
+		try {
+			Calendar localCalendar = Calendar.getInstance();
+			localCalendar.setTime(localDate);
+			switch (localInteger.intValue()) {
+			case -3:
+				str = toString(Integer.valueOf(localCalendar.get(5)));
+				break;
+			case -2:
+				str = toString(Integer.valueOf(localCalendar.get(2) + 1));
+				break;
+			case -1:
+				str = toString(Integer.valueOf(localCalendar.get(1)));
+				break;
+			case 0:
+				str = toString(Integer.valueOf(localCalendar.get(1)))
+						+ toString(Integer.valueOf(localCalendar.get(2) + 1))
+						+ toString(Integer.valueOf(localCalendar.get(5)))
+						+ toString(Integer.valueOf(localCalendar.get(11)))
+						+ toString(Integer.valueOf(localCalendar.get(12)))
+						+ toString(Integer.valueOf(localCalendar.get(13)));
+				break;
+			case 1:
+				str = toString(Integer.valueOf(localCalendar.get(1))) + "-"
+						+ toString(Integer.valueOf(localCalendar.get(2) + 1))
+						+ "-" + toString(Integer.valueOf(localCalendar.get(5)));
+				break;
+			case 2:
+				str = toString(Integer.valueOf(localCalendar.get(1))) + "/"
+						+ toString(Integer.valueOf(localCalendar.get(2) + 1))
+						+ "/" + toString(Integer.valueOf(localCalendar.get(5)));
+				break;
+			case 3:
+				str = toString(Integer.valueOf(localCalendar.get(1))) + "."
+						+ toString(Integer.valueOf(localCalendar.get(2) + 1))
+						+ "." + toString(Integer.valueOf(localCalendar.get(5)));
+				break;
+			case 4:
+				str = toString(Integer.valueOf(localCalendar.get(1))) + "-"
+						+ formatTime(Integer.valueOf(localCalendar.get(2) + 1))
+						+ "-"
+						+ formatTime(Integer.valueOf(localCalendar.get(5)));
+				break;
+			case 5:
+				str = toString(Integer.valueOf(localCalendar.get(1))) + "/"
+						+ formatTime(Integer.valueOf(localCalendar.get(2) + 1))
+						+ "/"
+						+ formatTime(Integer.valueOf(localCalendar.get(5)));
+				break;
+			case 6:
+				str = toString(Integer.valueOf(localCalendar.get(1))) + "."
+						+ formatTime(Integer.valueOf(localCalendar.get(2) + 1))
+						+ "."
+						+ formatTime(Integer.valueOf(localCalendar.get(5)));
+				break;
+			case 7:
+				str = toString(Integer.valueOf(localCalendar.get(1)))
+						+ formatTime(Integer.valueOf(localCalendar.get(2) + 1))
+						+ formatTime(Integer.valueOf(localCalendar.get(5)));
+				break;
+			case 10:
+				str = toString(Integer.valueOf(localCalendar.get(2) + 1))
+						+ toString(Integer.valueOf(localCalendar.get(5)))
+						+ toString(Integer.valueOf(localCalendar.get(11)))
+						+ toString(Integer.valueOf(localCalendar.get(12)));
+				break;
+			case 11:
+				str = toString(Integer.valueOf(localCalendar.get(2) + 1)) + "-"
+						+ toString(Integer.valueOf(localCalendar.get(5))) + " "
+						+ toString(Integer.valueOf(localCalendar.get(11)))
+						+ ":"
+						+ toString(Integer.valueOf(localCalendar.get(12)));
+				break;
+			case 12:
+				str = toString(Integer.valueOf(localCalendar.get(2) + 1)) + "/"
+						+ toString(Integer.valueOf(localCalendar.get(5))) + " "
+						+ toString(Integer.valueOf(localCalendar.get(11)))
+						+ ":"
+						+ toString(Integer.valueOf(localCalendar.get(12)));
+				break;
+			case 13:
+				str = toString(Integer.valueOf(localCalendar.get(2) + 1)) + "."
+						+ toString(Integer.valueOf(localCalendar.get(5))) + " "
+						+ toString(Integer.valueOf(localCalendar.get(11)))
+						+ ":"
+						+ toString(Integer.valueOf(localCalendar.get(12)));
+				break;
+			case 14:
+				str = formatTime(Integer.valueOf(localCalendar.get(2) + 1))
+						+ "-"
+						+ formatTime(Integer.valueOf(localCalendar.get(5)))
+						+ " "
+						+ formatTime(Integer.valueOf(localCalendar.get(11)))
+						+ ":"
+						+ formatTime(Integer.valueOf(localCalendar.get(12)));
+				break;
+			case 15:
+				str = formatTime(Integer.valueOf(localCalendar.get(2) + 1))
+						+ "/"
+						+ formatTime(Integer.valueOf(localCalendar.get(5)))
+						+ " "
+						+ formatTime(Integer.valueOf(localCalendar.get(11)))
+						+ ":"
+						+ formatTime(Integer.valueOf(localCalendar.get(12)));
+				break;
+			case 16:
+				str = formatTime(Integer.valueOf(localCalendar.get(2) + 1))
+						+ "."
+						+ formatTime(Integer.valueOf(localCalendar.get(5)))
+						+ " "
+						+ formatTime(Integer.valueOf(localCalendar.get(11)))
+						+ ":"
+						+ formatTime(Integer.valueOf(localCalendar.get(12)));
+				break;
+			case 20:
+				str = toString(Integer.valueOf(localCalendar.get(11)))
+						+ toString(Integer.valueOf(localCalendar.get(12)))
+						+ toString(Integer.valueOf(localCalendar.get(13)));
+				break;
+			case 21:
+				str = toString(Integer.valueOf(localCalendar.get(11))) + ":"
+						+ toString(Integer.valueOf(localCalendar.get(12)))
+						+ ":"
+						+ toString(Integer.valueOf(localCalendar.get(13)));
+				break;
+			case 30:
+				str = toString(Integer.valueOf(localCalendar.get(1)))
+						+ formatTime(Integer.valueOf(localCalendar.get(2) + 1))
+						+ formatTime(Integer.valueOf(localCalendar.get(5)))
+						+ formatTime(Integer.valueOf(localCalendar.get(11)))
+						+ formatTime(Integer.valueOf(localCalendar.get(12)))
+						+ formatTime(Integer.valueOf(localCalendar.get(13)));
+				break;
+			case 100:
+				str = toString(Integer.valueOf(localCalendar.get(1))) + "-"
+						+ formatTime(Integer.valueOf(localCalendar.get(2) + 1))
+						+ "-"
+						+ formatTime(Integer.valueOf(localCalendar.get(5)))
+						+ " "
+						+ formatTime(Integer.valueOf(localCalendar.get(11)))
+						+ ":"
+						+ formatTime(Integer.valueOf(localCalendar.get(12)))
+						+ ":"
+						+ formatTime(Integer.valueOf(localCalendar.get(13)));
+			}
+		} catch (Exception localException) {
+		}
+		return str;
+	}
+
+	/**
+	 * 按参数2指定的模式去格式化参数1
+	 * 
+	 * @param paramDouble
+	 * @param paramString
+	 * @return
+	 */
+	public static String formatDouble(Double paramDouble, String paramString) {
+		String str1 = "";
+		Double localDouble = paramDouble;
+		String str2 = paramString;
+		DecimalFormat localDecimalFormat = new DecimalFormat(str2);
+		str1 = localDecimalFormat.format(localDouble);
+		return str1;
+	}
+
+	/**
+	 * paramInteger<10 返回这个数前面加0，否则直接返回
+	 * 
+	 * @param paramInteger
+	 * @return
+	 */
+	public static String formatTime(Integer paramInteger) {
+		String str = "";
+		Integer localInteger = paramInteger;
+		if (localInteger.intValue() < 10)
+			str = "0";
+		str = str + toString(localInteger);
+		return str;
+	}
+
+	/**
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @param paramString3
+	 *            分隔??
+	 * @return
+	 */
+	public static String formatText(String paramString1, String paramString2,
+			String paramString3) {
+		String str1 = "";
+		String str2 = paramString1;
+		String str3 = paramString2;
+		String str4 = paramString3;
+		// 如果str2不为空
+		if (!(isEmpty(str2).booleanValue())) {
+			// 将str2按str4分隔
+			String[] arrayOfString = str2.split(Pattern.quote(str4));
+			for (int i = 0; i < arrayOfString.length; ++i) {
+				str1 = str1 + str3;
+				String str5 = getString(arrayOfString[i]);
+				str1 = str1.replace("[text]", str5);
+				str1 = str1.replace("[i]", toString(Integer.valueOf(i)));
+				str1 = str1.replace("[text-htmlencode]", encode
+						.htmlencode(str5));
+				str1 = str1.replace("[text-base64encode]", encode
+						.base64encode(str5.getBytes()));
+			}
+		}
+		return str1;
+	}
+
+	/**
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @return
+	 */
+	public static String formatTextLine(String paramString1, String paramString2) {
+		String str1 = "";
+		String str2 = paramString1;
+		String str3 = paramString2;
+		// 将str2中所有的'\r\n'替换为\n','\n\r'替换为\n'
+		str2 = str2.replace(String.valueOf('\r') + String.valueOf('\n'), String
+				.valueOf('\n'));
+		str2 = str2.replace(String.valueOf('\n'), String.valueOf('\r')
+				+ String.valueOf('\n'));
+		String str4 = String.valueOf('\r') + String.valueOf('\n');
+		// 如果str2不为空
+		if (!(isEmpty(str2).booleanValue())) {
+			String[] arrayOfString = str2.split(Pattern.quote(str4));
+			for (int i = 0; i < arrayOfString.length; ++i) {
+				str1 = str1 + str3;
+				String str5 = getString(arrayOfString[i]);
+				str1 = str1.replace("[text]", str5);
+				str1 = str1.replace("[i]", toString(Integer.valueOf(i)));
+				str1 = str1.replace("[text-htmlencode]", encode
+						.htmlencode(str5));
+				str1 = str1.replace("[text-base64encode]", encode
+						.base64encode(str5.getBytes()));
+			}
+		}
+		return str1;
+	}
+
+	/**
+	 * 根据Long形paramLong*1000所对应的毫秒数所对应的日期格式为yyyy-MM-dd HH:mm:ss的字符串
+	 * 
+	 * @param paramLong
+	 * @return
+	 */
+	public static String formatUnixStampDate(Long paramLong) {
+		String str1 = "";
+		Long localLong = paramLong;
+		SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd");
+		try {
+			TimeZone localTimeZone = TimeZone.getTimeZone("UTC");
+			Calendar localCalendar = Calendar.getInstance(localTimeZone);
+			localCalendar.setTimeInMillis(localLong.longValue() * 1000L);
+			String str2 = toString(Integer.valueOf(localCalendar.get(1))) + "-"
+					+ toString(Integer.valueOf(localCalendar.get(2) + 1)) + "-"
+					+ toString(Integer.valueOf(localCalendar.get(5))) + " "
+					+ toString(Integer.valueOf(localCalendar.get(11))) + ":"
+					+ toString(Integer.valueOf(localCalendar.get(12))) + ":"
+					+ toString(Integer.valueOf(localCalendar.get(13)));
+			str1 = formatDate(str2);
+		} catch (Exception localException) {
+		}
+		return str1;
+	}
+
+	/**
+	 * 如果某一行的第0列的字符串和参数paramString相等，则返回该行第一列对象的toString()串
+	 * 
+	 * @param paramArrayOfObject
+	 *            对象二维数组
+	 * @param paramString
+	 * @return
+	 */
+	public static Object getAryValue(Object[][] paramArrayOfObject,
+			String paramString) {
+		Object localObject = null;
+		Object[][] arrayOfObject = paramArrayOfObject;
+		String str = paramString;
+		for (int i = 0; i < arrayOfObject.length; ++i) {
+			if (!(str.equals(toString(arrayOfObject[i][0]))))
+				continue;
+			localObject = arrayOfObject[i][1];
+			break;
+		}
+
+		return localObject;
+	}
+
+	/**
+	 * 获得东八区当前系统时间的yyyy-MM-dd HH:mm:ss格式的字符串
+	 * 
+	 * @return
+	 */
+	public static String getDate() {
+		String str1 = "";
+		TimeZone localTimeZone = TimeZone.getTimeZone("GMT+8");
+		Calendar localCalendar = Calendar.getInstance(localTimeZone);
+		String str2 = toString(Integer.valueOf(localCalendar.get(1))) + "-"
+				+ toString(Integer.valueOf(localCalendar.get(2) + 1)) + "-"
+				+ toString(Integer.valueOf(localCalendar.get(5))) + " "
+				+ toString(Integer.valueOf(localCalendar.get(11))) + ":"
+				+ toString(Integer.valueOf(localCalendar.get(12))) + ":"
+				+ toString(Integer.valueOf(localCalendar.get(13)));
+		str1 = formatDate(str2);
+		return str1;
+	}
+
+	/**
+	 * 将传入的时间格式的参数转为yyyy-MM-dd HH:mm:ss"格式的时间字符串 如果转换失败，则返回系统当前时间"yyyy-MM-dd
+	 * HH:mm:ss"格式的字符串
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static String getDate(String paramString) {
+		String str1 = paramString;
+		SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		try {
+			Date localDate = localSimpleDateFormat.parse(str1);
+			Calendar localCalendar = Calendar.getInstance();
+			localCalendar.setTime(localDate);
+			String str2 = toString(Integer.valueOf(localCalendar.get(1))) + "-"
+					+ toString(Integer.valueOf(localCalendar.get(2) + 1)) + "-"
+					+ toString(Integer.valueOf(localCalendar.get(5))) + " "
+					+ toString(Integer.valueOf(localCalendar.get(11))) + ":"
+					+ toString(Integer.valueOf(localCalendar.get(12))) + ":"
+					+ toString(Integer.valueOf(localCalendar.get(13)));
+			str1 = formatDate(str2);
+		} catch (Exception localException) {
+			str1 = getDate();
+		}
+		return str1;
+	}
+
+	/**
+	 * 返回paramString转成Double，如果失败，返回0d
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static Double getDouble(String paramString) {
+		Double localDouble = Double.valueOf(0.0D);
+		String str = paramString;
+		localDouble = getDouble(str, Double.valueOf(0.0D));
+		return localDouble;
+	}
+
+	/**
+	 * 返回paramString转成Double，如果失败，返回paramDouble
+	 * 
+	 * @param paramString
+	 * @param paramDouble
+	 * @return
+	 */
+	public static Double getDouble(String paramString, Double paramDouble) {
+		String str = paramString;
+		Double localDouble1 = paramDouble;
+		Double localDouble2 = localDouble1;
+		try {
+			localDouble2 = Double.valueOf(Double.parseDouble(str));
+		} catch (Exception localException) {
+		}
+		return localDouble2;
+	}
+
+	/**
+	 * 返回长度为paramInt的随机数字和小写字母的字符串
+	 * 
+	 * @param paramInt
+	 * @return
+	 */
+	public static String getRandomString(int paramInt) {
+		String str1 = "";
+		int i = paramInt;
+		String str2 = "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
+		String[] arrayOfString = str2.split(Pattern.quote(","));
+		Random localRandom = new Random();
+		for (int j = 0; j < i; ++j) {
+			int k = localRandom.nextInt(arrayOfString.length);
+			str1 = str1 + arrayOfString[k];
+		}
+		return str1;
+	}
+
+	/**
+	 * 当前系统时间和1970-1-1 0:00:00 之间的毫秒数
+	 * 
+	 * @return
+	 */
+	public static Long getUnixStamp() {
+		String str = getDate();
+		Long localLong = getUnixStamp(str);
+		return localLong;
+	}
+
+	/**
+	 * 传入一个日期格式的字符串，返回该字符串所对应的日期和1970-1-1 0:00:00 之间的毫秒数
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static Long getUnixStamp(String paramString) {
+		Long localLong = Long.valueOf(0L);
+		String str1 = paramString;
+		String str2 = getDate(str1);
+		SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		try {
+			Date localDate1 = localSimpleDateFormat.parse(str2);
+			Date localDate2 = localSimpleDateFormat.parse("1970-1-1 0:00:00");
+			localLong = Long.valueOf((localDate1.getTime() - localDate2
+					.getTime()) / 1000L);
+		} catch (Exception localException) {
+		}
+		return localLong;
+	}
+
+	/**
+	 * 如果paramString1不为空，返回paramString1，否则返回paramString12
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @return
+	 */
+	public static String getHstr(String paramString1, String paramString2) {
+		Object localObject = "";
+		String str1 = getString(paramString1);
+		String str2 = getString(paramString2);
+		localObject = str1;
+		if (isEmpty(localObject).booleanValue())
+			localObject = str2;
+		return ((String) localObject);
+	}
+
+	/**
+	 * 获得paramString1左边paramInteger位字符形成的字符串中文算两个
+	 * 
+	 * @param paramString1
+	 * @param paramInteger
+	 * @return
+	 */
+	public static String getLeft(String paramString, Integer paramInteger) {
+		String str1 = "";
+		String str2 = paramString;
+		Integer localInteger = paramInteger;
+		str1 = getLeft(str2, localInteger, "");
+		return str1;
+	}
+
+	/**
+	 * 返回paramString1的左边paramInteger位字符连接上paramString2形成的字符串
+	 * 如果paramInteger大于paramString1的长度，直接返回paramString1 中文算两个
+	 * 
+	 * @param paramString1
+	 * @param paramInteger
+	 * @param paramString2
+	 * @return
+	 */
+	public static String getLeft(String paramString1, Integer paramInteger,
+			String paramString2) {
+		String str1 = "";
+		Integer localInteger = paramInteger;
+		String str2 = getString(paramString1);
+		String str3 = getString(paramString2);
+		if (!(isEmpty(str2).booleanValue())) {
+			if (localInteger.intValue() > str2.length())
+				localInteger = Integer.valueOf(str2.length());
+			str1 = str2.substring(0, localInteger.intValue());
+		}
+		if (!(str1.equals(str2)))
+			str1 = str1 + str3;
+		return str1;
+	}
+
+	/**
+	 * 获得paramString1左边paramInteger位字符形成的字符串中文算一个
+	 * 
+	 * @param paramString
+	 * @param paramInteger
+	 * @return
+	 */
+	public static String getLeftB(String paramString, Integer paramInteger) {
+		String str1 = "";
+		String str2 = paramString;
+		Integer localInteger = paramInteger;
+		str1 = getLeftB(str2, localInteger, "");
+		return str1;
+	}
+
+	/**
+	 * 返回paramString1的左边paramInteger位字符连接上paramString2形成的字符串
+	 * 如果paramInteger大于paramString1的长度，直接返回paramString1 中文算一位
+	 * 
+	 * @param paramString1
+	 * @param paramInteger
+	 * @param paramString2
+	 * @return
+	 */
+	public static String getLeftB(String paramString1, Integer paramInteger,
+			String paramString2) {
+		String str1 = "";
+		Integer localInteger1 = paramInteger;
+		String str2 = getString(paramString1);
+		String str3 = getString(paramString2);
+		if (!(isEmpty(str2).booleanValue())) {
+			Integer localInteger2 = Integer.valueOf(0);
+			for (int i = 0; i < str2.length(); ++i) {
+				String str4 = str2.substring(i, i + 1);
+				if (validator.isChinese(str4).booleanValue()) {
+					localInteger2 = Integer
+							.valueOf(localInteger2.intValue() + 2);
+				} else {
+					localInteger2 = Integer
+							.valueOf(localInteger2.intValue() + 1);
+				}
+				if (localInteger2.intValue() > localInteger1.intValue())
+					break;
+				str1 = str1 + str4;
+			}
+		}
+
+		if (!(str1.equals(str2)))
+			str1 = str1 + str3;
+		return str1;
+	}
+
+	/**
+	 * 将传入参数转成Integer对象，若转不了，则返回
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static Integer getNum(String paramString) {
+		String str = paramString;
+		Integer localInteger = getNum(str, Integer.valueOf(0));
+		return localInteger;
+	}
+
+	/**
+	 * 如果String参数能转换成Integer对象，则返回转换后的对象，否则返回Integer参数2
+	 * 
+	 * @param paramString
+	 * @param paramInteger
+	 * @return
+	 */
+	public static Integer getNum(String paramString, Integer paramInteger) {
+		String str = paramString;
+		Integer localInteger1 = paramInteger;
+		Integer localInteger2 = localInteger1;
+		try {
+			localInteger2 = Integer.valueOf(Integer.parseInt(str));
+		} catch (Exception localException) {
+		}
+		return localInteger2;
+	}
+
+	/**
+	 * 返回paramString对应的Long值，否则返回0
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static Long getNum64(String paramString) {
+		String str = paramString;
+		Long localLong = getNum64(str, Long.valueOf(0L));
+		return localLong;
+	}
+
+	/**
+	 * 如果参数1能够转成Long，则返回该Long，否则返回参数
+	 * 
+	 * @param paramString
+	 * @param paramLong
+	 * @return
+	 */
+	public static Long getNum64(String paramString, Long paramLong) {
+		String str = paramString;
+		Long localLong1 = paramLong;
+		Long localLong2 = localLong1;
+		try {
+			localLong2 = Long.valueOf(Long.parseLong(str));
+		} catch (Exception localException) {
+		}
+		return localLong2;
+	}
+
+	/**
+	 * 返回paramString右边paramInteger位的字符串
+	 * ，如果paramInteger大于paramString的长度，返回paramString本身
+	 * 
+	 * @param paramString
+	 * @param paramInteger
+	 * @return
+	 */
+	public static String getRight(String paramString, Integer paramInteger) {
+		String str1 = "";
+		Integer localInteger1 = paramInteger;
+		String str2 = getString(paramString);
+		if (!(isEmpty(str2).booleanValue())) {
+			Integer localInteger2 = Integer.valueOf(str2.length());
+			Integer localInteger3 = Integer.valueOf(localInteger2.intValue()
+					- localInteger1.intValue());
+			if (localInteger3.intValue() < 0)
+				localInteger3 = Integer.valueOf(0);
+			str1 = str2.substring(localInteger3.intValue(), localInteger2
+					.intValue());
+		}
+		return str1;
+	}
+
+	/**
+	 * 返回paramInteger-1个paramString组成的字符串
+	 * 
+	 * @param paramString
+	 * @param paramInteger
+	 * @return
+	 */
+	public static String getRepeatedString(String paramString,
+			Integer paramInteger) {
+		String str1 = paramString;
+		Integer localInteger = paramInteger;
+		String str2 = "";
+		for (int i = 1; i < localInteger.intValue(); ++i)
+			str2 = str2 + str1;
+		return str2;
+	}
+
+	/**
+	 * 传入字符串对象，null返回空字符串，否则直接返回
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static String getString(String paramString) {
+		String str = paramString;
+		if (str == null)
+			str = "";
+		return str;
+	}
+
+	/**
+	 * 将paramString中的'、;、--替换为空字符串
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static String getSafeString(String paramString) {
+		String str = paramString;
+		str = getString(str);
+		str = str.replace("'", "");
+		str = str.replace(";", "");
+		str = str.replace("--", "");
+		return str;
+	}
+
+	/**
+	 * 根据参数3，返回参数中的某段字符串，left：首字母到第一次出现参数（不包括参数2) right:
+	 * 最后一次出现参数2到最后（不包括参2) lefttr 首字母到最后一次出现参数2（不包括参数2) rightr
+	 * 第一次出现参数2至末尾（不包括参2)
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @param paramString3
+	 *            left 或者right 或leftr 或 rightr
+	 * @return
+	 */
+	public static String getLRStr(String paramString1, String paramString2,
+			String paramString3) {
+		Object localObject = "";
+		String str1 = paramString1;
+		String str2 = paramString2;
+		String str3 = paramString3;
+		if ((isEmpty(str2).booleanValue()) || (str1.indexOf(str2) == -1))
+			localObject = str1;
+		else if (str3.equals("left"))
+			localObject = str1.substring(0, str1.indexOf(str2));
+		else if (str3.equals("leftr"))
+			localObject = str1.substring(0, str1.lastIndexOf(str2));
+		else if (str3.equals("right"))
+			localObject = str1.substring(
+					str1.lastIndexOf(str2) + str2.length(), str1.length());
+		else if (str3.equals("rightr"))
+			localObject = str1.substring(str1.indexOf(str2) + str2.length(),
+					str1.length());
+		else
+			localObject = str1;
+
+		return ((String) localObject);
+	}
+
+	public static String getParameter(String paramString1, String paramString2) {
+		String str1 = "";
+		String str2 = paramString1;
+		String str3 = paramString2;
+		str1 = getParameter(str2, str3, ";");
+		return str1;
+	}
+
+	public static String getParameter(String paramString1, String paramString2,
+			String paramString3) {
+		String str1 = "";
+		String str2 = paramString1;
+		String str3 = paramString2;
+		String str4 = paramString3;
+		Pattern localPattern = Pattern.compile("((?:^|" + str4 + ")" + str3
+				+ "=(.[^" + str4 + "]*))");
+		Matcher localMatcher = localPattern.matcher(str2);
+		if (localMatcher.find())
+			str1 = localMatcher.group(2);
+		return str1;
+	}
+
+	/**
+	 * 传入对象为null 返回true，传入对象的toString方法为空字符，返回true， 否则返回false
+	 * 
+	 * @param paramObject
+	 * @return
+	 */
+	public static Boolean isEmpty(Object paramObject) {
+		Boolean localBoolean = Boolean.valueOf(false);
+		Object localObject = paramObject;
+		String str = toString(localObject);
+		if (str.equals(""))
+			localBoolean = Boolean.valueOf(true);
+		return localBoolean;
+	}
+
+	/**
+	 * 合并数组 paramArrayOfObject1 放到 paramArrayOfObject最后一个元素后
+	 * 
+	 * @param paramArrayOfObject
+	 * @param paramArrayOfObject1
+	 * @return
+	 */
+	public static Object[] mergeAry(Object[] paramArrayOfObject,
+			Object[][] paramArrayOfObject1) {
+		Object[] arrayOfObject1 = null;
+		Object[] arrayOfObject2 = paramArrayOfObject;
+		Object[][] arrayOfObject = paramArrayOfObject1;
+		if (arrayOfObject2 == null) {
+			arrayOfObject1 = new Object[1];
+			arrayOfObject1[0] = arrayOfObject;
+		} else {
+			int i = arrayOfObject2.length;
+			arrayOfObject1 = new Object[i + 1];
+			for (int j = 0; j < i; ++j) {
+				arrayOfObject1[j] = arrayOfObject2[j];
+			}
+			arrayOfObject1[(arrayOfObject1.length - 1)] = arrayOfObject;
+		}
+		return arrayOfObject1;
+	}
+
+	/**
+	 * 将paramArrayOfString2合并到paramArrayOfString1下面 维数不一致返回null
+	 * 
+	 * @param paramArrayOfString1
+	 * @param paramArrayOfString2
+	 * @return
+	 */
+	public static String[][] mergeAry(String[][] paramArrayOfString1,
+			String[][] paramArrayOfString2) {
+		Object localObject = (String[][]) null;
+		String[][] arrayOfString1 = paramArrayOfString1;
+		String[][] arrayOfString2 = paramArrayOfString2;
+		if (arrayOfString1 == null)
+			localObject = arrayOfString2;
+		if (arrayOfString2 == null)
+			localObject = arrayOfString1;
+		if (localObject == null) {
+			Integer localInteger1 = Integer.valueOf(arrayOfString1.length);
+			Integer localInteger2 = Integer.valueOf(arrayOfString1[0].length);
+			Integer localInteger3 = Integer.valueOf(arrayOfString2.length);
+			Integer localInteger4 = Integer.valueOf(arrayOfString2[0].length);
+			if (localInteger2.equals(localInteger4)) {
+				int i, j;
+				localObject = new String[localInteger1.intValue()
+						+ localInteger3.intValue()][localInteger2.intValue()];
+				for (i = 0; i < localInteger1.intValue(); ++i) {
+					for (j = 0; j < localInteger2.intValue(); ++j) {
+						((String[][]) localObject)[i][j] = arrayOfString1[i][j];
+					}
+				}
+				for (i = 0; i < localInteger3.intValue(); ++i) {
+					for (j = 0; j < localInteger4.intValue(); ++j) {
+						((String[][]) localObject)[(i + localInteger1
+								.intValue())][j] = arrayOfString2[i][j];
+					}
+				}
+			}
+		}
+		return ((String[][]) localObject);
+	}
+
+	/**
+	 * 返回将paramString1中paramString2替换为paramString3
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @param paramString3
+	 * @return
+	 */
+	public static String replace(String paramString1, String paramString2,
+			String paramString3) {
+		String str1 = getString(paramString1);
+		String str2 = getString(paramString2);
+		String str3 = getString(paramString3);
+		if (!(isEmpty(str1).booleanValue()))
+			str1 = str1.replace(str2, str3);
+		return str1;
+	}
+
+	/**
+	 * 返回 paramString1&paramString2=paramString3 ，
+	 * paramString1:http:www.xxx.com?type=1
+	 * ,paramString2:name,paramString3:zhangsan 返回
+	 * http:www.xxx.com?type=1&name=zhangsan
+	 * ,如果paramString1为http:www.xxx.com?type=1&name=lisi则返回http:www.xxx.com?type=1&name=lisi
+	 * 
+	 * @param paramString1
+	 * @param paramString2
+	 * @param paramString3
+	 * @return
+	 */
+	public static String reparameter(String paramString1, String paramString2,
+			String paramString3) {
+		String str1 = "";
+		String str2 = paramString1;
+		String str3 = paramString2;
+		String str4 = paramString3;
+		if (isEmpty(str2).booleanValue()) {
+			str1 = str3 + "=" + str4;
+		} else {
+			String str5 = "&" + str2;
+			if (str5.indexOf("&" + str3 + "=") == -1) {
+				str1 = str2 + "&" + str3 + "=" + str4;
+			} else {
+				String str6 = getLRStr(str5, "&" + str3 + "=", "rightr");
+				str6 = getLRStr(str6, "&", "left");
+				str1 = str5.replace("&" + str3 + "=" + str6, "&" + str3 + "="
+						+ str4);
+				str1 = getLRStr(str1, "&", "rightr");
+			}
+		}
+		return str1;
+	}
+
+	/**
+	 * 返回传入对象的toString方法,null返回空字符串
+	 * 
+	 * @param paramObject
+	 * @return
+	 */
+	public static String toString(Object paramObject) {
+		String str = "";
+		Object localObject = paramObject;
+		if (localObject != null)
+			str = localObject.toString();
+		return str;
+	}
+}
