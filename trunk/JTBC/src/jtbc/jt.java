@@ -454,7 +454,7 @@ public String cvalue(String paramString)
 
              localObject3 = localInteger1;
           }
-
+           	//这里就是设置缓存的地方
            if (this.conf.isApp.equals("1")) this.conf.application.setAttribute(this.conf.getAppKey(str5), arrayOfString2);//修改该配置立即生效
            localObject1 = arrayOfString2;
         }
