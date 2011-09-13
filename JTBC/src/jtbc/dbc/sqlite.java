@@ -31,6 +31,7 @@
 /*     */     {
 /*  21 */       Class.forName("org.sqlite.JDBC").newInstance();
 /*  22 */       Connection localConnection = DriverManager.getConnection(this.connStr);
+System.out.println(this.connStr);
 /*  23 */       Statement localStatement = localConnection.createStatement();
 /*  24 */       localStatement.executeUpdate(str);
 /*  25 */       localStatement.close();

@@ -9,6 +9,7 @@
     <item>
       <name><![CDATA[list]]></name>
       <tpl_default><![CDATA[
+      
                 <table cellspacing="0" cellpadding="0" class="tabler">
                   <tr>
                     <td class="tit tdl"></td>
@@ -22,8 +23,9 @@
                     <td class="txt">{$=itake("config.name", "lng")}</td>
                     <td class="tdimg"></td>
                     <td class="tdr"></td>
-                  </tr>{@}
-                  <tr onmouseover="cls.style.tover(this);" onmouseout="cls.style.tout(this);">
+                  </tr>
+                  {@}
+                  <tr>
                     <td class="tdl"></td>
                     <td class="txt">{$name}</td>
                     <td class="nimg"><span class="hand" onclick="manages.tDeleteApplication('{$name}');" title="{$=itake("global.lng_config.delete", "lng")}"><img src="{$=$admin.theme}delete.1.png" class="absmiddle" /></span></td>

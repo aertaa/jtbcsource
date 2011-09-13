@@ -112,6 +112,7 @@
 /* 113 */     if (cls.isEmpty(str11).booleanValue()) str11 = str5;
 /* 114 */     jupload localjupload = new jupload(this.conf, str1);
 /* 115 */     String str12 = localjupload.getFileName();
+			  //System.out.println(str12);
 /* 116 */     int l = localjupload.getContentLength();
 /* 117 */     if (l <= 0) { j = 0;
 /*     */     }
@@ -124,6 +125,7 @@
 /*     */       }
 /*     */       else {
 /* 127 */         String str13 = cls.getLRStr(str12, ".", "right");
+					
 /* 128 */         str13 = str13.toLowerCase();
 /* 129 */         localObject = cls.getString(this.conf.jt.itake("config.nuptype", "cfg"));
 /* 130 */         String str14 = cls.getString(str9);
