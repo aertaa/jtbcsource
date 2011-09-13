@@ -44,15 +44,15 @@
     </item>
     <item>
       <name><![CDATA[mail-smtpserver]]></name>
-      <chinese><![CDATA[]]></chinese>
+      <chinese><![CDATA[asdf]]></chinese>
     </item>
     <item>
       <name><![CDATA[mail-smtpusername]]></name>
-      <chinese><![CDATA[]]></chinese>
+      <chinese><![CDATA[asdf]]></chinese>
     </item>
     <item>
       <name><![CDATA[mail-smtppassword]]></name>
-      <chinese><![CDATA[]]></chinese>
+      <chinese><![CDATA[asdff]]></chinese>
     </item>
     <item>
       <name><![CDATA[navspstr]]></name>
@@ -64,7 +64,7 @@
     </item>
     <item>
       <name><![CDATA[nupmaxsize]]></name>
-      <chinese><![CDATA[204800]]></chinese>
+      <chinese><![CDATA[2048000]]></chinese>
     </item>
     <item>
       <name><![CDATA[nvalidate]]></name>

@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jxl.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sqljdbc4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jtbc-2.0.0.5.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jsmartcom_zh_CN.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

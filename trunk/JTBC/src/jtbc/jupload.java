@@ -48,7 +48,7 @@ public class jupload
   
   public String getFileName()
   {
-    return this.fileName;
+	  return this.fileName;
   }
 
   public int getContentLength()
@@ -80,8 +80,8 @@ public class jupload
    * @param paramString		name属性对应的名称,例如name="zhang.xml"中的zhang.xml
    */
   public jupload(conf paramconf, String paramString)
-  {
-    this.conf = paramconf;
+  {  
+	this.conf = paramconf;
     String str1 = paramString;
     int i = 0;
     int j = 0;
@@ -101,12 +101,18 @@ public class jupload
     if (localInteger.intValue() != 1)
       return;
     String str2 = this.conf.request.getContentType();//文件类型
-    String str3 = new String(arrayOfByte);//数组转换为字符串
+    String str3="";
+    try
+    {
+    	str3 = new String(arrayOfByte,this.conf.charset);//数组转换为字符串
+    }catch (Exception localException) {    	
+    }
     String str4 = cls.getLRStr(str2, "boundary=", "rightr");//边界属性后面全部的内容,即划分边界的分隔符
     String[] arrayOfString = str3.split(str4);//按照边界拆分后的数组
+   
     for (int l = 0; l < arrayOfString.length; ++l)
     {
-      String str5 = arrayOfString[l];
+      String str5 = arrayOfString[l];     
       if (str5.indexOf("name=") == -1)
         continue;
       String str6 = cls.getLRStr(cls.getLRStr(str5, "name=\"", "rightr"), "\"", "left");//name属性

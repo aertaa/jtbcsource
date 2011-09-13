@@ -13,6 +13,8 @@ import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.regex.Pattern;
+
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +32,8 @@ public class conf
   public ServletContext application;
   //request
   public HttpServletRequest request;
+  public ServletConfig config;
+  //public 
   //response
   public HttpServletResponse response;
   public String ajaxPreContent;
@@ -702,12 +706,15 @@ public class conf
    * @param paramObject1  request
    * @param paramObject2  response  
    */
-  public void Init(Object paramObject1, Object paramObject2)
+  public void Init(Object paramObject1, Object paramObject2 ,Object paramObject3)
   {
     Object localObject1 = paramObject1;
     Object localObject2 = paramObject2;
+    Object localObject3 = paramObject3;
+    
     this.request = ((HttpServletRequest)localObject1);
     this.response = ((HttpServletResponse)localObject2);
+    this.config =((ServletConfig)localObject3);
     this.session = this.request.getSession();
     this.application = this.session.getServletContext();
 
@@ -732,6 +739,11 @@ public class conf
 
     this.jt = new jt(this);
     this.common = new common(this);
+  }
+  public void Init(Object paramObject1, Object paramObject2 ){
+    Object localObject1 = paramObject1;
+    Object localObject2 = paramObject2;
+    Init(localObject1,localObject2,null);
   }
   
   

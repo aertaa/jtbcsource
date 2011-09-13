@@ -32,14 +32,23 @@
 /* 34 */     this.conf.response.setHeader("Location", str4);
 /*    */   }
 /*    */ 
-/*    */   public void Init(Object paramObject1, Object paramObject2)
+/*    */   public void Init(Object paramObject1, Object paramObject2 ,Object paramObject3)
+/*    */   {
+/* 42 */     Object localObject1 = paramObject1;
+/* 43 */     Object localObject2 = paramObject2;
+			 Object localObject3 = paramObject3;
+/* 44 */     this.conf = new conf();
+/* 45 */     this.conf.Init(localObject1, localObject2,localObject3);
+/*    */   }
+/*    */   
+/*    */   public void Init(Object paramObject1, Object paramObject2 )
 /*    */   {
 /* 42 */     Object localObject1 = paramObject1;
 /* 43 */     Object localObject2 = paramObject2;
 /* 44 */     this.conf = new conf();
 /* 45 */     this.conf.Init(localObject1, localObject2);
 /*    */   }
-/*    */ 
+			
 /*    */   public void PageInit()
 /*    */   {
 /* 50 */     PageAutoRedirect();
